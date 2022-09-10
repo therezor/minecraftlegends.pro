@@ -1,0 +1,25 @@
+$social-buttons-colors: (
+    "primary":    $primary,
+    "secondary":  $secondary,
+    "success":    $success,
+    "info":       $info,
+    "warning":    $warning,
+    "danger":     $danger,
+    "light":      $light,
+    "dark":       $dark,
+    "facebook":   #3b5998,
+    "twitter":    #55acee,
+    "pinterest":  #cb2027,
+);
+
+@each $color, $value in $social-buttons-colors {
+.btn-#{$color} {
+    @include button-variant($value, $value);
+}
+}
+
+@each $color, $value in $social-buttons-colors {
+    .btn-outline-#{$color} {
+        @include button-outline-variant($value);
+    }
+}
