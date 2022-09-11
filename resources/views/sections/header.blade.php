@@ -20,7 +20,7 @@
             </div>
             <!-- Right navigation -->
             <div class="navbar-nav align-items-center d-flex ms-auto">
-                <form class="col-12 col-lg-auto form-dark">
+                <form class="col-12 col-md-auto form-dark">
                     <input type="search" class="form-control form-control-sm" placeholder="Search..." aria-label="Search">
                 </form>
 

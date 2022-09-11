@@ -21,11 +21,11 @@
 </a>
 
 <div class="card mb-3">
-    <a href="#">
+    <a href="/content">
         <img class="card-img-top" src="https://carsbasics.com/wp-content/uploads/2022/07/How-To-Buy-And-Sell-Repossessed-Cars-640x385.jpg" alt="Card image cap">
     </a>
     <div class="card-body p-3">
-        <a href="#">
+        <a href="/content">
             <h4 class="text-primary-hover">What to Give On Father’s Day</h4>
         </a>
     </div>
