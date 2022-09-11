@@ -1,3 +1,7 @@
 import './bootstrap';
-import  Dropdown from 'bootstrap/js/dist/dropdown';
-import  Collapse from 'bootstrap/js/dist/collapse';
+
+import Alpine from 'alpinejs';
+
+window.Alpine = Alpine;
+
+Alpine.start();
