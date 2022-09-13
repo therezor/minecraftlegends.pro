@@ -25,12 +25,29 @@
                 </form>
 
                 <div class="mt-md-0 mt-4">
-                    <a class="nav-link d-inline-block me-4 me-md-0" href="#">Sign in</a>
-                    <a href="#" class="btn btn-sm btn-light">
-                        Register
-                    </a>
+                    @guest
+                        <a class="nav-link d-inline-block me-4 me-md-0" href="{{ route('login') }}">{{ __('Log in') }}</a>
+                        <a href="{{ route('register') }}" class="btn btn-sm btn-light">{{ __('Register') }}</a>
+                    @else
+                        <div class="dropdown">
+                            <a href="#dropdown-profile" class="nav-link text-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person-fill"></i>
+                                {{ auth()->user()->name }}
+                                <i class="bi bi-chevron-down text-xs"></i>
+                            </a>
+                            <div id="dropdown-profile" class="dropdown-menu dropdown-menu-end px-2 mb-2">
+                                    <a class="dropdown-item" href="#"><i class="bi bi-plus-circle-dotted me-3"></i> {{ __('Add story') }}</a>
+                                    <a class="dropdown-item" href="#"><i class="bi bi-gear me-3"></i> {{ __('Settings') }}</a>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button class="dropdown-item text-primary-hover text-primary-hover text-opacity-100" type="submit">
+                                            <i class="bi bi bi-box-arrow-right me-3"></i> {{ __('Log out') }}
+                                        </button>
+                                    </form>
+                            </div>
+                        </div>
+                    @endguest
                 </div>
-
             </div>
         </div>
     </div>

@@ -3,7 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Eloquent\Repositories\RoleRepository;
+use App\Eloquent\Repositories\UserRepository;
+use App\Enums\Roles\Type;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,13 +16,26 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(UserRepository $userRepository, RoleRepository $roleRepository)
     {
-        // \App\Models\User::factory(10)->create();
+        $roleRepository->create([
+            'name' => 'Default',
+            'type' => Type::DEFAULT,
+            'permissions' => [],
+        ]);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $roleRepository->create([
+            'name' => 'Super admin',
+            'type' => Type::SUPER_ADMIN,
+            'permissions' => [],
+        ]);
+
+        $userRepository->create([
+            'name' => 'Super admin',
+            'email' => 'admin@admin.com',
+            'email_verified_at' => now(),
+            'password' => '12345678',
+            'role_id' => $roleRepository->findBy('type', Type::SUPER_ADMIN)->id,
+        ]);
     }
 }
