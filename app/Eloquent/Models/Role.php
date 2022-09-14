@@ -3,9 +3,13 @@
 namespace App\Eloquent\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends Model
 {
+    use SoftDeletes;
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -25,4 +29,9 @@ class Role extends Model
     protected $casts = [
         'permissions' => 'array',
     ];
+
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class, 'role_id', 'id');
+    }
 }

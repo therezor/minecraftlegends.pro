@@ -56,7 +56,7 @@ abstract class BaseRepository implements RepositoryContract
     /**
      * @inheritdoc
      */
-    public function paginate(int $perPage = 10, array $columns = ['*'], string $pageName = 'page', int $page = null): LengthAwarePaginator
+    public function paginate(int $perPage = 50, array $columns = ['*'], string $pageName = 'page', int $page = null): LengthAwarePaginator
     {
         return $this->newQuery()->paginate($perPage, $columns, $pageName, $page);
     }

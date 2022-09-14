@@ -40,7 +40,7 @@
                                     <a class="dropdown-item" href="#"><i class="bi bi-gear me-3"></i> {{ __('Settings') }}</a>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
-                                        <button class="dropdown-item text-primary-hover text-primary-hover text-opacity-100" type="submit">
+                                        <button class="dropdown-item btn-link" type="submit">
                                             <i class="bi bi bi-box-arrow-right me-3"></i> {{ __('Log out') }}
                                         </button>
                                     </form>

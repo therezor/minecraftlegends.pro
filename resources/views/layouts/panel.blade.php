@@ -8,9 +8,9 @@
     @vite('resources/css/app.scss')
 </head>
 <body class="bg-surface-secondary">
-    @yield('body')
+@yield('body')
 
-    @vite('resources/js/app.js')
-    @livewireScripts
+@vite('resources/js/app.js')
+@livewireScripts
 </body>
 </html>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Panel;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +21,13 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::group(['prefix' => 'panel', 'as' => 'panel.', 'middleware' => ['auth']], function () {
+    Route::get('/', [Panel\DashboardController::class, 'index'])
+        ->name('index');
+    Route::resource('roles', Panel\RoleController::class)
+        ->whereNumber('role')
+        ->only(['index', 'create', 'edit']);
+});
 
 require __DIR__.'/auth.php';
