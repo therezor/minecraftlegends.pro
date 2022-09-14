@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Eloquent\Models\User;
 use App\Eloquent\Repositories\RoleRepository;
 use App\Eloquent\Repositories\UserRepository;
-use App\Enums\Roles\Type;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegistrationRequest;
 use Illuminate\Auth\Events\Registered;
@@ -35,7 +34,6 @@ class RegistrationController extends Controller
     public function store(RegistrationRequest $request, UserRepository $userRepository, RoleRepository $roleRepository)
     {
         $attributes = $request->validated();
-        $attributes['role_id'] = $roleRepository->findBy('type', Type::DEFAULT)->id;
 
         /** @var User $user */
         $user = $userRepository->create($attributes);

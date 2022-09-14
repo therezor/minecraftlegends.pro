@@ -4,33 +4,31 @@ namespace App\Http\Components\Panel\Roles;
 
 use App\Eloquent\Repositories\RoleRepository;
 use App\Enums\Roles\Permission;
-use App\Enums\Roles\Type;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Component;
 
 class Form extends Component
 {
     public string $name = '';
-    public string $type = '';
     public array $permissions = [];
 
+    public ?string $itemId;
     public string $routePrefix;
 
     protected RoleRepository $repository;
 
-    public function booted(RoleRepository $repository)
+    public function boot(RoleRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    public function mount(string $routePrefix, string $id = null)
+    public function mount(string $routePrefix, string $itemId = null)
     {
         $this->routePrefix = $routePrefix;
-        $this->type = Type::REGULAR->value;
-        if ($id) {
-            $item = $this->repository->findOrFail($id);
+        $this->itemId = $itemId;
+        if ($this->itemId) {
+            $item = $this->repository->findOrFail($this->itemId);
             $this->name = $item->name;
-            $this->type = $item->type;
             $this->permissions = $item->permissions;
         }
     }
@@ -44,11 +42,14 @@ class Form extends Component
     {
         $this->validate();
 
-        $this->repository->create([
+        $attributes = [
             'name' => $this->name,
-            'type' => $this->type,
             'permissions' => $this->permissions,
-        ]);
+        ];
+
+        $this->itemId
+            ? $this->repository->update($this->itemId, $attributes)
+            : $this->repository->create($attributes);
 
         return redirect()->route($this->routePrefix . '.index');
     }
@@ -60,10 +61,6 @@ class Form extends Component
                 'string',
                 'required',
                 'max:255',
-            ],
-            'type' => [
-                'required',
-                new Enum(Type::class)
             ],
             'permissions' => [
                 'nullable',

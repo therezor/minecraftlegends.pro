@@ -4,10 +4,6 @@
     </div>
 
     <div>
-        <x-form-select name="type" label="{{ __('Type') }}" :options="\App\Enums\Roles\Type::select()" />
-    </div>
-
-    <div>
         <x-form-group name="permissions" label="{{ __('Permissions') }}">
             @foreach(\App\Enums\Roles\Permission::select() as $value => $name)
                 <x-form-checkbox wire:model="permissions" wire:loading.attr="disabled" name="permissions[]" label="{{ $name }}" value="{{ $value }}" />

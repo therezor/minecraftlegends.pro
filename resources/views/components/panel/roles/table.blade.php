@@ -23,7 +23,7 @@
                             {{ $item->name }}
                         </td>
                         <td>
-                            {{ implode(', ', $item->permissions) }}
+                            {{ implode(', ', \Illuminate\Support\Arr::only(\App\Enums\Roles\Permission::select(), $item->permissions)) }}
                         </td>
                         <td>
                             {{ $item->users_count }}
@@ -35,7 +35,7 @@
                             <a href="{{ route('panel.roles.edit', $item->id) }}" class="btn btn-sm btn-square btn-warning me-1">
                                 <i class="bi bi-pencil"></i>
                             </a>
-                            <button wire:click="delete({{ $item->id }})" wire:loading.attr="disabled" type="button" class="btn btn-sm btn-square btn-danger @if($item->users_count) disabled @endif">
+                            <button wire:click="delete({{ $item->id }})" wire:loading.attr="disabled" type="button" class="btn btn-sm btn-square btn-danger">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </td>

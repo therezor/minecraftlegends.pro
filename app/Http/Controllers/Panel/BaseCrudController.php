@@ -28,6 +28,6 @@ abstract class BaseCrudController extends Controller
 
     public function edit($id)
     {
-
+        return view('panel.crud.update', ['crudName' => $this->crudName(), 'routePrefix' => $this->routePrefix(), 'id' => $id]);
     }
 }

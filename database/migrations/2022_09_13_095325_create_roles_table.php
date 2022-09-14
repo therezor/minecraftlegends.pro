@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('type');
             $table->json('permissions');
             $table->timestamps();
             $table->softDeletes();
