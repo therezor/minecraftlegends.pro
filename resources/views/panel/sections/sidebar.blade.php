@@ -12,21 +12,29 @@
         <div class="collapse navbar-collapse" id="sidebarCollapse">
             <!-- Navigation -->
             <ul class="navbar-nav">
+                @can(\App\Enums\Roles\Permission::DASHBOARD_VIEW->value)
                 <li class="nav-item">
                     <a class="nav-link @if(Route::is('panel.index')) active @endif" href="{{ route('panel.index') }}">
                         <i class="bi bi-house"></i> {{ __('Dashboard') }}
                     </a>
                 </li>
+                @endcan
+
+                @can(\App\Enums\Roles\Permission::USERS_LIST->value)
                 <li class="nav-item">
-                    <a class="nav-link @if(Route::is('panel.users.*')) active @endif" href="#">
+                    <a class="nav-link @if(Route::is('panel.users.*')) active @endif" href="{{ route('panel.users.index') }}">
                         <i class="bi bi-people"></i> {{ __('Users') }}
                     </a>
                 </li>
+                @endcan
+
+                @can(\App\Enums\Roles\Permission::ROLES_LIST->value)
                 <li class="nav-item">
                     <a class="nav-link @if(Route::is('panel.roles.*')) active @endif" href="{{ route('panel.roles.index') }}">
                         <i class="bi bi-shield-lock"></i> {{ __('Roles') }}
                     </a>
                 </li>
+                @endcan
             </ul>
             <!-- Divider -->
             <hr class="navbar-divider my-5 opacity-20">

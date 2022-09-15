@@ -4,33 +4,19 @@ namespace App\Http\Components\Panel\Roles;
 
 use App\Eloquent\Repositories\RoleRepository;
 use App\Enums\Roles\Permission;
+use App\Http\Components\Panel\BaseForm;
 use Illuminate\Validation\Rules\Enum;
-use Livewire\Component;
 
-class Form extends Component
+class Form extends BaseForm
 {
     public string $name = '';
     public array $permissions = [];
-
-    public ?string $itemId;
-    public string $routePrefix;
 
     protected RoleRepository $repository;
 
     public function boot(RoleRepository $repository)
     {
         $this->repository = $repository;
-    }
-
-    public function mount(string $routePrefix, string $itemId = null)
-    {
-        $this->routePrefix = $routePrefix;
-        $this->itemId = $itemId;
-        if ($this->itemId) {
-            $item = $this->repository->findOrFail($this->itemId);
-            $this->name = $item->name;
-            $this->permissions = $item->permissions;
-        }
     }
 
     public function render()
@@ -52,6 +38,13 @@ class Form extends Component
             : $this->repository->create($attributes);
 
         return redirect()->route($this->routePrefix . '.index');
+    }
+
+    protected function fillProperties()
+    {
+        $item = $this->repository->findOrFail($this->itemId);
+        $this->name = $item->name;
+        $this->permissions = $item->permissions;
     }
 
     protected function rules(): array

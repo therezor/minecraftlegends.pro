@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Panel;
 
-use App\Eloquent\Repositories\RoleRepository;
+use App\Enums\Roles\Permission;
 
 class RoleController extends BaseCrudController
 {
-    protected RoleRepository $repository;
-
-    public function __construct(RoleRepository $repository)
+    public function __construct()
     {
-        $this->repository = $repository;
+        $this->middleware('can:' . Permission::ROLES_LIST->value, ['only' => 'index']);
+        $this->middleware('can:' . Permission::ROLES_CREATE->value, ['only' => ['create']]);
+        $this->middleware('can:' . Permission::ROLES_EDIT->value, ['only' => ['edit']]);
     }
 
     protected function crudName(): string

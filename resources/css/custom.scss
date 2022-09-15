@@ -1,3 +1,13 @@
 .navbar-nav>.nav-item>.nav-link.nav-logout {
     background-color: transparent;
 }
+
+.table {
+    thead th {
+        white-space: normal;
+    }
+
+    td {
+        white-space: normal;
+    }
+}

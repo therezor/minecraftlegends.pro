@@ -10,4 +10,9 @@ class RoleRepository extends BaseRepository
     {
         return Role::class;
     }
+
+    public function select()
+    {
+        return $this->newQuery()->pluck('name', 'id')->all();
+    }
 }
