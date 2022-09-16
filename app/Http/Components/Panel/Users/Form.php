@@ -72,7 +72,7 @@ class Form extends BaseForm
                 'string',
                 'email',
                 'max:255',
-                Rule::unique(User::class)->ignore($this->itemId)
+                Rule::unique(User::class, 'email')->ignore($this->itemId)->withoutTrashed(),
             ],
             'password' => [
                 'nullable',

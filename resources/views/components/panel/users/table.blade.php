@@ -42,7 +42,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td class="text-center text-muted" colspan="5">
+                        <td class="text-center text-muted" colspan="6">
                             <i>{{ __('Nothing') }}</i>
                         </td>
                     </tr>

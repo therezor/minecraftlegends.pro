@@ -6,7 +6,7 @@ use Livewire\Component;
 
 abstract class BaseForm extends Component
 {
-    public ?string $itemId;
+    public ?string $itemId = null;
     public string $routePrefix;
 
     public function mount(string $routePrefix, string $itemId = null)
@@ -17,6 +17,6 @@ abstract class BaseForm extends Component
             $this->fillProperties();
         }
     }
-    
+
     abstract protected function fillProperties();
 }

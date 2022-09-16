@@ -20,6 +20,14 @@
                 </li>
                 @endcan
 
+                @can(\App\Enums\Roles\Permission::CATEGORIES_LIST->value)
+                    <li class="nav-item">
+                        <a class="nav-link @if(Route::is('panel.categories.*')) active @endif" href="{{ route('panel.categories.index') }}">
+                            <i class="bi bi-folder"></i> {{ __('Categories') }}
+                        </a>
+                    </li>
+                @endcan
+
                 @can(\App\Enums\Roles\Permission::USERS_LIST->value)
                 <li class="nav-item">
                     <a class="nav-link @if(Route::is('panel.users.*')) active @endif" href="{{ route('panel.users.index') }}">

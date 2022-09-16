@@ -11,7 +11,7 @@ return [
     'use_eloquent_date_casting' => true,
 
     /** bool | string */
-    'default_wire' => true,
+    'default_wire' => 'defer',
 
     'components' => [
         'form' => [

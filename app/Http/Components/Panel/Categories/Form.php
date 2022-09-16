@@ -1,29 +1,26 @@
 <?php
 
-namespace App\Http\Components\Panel\Roles;
+namespace App\Http\Components\Panel\Categories;
 
-use App\Eloquent\Models\Role;
-use App\Eloquent\Repositories\RoleRepository;
-use App\Enums\Roles\Permission;
+use App\Eloquent\Models\Category;
+use App\Eloquent\Repositories\CategoryRepository;
 use App\Http\Components\Panel\BaseForm;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Enum;
 
 class Form extends BaseForm
 {
     public string $name = '';
-    public array $permissions = [];
 
-    protected RoleRepository $repository;
+    protected CategoryRepository $repository;
 
-    public function boot(RoleRepository $repository)
+    public function boot(CategoryRepository $repository)
     {
         $this->repository = $repository;
     }
 
     public function render()
     {
-        return view('components.panel.roles.form');
+        return view('components.panel.categories.form');
     }
 
     public function submit()
@@ -32,7 +29,6 @@ class Form extends BaseForm
 
         $attributes = [
             'name' => $this->name,
-            'permissions' => $this->permissions,
         ];
 
         $this->itemId
@@ -46,7 +42,6 @@ class Form extends BaseForm
     {
         $item = $this->repository->findOrFail($this->itemId);
         $this->name = $item->name;
-        $this->permissions = $item->permissions;
     }
 
     protected function rules(): array
@@ -56,14 +51,7 @@ class Form extends BaseForm
                 'string',
                 'required',
                 'max:255',
-                Rule::unique(Role::class, 'name')->ignore($this->itemId)->withoutTrashed(),
-            ],
-            'permissions' => [
-                'nullable',
-                'array',
-            ],
-            'permissions.*' => [
-                new Enum(Permission::class)
+                Rule::unique(Category::class, 'name')->ignore($this->itemId)->withoutTrashed(),
             ],
         ];
     }

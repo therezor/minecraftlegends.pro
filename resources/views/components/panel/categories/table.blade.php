@@ -7,8 +7,7 @@
                 <tr>
                     <th scope="col">{{ __('ID') }}</th>
                     <th scope="col">{{ __('Name') }}</th>
-                    <th scope="col">{{ __('Permissions') }}</th>
-                    <th scope="col">{{ __('Users') }}</th>
+                    <th scope="col">{{ __('Posts') }}</th>
                     <th scope="col">{{ __('Created at') }}</th>
                     <th></th>
                 </tr>
@@ -23,16 +22,13 @@
                             {{ $item->name }}
                         </td>
                         <td>
-                            {{ implode(', ', \Illuminate\Support\Arr::only(\App\Enums\Roles\Permission::select(), $item->permissions)) }}
-                        </td>
-                        <td>
-                            {{ $item->users_count }}
+                            {{ $item->posts_count }}
                         </td>
                         <td>
                             {{ $item->created_at->toDateTimestring() }}
                         </td>
                         <td class="text-end text-nowrap">
-                            <a href="{{ route('panel.roles.edit', $item->id) }}" class="btn btn-sm btn-square btn-warning me-1">
+                            <a href="{{ route('panel.categories.edit', $item->id) }}" class="btn btn-sm btn-square btn-warning me-1">
                                 <i class="bi bi-pencil"></i>
                             </a>
                             <button wire:click="delete({{ $item->id }})" wire:loading.attr="disabled" type="button" class="btn btn-sm btn-square btn-danger">
@@ -42,7 +38,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td class="text-center text-muted" colspan="6">
+                        <td class="text-center text-muted" colspan="5">
                             <i>{{ __('Nothing') }}</i>
                         </td>
                     </tr>

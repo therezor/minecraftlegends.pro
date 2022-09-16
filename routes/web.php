@@ -31,6 +31,10 @@ Route::group(['prefix' => 'panel', 'as' => 'panel.', 'middleware' => ['auth']], 
     Route::resource('users', Panel\UserController::class)
         ->whereNumber('user')
         ->only(['index', 'create', 'edit']);
+
+    Route::resource('categories', Panel\CategoryController::class)
+        ->whereNumber('category')
+        ->only(['index', 'create', 'edit']);
 });
 
 require __DIR__.'/auth.php';

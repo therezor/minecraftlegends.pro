@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('discussions', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('status');
+        Schema::create('categories', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('discussions');
+        Schema::dropIfExists('categories');
     }
 };
