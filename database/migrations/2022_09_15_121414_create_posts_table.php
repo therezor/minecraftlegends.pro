@@ -17,6 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('status');
+            $table->string('slug')->index();
             $table->text('intro')->nullable();
             $table->unsignedInteger('category_id')->index();
             $table->unsignedInteger('image_id')->index()->nullable();

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Enums\Discussions;
+namespace App\Enums\Posts;
 
 use App\Enums\Selectable;
 

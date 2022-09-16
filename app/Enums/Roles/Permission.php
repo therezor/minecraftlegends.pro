@@ -24,4 +24,9 @@ enum Permission: string
     case USERS_CREATE = 'USERS_CREATE';
     case USERS_EDIT = 'USERS_EDIT';
     case USERS_DELETE = 'USERS_DELETE';
+
+    case POSTS_LIST = 'POSTS_LIST';
+    case POSTS_CREATE = 'POSTS_CREATE';
+    case POSTS_EDIT = 'POSTS_EDIT';
+    case POSTS_DELETE = 'POSTS_DELETE';
 }

@@ -2,7 +2,7 @@
 
 namespace App\Eloquent\Models;
 
-use App\Enums\Discussions\Status;
+use App\Enums\Posts\Status;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $id
  * @property string $title
  * @property Status $status
+ * @property string $slug
  * @property string|null $intro
  * @property int $category_id
  * @property int|null $image_id
@@ -32,6 +33,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereImageId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereIntro($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereUpdatedAt($value)
@@ -54,6 +56,7 @@ class Post extends Model
         'title',
         'status',
         'intro',
+        'slug',
         'video_url',
         'user_id',
         'image_id',
