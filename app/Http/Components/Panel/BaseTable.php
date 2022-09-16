@@ -3,11 +3,13 @@
 namespace App\Http\Components\Panel;
 
 use App\Http\Components\Traits\WithSorting;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 abstract class BaseTable extends Component
 {
+    use AuthorizesRequests;
     use WithPagination;
     use WithSorting;
 

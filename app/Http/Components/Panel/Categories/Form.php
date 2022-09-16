@@ -42,6 +42,7 @@ class Form extends BaseForm
 
     protected function fillProperties()
     {
+        /** @var Category $item */
         $item = $this->repository->findOrFail($this->itemId);
         $this->name = $item->name;
         $this->icon = $item->icon;

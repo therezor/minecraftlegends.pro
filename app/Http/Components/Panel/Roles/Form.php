@@ -44,6 +44,7 @@ class Form extends BaseForm
 
     protected function fillProperties()
     {
+        /** @var Role $item */
         $item = $this->repository->findOrFail($this->itemId);
         $this->name = $item->name;
         $this->permissions = $item->permissions;

@@ -15,7 +15,7 @@ class Form extends BaseForm
     public string $name = '';
     public string $email = '';
     public string $password = '';
-    public string $roleId = '';
+    public ?int $roleId = null;
 
     protected UserRepository $userRepository;
     protected RoleRepository $roleRepository;
@@ -53,6 +53,7 @@ class Form extends BaseForm
 
     protected function fillProperties()
     {
+        /** @var User $item */
         $item = $this->userRepository->findOrFail($this->itemId);
         $this->name = $item->name;
         $this->email = $item->email;

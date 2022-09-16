@@ -36,6 +36,9 @@
                                 <i class="bi bi-chevron-down text-xs"></i>
                             </a>
                             <div id="dropdown-profile" class="dropdown-menu dropdown-menu-end px-2 mb-2">
+                                    @can(\App\Enums\Roles\Permission::DASHBOARD_VIEW->value)
+                                        <a class="dropdown-item" href="{{ route('panel.index') }}"><i class="bi bi-tools me-3"></i> {{ __('Dashboard') }}</a>
+                                    @endif
                                     <a class="dropdown-item" href="#"><i class="bi bi-plus-circle-dotted me-3"></i> {{ __('Add story') }}</a>
                                     <a class="dropdown-item" href="#"><i class="bi bi-gear me-3"></i> {{ __('Settings') }}</a>
                                     <form method="POST" action="{{ route('logout') }}">
