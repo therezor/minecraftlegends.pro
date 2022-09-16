@@ -3,6 +3,11 @@
         <x-form-input required name="name" label="{{ __('Name') }}" />
     </div>
 
+    <div>
+        <x-form-input required name="icon" label="{{ __('Icon') }}" />
+    </div>
+
+
     <div class="text-end">
         <a href="{{ route($routePrefix . '.index') }}" type="button" class="btn btn-sm btn-neutral me-2">{{ __('Cancel') }}</a>
         <x-form-submit />

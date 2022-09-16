@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 class Form extends BaseForm
 {
     public string $name = '';
+    public string $icon = '';
 
     protected CategoryRepository $repository;
 
@@ -29,6 +30,7 @@ class Form extends BaseForm
 
         $attributes = [
             'name' => $this->name,
+            'icon' => $this->icon,
         ];
 
         $this->itemId
@@ -42,6 +44,7 @@ class Form extends BaseForm
     {
         $item = $this->repository->findOrFail($this->itemId);
         $this->name = $item->name;
+        $this->icon = $item->icon;
     }
 
     protected function rules(): array
@@ -52,6 +55,12 @@ class Form extends BaseForm
                 'required',
                 'max:255',
                 Rule::unique(Category::class, 'name')->ignore($this->itemId)->withoutTrashed(),
+            ],
+            'icon' => [
+                'string',
+                'required',
+                'max:255',
+                Rule::unique(Category::class, 'icon')->ignore($this->itemId)->withoutTrashed(),
             ],
         ];
     }

@@ -19,7 +19,7 @@
                             {{ $item->id }}
                         </td>
                         <td>
-                            {{ $item->name }}
+                            <i class="bi bi-{{ $item->icon }}"></i> {{ $item->name }}
                         </td>
                         <td>
                             {{ $item->posts_count }}
