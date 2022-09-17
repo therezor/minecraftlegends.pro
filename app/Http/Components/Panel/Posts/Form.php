@@ -8,6 +8,7 @@ use App\Eloquent\Repositories\CategoryRepository;
 use App\Eloquent\Repositories\PostRepository;
 use App\Enums\Posts\Status;
 use App\Http\Components\Panel\BaseForm;
+use App\Rules\YoutubeRule;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 
@@ -16,6 +17,7 @@ class Form extends BaseForm
     public string $title = '';
     public string $slug = '';
     public string $intro = '';
+    public ?string $videoUrl = null;
     public ?string $status = null;
     public ?int $categoryId = null;
 
@@ -45,6 +47,7 @@ class Form extends BaseForm
             'intro' => $this->intro,
             'status' => $this->status,
             'category_id' => $this->categoryId,
+            'video_url' => $this->videoUrl,
         ];
 
         if (!$this->itemId) {
@@ -67,6 +70,7 @@ class Form extends BaseForm
         $this->intro = $item->intro;
         $this->status = $item->status->value;
         $this->categoryId = $item->category_id;
+        $this->videoUrl = $item->video_url;
     }
 
     protected function rules(): array
@@ -95,6 +99,12 @@ class Form extends BaseForm
             'categoryId' => [
                 'nullable',
                 Rule::exists(Category::class, 'id')
+            ],
+            'videoUrl' => [
+                'string',
+                'max:255',
+                'url',
+                new YoutubeRule(),
             ],
         ];
     }

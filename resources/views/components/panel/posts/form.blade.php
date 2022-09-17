@@ -8,6 +8,10 @@
     </div>
 
     <div>
+        <x-form-input name="videoUrl" label="{{ __('Video Url') }}" />
+    </div>
+
+    <div>
         <x-form-select required name="categoryId" :options="['' => ''] + $categoriesSelect" label="{{ __('Category') }}" />
     </div>
 
