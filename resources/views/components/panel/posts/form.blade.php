@@ -8,7 +8,11 @@
     </div>
 
     <div>
-        <x-form-select required name="status" :options="\App\Enums\Posts\Status::select()" label="{{ __('Status') }}" />
+        <x-form-select required name="categoryId" :options="['' => ''] + $categoriesSelect" label="{{ __('Category') }}" />
+    </div>
+
+    <div>
+        <x-form-select required name="status" :options="['' => ''] + \App\Enums\Posts\Status::select()" label="{{ __('Status') }}" />
     </div>
 
     <div>

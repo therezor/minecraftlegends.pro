@@ -23,7 +23,19 @@
                             {{ \Illuminate\Support\Str::limit($item->title, 40) }}
                         </td>
                         <td>
-                            {{ $item->status }}
+                            <span class="badge badge-lg badge-dot">
+                                @switch($item->status)
+                                    @case(\App\Enums\Posts\Status::PUBLISHED)
+                                        <i class="bg-success"></i>
+                                    @break
+                                    @case(\App\Enums\Posts\Status::ARCHIVE)
+                                        <i class="bg-danger"></i>
+                                    @break
+                                    @default
+                                        <i class="bg-warning"></i>
+                                @endswitch
+                                {{ \App\Enums\Posts\Status::select()[$item->status->value] }}
+                            </span>
                         </td>
                         <td>
                             {{ $item->user->name }}

@@ -60,6 +60,7 @@ class Post extends Model
         'video_url',
         'user_id',
         'image_id',
+        'category_id',
     ];
 
     /**
@@ -74,5 +75,10 @@ class Post extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 }

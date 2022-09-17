@@ -8,7 +8,7 @@
     </div>
 
     <div>
-        <x-form-select name="roleId" :options="$rolesSelect" label="{{ __('Role') }}" />
+        <x-form-select name="roleId" :options="['' => ''] + $rolesSelect" label="{{ __('Role') }}" />
     </div>
 
     <div>
