@@ -13,13 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('pages', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->index()->unsigned();
-            $table->string('disk');
-            $table->string('directory');
-            $table->string('filename');
+            $table->string('title');
+            $table->string('slug')->index();
+            $table->longText('content');
+            $table->string('description')->nullable();
+
+            $table->string('og_title')->nullable();
+            $table->string('og_description')->nullable();
+
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
@@ -32,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('pages');
     }
 };

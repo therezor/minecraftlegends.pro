@@ -15,19 +15,27 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('author_id')->index()->unsigned();
-            $table->tinyInteger('visibility')->unsigned()->index();
+            $table->unsignedBigInteger('user_id')->index()->unsigned();
+            $table->tinyInteger('visibility')->unsigned()->index()->default(0);;
             $table->tinyInteger('type')->unsigned()->index()->default(0);
             $table->tinyInteger('featured')->unsigned()->index()->default(0)->nullable();
             $table->tinyInteger('status')->unsigned()->index()->default(0)->nullable();
+
+            $table->unsignedBigInteger('image_id')->index()->nullable();
+            $table->string('title');
+            $table->string('slug')->index();
+            $table->text('description')->nullable();
+
+            $table->unsignedBigInteger('og_image_id')->index()->nullable();
+            $table->string('og_title')->nullable();
+            $table->string('og_description')->nullable();
+
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
-
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('image_id')->references('id')->on('images');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('set null');
+            $table->foreign('og_image_id')->references('id')->on('images')->onDelete('set null');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

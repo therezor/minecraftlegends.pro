@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
 
-    @vite('resources/css/app.scss')
+    <link media="all" type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
 <body class="bg-surface-secondary">
     <div class="d-flex align-items-center justify-content-center min-h-screen">

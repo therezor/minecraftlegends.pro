@@ -31,8 +31,10 @@ Route::group(['prefix' => 'panel', 'as' => 'panel.', 'middleware' => ['auth']], 
         ->whereNumber('user');
 
     Route::resource('categories', Panel\CategoryController::class)
-        ->whereNumber('category')
-        ->only(['index', 'create', 'edit']);
+        ->whereNumber('category');
+
+    Route::resource('pages', Panel\PageController::class)
+        ->whereNumber('page');
 
     Route::resource('posts', Panel\PostController::class)
         ->whereNumber('category')

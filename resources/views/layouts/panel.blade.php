@@ -39,6 +39,7 @@
     </div>
 </div>
 
-<script defer src="{{ mix('js/app.js') }}"></script>
+<script defer src="{{ mix('js/panel.js') }}"></script>
+<script defer src="{{ mix('js/classic-editor.js') }}"></script>
 </body>
 </html>

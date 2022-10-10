@@ -51,6 +51,15 @@
                     </li>
                 @endcan
 
+                @can(\App\Enums\Role\Permission::PAGES_LIST->value)
+                    <li class="nav-item">
+                        <a class="nav-link @if(Route::is('panel.pages.*')) active @endif"
+                           href="{{ route('panel.pages.index') }}">
+                            <i class="bi bi-file-earmark"></i> {{ __('Pages') }}
+                        </a>
+                    </li>
+                @endcan
+
                 @can(\App\Enums\Role\Permission::ROLES_LIST->value)
                     <li class="nav-item">
                         <a class="nav-link @if(Route::is('panel.roles.*')) active @endif"

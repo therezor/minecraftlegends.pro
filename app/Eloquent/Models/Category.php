@@ -2,9 +2,12 @@
 
 namespace App\Eloquent\Models;
 
+use App\Eloquent\Models\Contracts\HasTranslation;
+use App\Eloquent\Models\Contracts\HasValidation;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Validation\Rule;
 
 /**
  * App\Eloquent\Models\Category
@@ -31,7 +34,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
  * @mixin \Eloquent
  */
-class Category extends Model
+class Category extends Model implements HasTranslation, HasValidation
 {
     use SoftDeletes;
 
@@ -44,6 +47,29 @@ class Category extends Model
         'name',
         'icon',
     ];
+    public function getTranslationPrefix(): string
+    {
+        return 'attributes';
+    }
+
+    public function getValidationRules(): array
+    {
+        return [
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique(Category::class, 'name')->ignore($this->id)->withoutTrashed(),
+            ],
+
+            'icon' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique(Category::class, 'icon')->ignore($this->id)->withoutTrashed(),
+            ],
+        ];
+    }
 
     public function posts(): HasMany
     {
