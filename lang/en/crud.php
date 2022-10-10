@@ -33,8 +33,10 @@ return [
     'added'   => 'Added',
     'preview' => 'Preview',
     'apply'   => 'Apply',
+    'confirm' => 'Confirm',
 
     'confirmation' => 'Do you confirm the action?',
 
+    'confirm_action' => 'Confirm action',
     'action_completed' => 'Action completed.',
 ];

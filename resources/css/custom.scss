@@ -16,3 +16,7 @@
     content: "*";
     color: $danger;
 }
+
+a[data-method] {
+    pointer-events: none;
+}
