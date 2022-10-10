@@ -37,7 +37,6 @@
                     <div class="card-footer border-top">
                         <div class="row">
                             <div class="col-auto">
-                                <livewire:discussions.vote/>
                                 <a class="btn btn-sm btn-neutral" href="#" title="Comments">
                                     <i class="bi bi-chat-left-dots"></i> 10
                                 </a>

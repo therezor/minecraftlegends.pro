@@ -25,8 +25,7 @@ Route::group(['prefix' => 'panel', 'as' => 'panel.', 'middleware' => ['auth']], 
         ->name('index');
 
     Route::resource('roles', Panel\RoleController::class)
-        ->whereNumber('role')
-        ->only(['index', 'create', 'edit']);
+        ->whereNumber('role');
 
     Route::resource('users', Panel\UserController::class)
         ->whereNumber('user');

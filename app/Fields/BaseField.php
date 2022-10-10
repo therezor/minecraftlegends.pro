@@ -5,6 +5,7 @@ namespace App\Fields;
 use App\Eloquent\Models\Contracts\HasTranslation;
 use App\Fields\Contracts\Field;
 use App\Fields\Traits\Callbackable;
+use App\Fields\Traits\EnumValue;
 use App\Fields\Traits\HasMeta;
 use App\Fields\Traits\Sortable;
 use App\Fields\Traits\TranslateValue;
@@ -12,7 +13,11 @@ use Illuminate\Support\HtmlString;
 
 class BaseField implements Field
 {
-    use Callbackable, Sortable, HasMeta, TranslateValue;
+    use Callbackable;
+    use Sortable;
+    use HasMeta;
+    use TranslateValue;
+    use EnumValue;
 
     protected $name;
 
@@ -29,7 +34,7 @@ class BaseField implements Field
         $this->name = $name;
     }
 
-    public static function make(... $args)
+    public static function make(...$args)
     {
         return new static(...$args);
     }
@@ -75,7 +80,10 @@ class BaseField implements Field
     {
         if (is_callable($this->valueCallback)) {
             $value = call_user_func(
-                $this->valueCallback, $value, $entity, $this
+                $this->valueCallback,
+                $value,
+                $entity,
+                $this
             );
         }
 
@@ -92,7 +100,10 @@ class BaseField implements Field
 
         if (is_callable($this->labelCallback)) {
             $label = call_user_func(
-                $this->labelCallback, $label, $entity, $this
+                $this->labelCallback,
+                $label,
+                $entity,
+                $this
             );
         }
 
@@ -118,10 +129,10 @@ class BaseField implements Field
         }
 
         $rendered = view($this->template)->with([
-            'field'  => $this,
+            'field' => $this,
             'entity' => $entity,
-            'label'  => $label,
-            'value'  => $value,
+            'label' => $label,
+            'value' => $value,
         ])->render();
 
         return new HtmlString($rendered);

@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', config('app.name'))</title>
 
-    @vite('resources/css/app.scss')
+    <link media="all" type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link media="all" type="text/css" rel="stylesheet" href="{{ mix('css/bootstrap-icons.css') }}">
 </head>
 <body class="bg-surface-secondary">
 
@@ -31,12 +32,13 @@
 
         <main class="pb-6 bg-surface-secondary">
             <div class="container-fluid">
+                @include('sections.messages')
                 @yield('content')
             </div>
         </main>
     </div>
 </div>
 
-@vite('resources/js/app.js')
+<script defer src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>

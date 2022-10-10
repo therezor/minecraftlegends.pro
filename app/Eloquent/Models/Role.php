@@ -2,9 +2,14 @@
 
 namespace App\Eloquent\Models;
 
+use App\Eloquent\Models\Contracts\HasTranslation;
+use App\Eloquent\Models\Contracts\HasValidation;
+use App\Enums\Role\Permission;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum;
 
 /**
  * App\Eloquent\Models\Role
@@ -31,7 +36,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Role withoutTrashed()
  * @mixin \Eloquent
  */
-class Role extends Model
+class Role extends Model implements HasTranslation, HasValidation
 {
     use SoftDeletes;
 
@@ -53,6 +58,30 @@ class Role extends Model
     protected $casts = [
         'permissions' => 'array',
     ];
+
+    public function getTranslationPrefix(): string
+    {
+        return 'attributes';
+    }
+
+    public function getValidationRules(): array
+    {
+        return [
+            'name' => [
+                'string',
+                'required',
+                'max:255',
+                Rule::unique(Role::class, 'name')->ignore($this->id)->withoutTrashed(),
+            ],
+            'permissions' => [
+                'nullable',
+                'array',
+            ],
+            'permissions.*' => [
+                new Enum(Permission::class)
+            ],
+        ];
+    }
 
     public function users(): HasMany
     {

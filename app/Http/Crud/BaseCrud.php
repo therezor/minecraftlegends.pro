@@ -74,7 +74,7 @@ abstract class BaseCrud
         return $this->getCreateFormClass();
     }
 
-    public function getSearchFormClass(): ?string
+    public function getFilterFormClass(): ?string
     {
         return null;
     }

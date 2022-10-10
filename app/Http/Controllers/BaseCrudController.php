@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use App\Fields\Collections\FieldCollection;
-use App\Forms\FilterForm;
+use App\Forms\BaseFilterForm;
 use App\Http\Crud\BaseCrud;
 use Kris\LaravelFormBuilder\Facades\FormBuilder;
 
@@ -26,7 +26,7 @@ abstract class BaseCrudController extends Controller
         $filterForm = $this->crud->getFilterFormClass();
 
         if ($filterForm) {
-            /** @var FilterForm $filterForm */
+            /** @var BaseFilterForm $filterForm */
             $filterForm = FormBuilder::create($filterForm, [
                 'model' => $emptyEntity,
             ]);
@@ -89,7 +89,7 @@ abstract class BaseCrudController extends Controller
         }
 
         return redirect()->route($this->crud->getRouteByMethod('index'))
-            ->with('flash_success', trans('crud.created'));
+            ->with('status', trans('crud.created'));
     }
 
     public function show($id)
@@ -149,7 +149,7 @@ abstract class BaseCrudController extends Controller
         }
 
         return redirect()->route($this->crud->getRouteByMethod('index'))
-            ->with('flash_success', trans('crud.updated'));
+            ->with('status', trans('crud.updated'));
     }
 
     public function destroy($id)
@@ -163,6 +163,6 @@ abstract class BaseCrudController extends Controller
         $this->crud->afterDestroy($entity);
 
         return redirect()->route($this->crud->getRouteByMethod('index'))
-            ->with('flash_success', trans('crud.deleted'));
+            ->with('status', trans('crud.deleted'));
     }
 }

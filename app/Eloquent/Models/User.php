@@ -2,11 +2,14 @@
 
 namespace App\Eloquent\Models;
 
+use App\Eloquent\Models\Contracts\HasTranslation;
+use App\Eloquent\Models\Contracts\HasValidation;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Validation\Rule;
 
 /**
  * App\Eloquent\Models\User
@@ -44,7 +47,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
  * @mixin \Eloquent
  */
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, HasValidation, HasTranslation
 {
     use Notifiable;
     use SoftDeletes;
@@ -79,6 +82,21 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getTranslationPrefix(): string
+    {
+        return 'attributes';
+    }
+
+    public function getValidationRules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'password' => ['nullable', 'string'],
+            'role_id' => ['nullable', Rule::exists(Role::class, 'id')],
+        ];
+    }
 
     public function role(): BelongsTo
     {

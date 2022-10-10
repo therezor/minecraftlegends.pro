@@ -3,7 +3,6 @@
 namespace App\Forms\Panel\User;
 
 use App\Eloquent\Repositories\RoleRepository;
-use App\Eloquent\Repositories\Contracts\Criteria;
 use App\Eloquent\Repositories\Criteria\FilterCriteria;
 use App\Forms\BaseFilterForm;
 
@@ -25,9 +24,8 @@ class FilterForm extends BaseFilterForm
         ]);
     }
 
-    public function getFilterCriteria(): Criteria
+    public function getFilterCriteria(): FilterCriteria
     {
-        /** @var FilterCriteria $criteria */
         $criteria = parent::getFilterCriteria();
 
         $criteria->whereLike('name')

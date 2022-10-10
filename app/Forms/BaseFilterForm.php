@@ -13,7 +13,7 @@ class BaseFilterForm extends Form
 
     protected $errorBag = 'filter_form';
 
-    public function getFilterCriteria(): Criteria
+    public function getFilterCriteria(): FilterCriteria
     {
         return new FilterCriteria($this->getFieldValues(false));
     }

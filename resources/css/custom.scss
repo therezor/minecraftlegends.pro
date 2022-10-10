@@ -11,3 +11,8 @@
         white-space: normal;
     }
 }
+
+.form-label.required:after {
+    content: "*";
+    color: $danger;
+}
