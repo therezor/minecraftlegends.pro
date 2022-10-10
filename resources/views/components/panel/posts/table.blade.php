@@ -25,16 +25,16 @@
                         <td>
                             <span class="badge badge-lg badge-dot">
                                 @switch($item->status)
-                                    @case(\App\Enums\Posts\Status::PUBLISHED)
+                                    @case(\App\Enums\Post\Status::PUBLISHED)
                                         <i class="bg-success"></i>
-                                    @break
-                                    @case(\App\Enums\Posts\Status::ARCHIVE)
+                                        @break
+                                    @case(\App\Enums\Post\Status::ARCHIVE)
                                         <i class="bg-danger"></i>
-                                    @break
+                                        @break
                                     @default
                                         <i class="bg-warning"></i>
                                 @endswitch
-                                {{ \App\Enums\Posts\Status::select()[$item->status->value] }}
+                                {{ \App\Enums\Post\Status::select()[$item->status->value] }}
                             </span>
                         </td>
                         <td>
@@ -44,15 +44,17 @@
                             {{ $item->created_at->toDateTimestring() }}
                         </td>
                         <td class="text-end text-nowrap">
-                            <a href="{{ route('panel.posts.edit', $item->id) }}" class="btn btn-sm btn-square btn-warning me-1">
+                            <a href="{{ route('panel.posts.edit', $item->id) }}"
+                               class="btn btn-sm btn-square btn-warning me-1">
                                 <i class="bi bi-pencil"></i>
                             </a>
-                            <button wire:click="delete({{ $item->id }})" wire:loading.attr="disabled" type="button" class="btn btn-sm btn-square btn-danger">
+                            <button wire:click="delete({{ $item->id }})" wire:loading.attr="disabled" type="button"
+                                    class="btn btn-sm btn-square btn-danger">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </td>
                     </tr>
-                    @empty
+                @empty
                     <tr>
                         <td class="text-center text-muted" colspan="6">
                             <i>{{ __('Nothing') }}</i>

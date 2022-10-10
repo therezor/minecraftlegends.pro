@@ -4,7 +4,7 @@ namespace App\Http\Components\Panel\Roles;
 
 use App\Eloquent\Models\Role;
 use App\Eloquent\Repositories\RoleRepository;
-use App\Enums\Roles\Permission;
+use App\Enums\Role\Permission;
 use App\Http\Components\Panel\BaseForm;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;

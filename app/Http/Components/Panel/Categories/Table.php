@@ -4,9 +4,9 @@ namespace App\Http\Components\Panel\Categories;
 
 use App\Eloquent\Repositories\CategoryRepository;
 use App\Eloquent\Repositories\Criteria\OrderByCriteria;
-use App\Eloquent\Repositories\Criteria\SearchCriteria;
+use App\Eloquent\Repositories\Criteria\FilterCriteria;
 use App\Eloquent\Repositories\Criteria\WithCountCriteria;
-use App\Enums\Roles\Permission;
+use App\Enums\Role\Permission;
 use App\Http\Components\Panel\BaseTable;
 
 class Table extends BaseTable
@@ -20,7 +20,7 @@ class Table extends BaseTable
 
     public function render()
     {
-        $searchCriteria = (new SearchCriteria($this->search))
+        $searchCriteria = (new FilterCriteria($this->search))
             ->whereExact('id')
             ->whereLike('name')
             ->whereLike('created_at');

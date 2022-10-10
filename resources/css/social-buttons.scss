@@ -23,3 +23,7 @@ $social-buttons-colors: (
         @include button-outline-variant($value);
     }
 }
+
+.fit-cover {
+    object-fit: cover;
+}

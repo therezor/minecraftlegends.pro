@@ -23,7 +23,7 @@
                             {{ $item->name }}
                         </td>
                         <td>
-                            {{ implode(', ', \Illuminate\Support\Arr::only(\App\Enums\Roles\Permission::select(), $item->permissions)) }}
+                            {{ implode(', ', \Illuminate\Support\Arr::only(\App\Enums\Role\Permission::select(), $item->permissions)) }}
                         </td>
                         <td>
                             {{ $item->users_count }}
@@ -32,15 +32,17 @@
                             {{ $item->created_at->toDateTimestring() }}
                         </td>
                         <td class="text-end text-nowrap">
-                            <a href="{{ route('panel.roles.edit', $item->id) }}" class="btn btn-sm btn-square btn-warning me-1">
+                            <a href="{{ route('panel.roles.edit', $item->id) }}"
+                               class="btn btn-sm btn-square btn-warning me-1">
                                 <i class="bi bi-pencil"></i>
                             </a>
-                            <button wire:click="delete({{ $item->id }})" wire:loading.attr="disabled" type="button" class="btn btn-sm btn-square btn-danger">
+                            <button wire:click="delete({{ $item->id }})" wire:loading.attr="disabled" type="button"
+                                    class="btn btn-sm btn-square btn-danger">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </td>
                     </tr>
-                    @empty
+                @empty
                     <tr>
                         <td class="text-center text-muted" colspan="6">
                             <i>{{ __('Nothing') }}</i>

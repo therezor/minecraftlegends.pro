@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Eloquent\Repositories\RoleRepository;
 use App\Eloquent\Repositories\UserRepository;
-use App\Enums\Roles\Permission;
+use App\Enums\Role\Permission;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

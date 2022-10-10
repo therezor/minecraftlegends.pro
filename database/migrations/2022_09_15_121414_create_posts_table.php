@@ -14,17 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->string('status');
-            $table->string('slug')->index();
-            $table->text('intro')->nullable();
-            $table->unsignedInteger('category_id')->index();
-            $table->unsignedInteger('image_id')->index()->nullable();
-            $table->string('video_url')->nullable();
-            $table->unsignedInteger('user_id')->index();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('author_id')->index()->unsigned();
+            $table->tinyInteger('visibility')->unsigned()->index();
+            $table->tinyInteger('type')->unsigned()->index()->default(0);
+            $table->tinyInteger('featured')->unsigned()->index()->default(0)->nullable();
+            $table->tinyInteger('status')->unsigned()->index()->default(0)->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('image_id')->references('id')->on('images');

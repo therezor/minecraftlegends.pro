@@ -2,7 +2,7 @@
 
 namespace App\Eloquent\Models;
 
-use App\Enums\Posts\Status;
+use App\Enums\Post\Status;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Eloquent\Models\Category $category
+ * @property-read \App\Eloquent\Models\Image|null $image
  * @property-read \App\Eloquent\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Post newQuery()
@@ -56,6 +58,7 @@ class Post extends Model
         'title',
         'status',
         'intro',
+        'content',
         'slug',
         'video_url',
         'user_id',
@@ -80,5 +83,10 @@ class Post extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function image(): BelongsTo
+    {
+        return $this->belongsTo(Image::class, 'image_id', 'id');
     }
 }

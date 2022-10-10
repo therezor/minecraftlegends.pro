@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Panel;
 
-use App\Enums\Roles\Permission;
+use App\Enums\Role\Permission;
 
 class CategoryController extends BaseCrudController
 {

@@ -15,17 +15,10 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedBigInteger('parent_id')->index()->nullable();
-            $table->string('storage');
+            $table->string('disk');
             $table->string('directory');
             $table->string('filename');
-            $table->string('mime_type');
-            $table->unsignedInteger('size');
-            $table->unsignedInteger('width');
-            $table->unsignedInteger('height');
             $table->timestamps();
-
-            $table->foreign('parent_id')->references('id')->on('images')->onDelete('cascade');
         });
     }
 

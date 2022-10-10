@@ -2,12 +2,12 @@
 
 namespace App\Http\Components\Panel\Roles;
 
-use App\Eloquent\Repositories\Criteria\OrderByCriteria;
-use App\Eloquent\Repositories\Criteria\SearchCriteria;
-use App\Eloquent\Repositories\Criteria\WithCountCriteria;
 use App\Eloquent\Repositories\RoleRepository;
-use App\Enums\Roles\Permission;
+use App\Enums\Role\Permission;
 use App\Http\Components\Panel\BaseTable;
+use App\Repositories\OrderByCriteria;
+use App\Repositories\SearchCriteria;
+use App\Repositories\WithCountCriteria;
 
 class Table extends BaseTable
 {

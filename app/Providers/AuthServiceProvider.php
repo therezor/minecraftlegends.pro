@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Eloquent\Models\User;
-use App\Enums\Roles\Permission;
+use App\Enums\Role\Permission;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 

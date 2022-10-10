@@ -1,7 +1,10 @@
-<nav class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-light border-bottom border-bottom-lg-0 border-end-lg" id="navbarVertical">
+<nav
+    class="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 navbar-light bg-light border-bottom border-bottom-lg-0 border-end-lg"
+    id="navbarVertical">
     <div class="container-fluid">
         <!-- Toggler -->
-        <button class="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse"
+                aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Brand -->
@@ -12,44 +15,49 @@
         <div class="collapse navbar-collapse" id="sidebarCollapse">
             <!-- Navigation -->
             <ul class="navbar-nav">
-                @can(\App\Enums\Roles\Permission::DASHBOARD_VIEW->value)
-                <li class="nav-item">
-                    <a class="nav-link @if(Route::is('panel.index')) active @endif" href="{{ route('panel.index') }}">
-                        <i class="bi bi-house"></i> {{ __('Dashboard') }}
-                    </a>
-                </li>
+                @can(\App\Enums\Role\Permission::DASHBOARD_VIEW->value)
+                    <li class="nav-item">
+                        <a class="nav-link @if(Route::is('panel.index')) active @endif"
+                           href="{{ route('panel.index') }}">
+                            <i class="bi bi-house"></i> {{ __('Dashboard') }}
+                        </a>
+                    </li>
                 @endcan
 
-                @can(\App\Enums\Roles\Permission::POSTS_LIST->value)
+                @can(\App\Enums\Role\Permission::POSTS_LIST->value)
                     <li class="nav-item">
-                        <a class="nav-link @if(Route::is('panel.posts.*')) active @endif" href="{{ route('panel.posts.index') }}">
+                        <a class="nav-link @if(Route::is('panel.posts.*')) active @endif"
+                           href="{{ route('panel.posts.index') }}">
                             <i class="bi bi-journals"></i> {{ __('Posts') }}
                         </a>
                     </li>
                 @endcan
 
-                @can(\App\Enums\Roles\Permission::CATEGORIES_LIST->value)
+                @can(\App\Enums\Role\Permission::CATEGORIES_LIST->value)
                     <li class="nav-item">
-                        <a class="nav-link @if(Route::is('panel.categories.*')) active @endif" href="{{ route('panel.categories.index') }}">
+                        <a class="nav-link @if(Route::is('panel.categories.*')) active @endif"
+                           href="{{ route('panel.categories.index') }}">
                             <i class="bi bi-folder"></i> {{ __('Categories') }}
                         </a>
                     </li>
                 @endcan
 
-                @can(\App\Enums\Roles\Permission::USERS_LIST->value)
-                <li class="nav-item">
-                    <a class="nav-link @if(Route::is('panel.users.*')) active @endif" href="{{ route('panel.users.index') }}">
-                        <i class="bi bi-people"></i> {{ __('Users') }}
-                    </a>
-                </li>
+                @can(\App\Enums\Role\Permission::USERS_LIST->value)
+                    <li class="nav-item">
+                        <a class="nav-link @if(Route::is('panel.users.*')) active @endif"
+                           href="{{ route('panel.users.index') }}">
+                            <i class="bi bi-people"></i> {{ __('Users') }}
+                        </a>
+                    </li>
                 @endcan
 
-                @can(\App\Enums\Roles\Permission::ROLES_LIST->value)
-                <li class="nav-item">
-                    <a class="nav-link @if(Route::is('panel.roles.*')) active @endif" href="{{ route('panel.roles.index') }}">
-                        <i class="bi bi-shield-lock"></i> {{ __('Roles') }}
-                    </a>
-                </li>
+                @can(\App\Enums\Role\Permission::ROLES_LIST->value)
+                    <li class="nav-item">
+                        <a class="nav-link @if(Route::is('panel.roles.*')) active @endif"
+                           href="{{ route('panel.roles.index') }}">
+                            <i class="bi bi-shield-lock"></i> {{ __('Roles') }}
+                        </a>
+                    </li>
                 @endcan
             </ul>
             <!-- Divider -->

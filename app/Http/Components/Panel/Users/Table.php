@@ -2,11 +2,11 @@
 
 namespace App\Http\Components\Panel\Users;
 
-use App\Eloquent\Repositories\Criteria\OrderByCriteria;
-use App\Eloquent\Repositories\Criteria\SearchCriteria;
 use App\Eloquent\Repositories\UserRepository;
-use App\Enums\Roles\Permission;
+use App\Enums\Role\Permission;
 use App\Http\Components\Panel\BaseTable;
+use App\Repositories\OrderByCriteria;
+use App\Repositories\SearchCriteria;
 
 class Table extends BaseTable
 {

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Panel;
-use App\Enums\Roles\Permission;
+use App\Enums\Role\Permission;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,8 +29,7 @@ Route::group(['prefix' => 'panel', 'as' => 'panel.', 'middleware' => ['auth']], 
         ->only(['index', 'create', 'edit']);
 
     Route::resource('users', Panel\UserController::class)
-        ->whereNumber('user')
-        ->only(['index', 'create', 'edit']);
+        ->whereNumber('user');
 
     Route::resource('categories', Panel\CategoryController::class)
         ->whereNumber('category')
