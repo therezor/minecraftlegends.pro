@@ -2,30 +2,20 @@
 
 namespace App\Http\Components\Panel\Posts;
 
-use App\Eloquent\Models\Category;
 use App\Eloquent\Models\Post;
 use App\Eloquent\Repositories\CategoryRepository;
 use App\Eloquent\Repositories\ImageRepository;
 use App\Eloquent\Repositories\PostRepository;
-use App\Enums\Post\Status;
-use App\Http\Components\Panel\BaseForm;
-use App\Rules\YoutubeRule;
-use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Enum;
 use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
+use Livewire\Component;
 
-class Form extends BaseForm
+class Form extends Component
 {
     use WithFileUploads;
 
-    public string $title = '';
-    public string $slug = '';
-    public string $intro = '';
-    public ?string $videoUrl = null;
-    public ?string $status = null;
-    public ?int $categoryId = null;
-    public ?string $imageUrl = null;
+    public Post $entity;
+
     public array $blocks = [
         1 => [
             'title' => '',
@@ -40,6 +30,11 @@ class Form extends BaseForm
     protected PostRepository $postRepository;
     protected CategoryRepository $categoryRepository;
     protected ImageRepository $imageRepository;
+
+    public function mount(Post $entity)
+    {
+        $this->entity = $entity;
+    }
 
     public function boot(PostRepository $postRepository, CategoryRepository $categoryRepository, ImageRepository $imageRepository)
     {
@@ -57,7 +52,8 @@ class Form extends BaseForm
 
     public function submit()
     {
-        dd($this->blocks);
+        dd($this->entity);
+        return;
         $this->validate();
 
         $attributes = [
@@ -141,37 +137,10 @@ class Form extends BaseForm
     protected function rules(): array
     {
         return [
-            'title' => [
-                'string',
-                'required',
-                'max:255',
-            ],
-            'slug' => [
-                'string',
-                'required',
-                'alpha_dash',
-                'max:255',
-                Rule::unique(Post::class, 'slug')->ignore($this->itemId)->withoutTrashed(),
-            ],
-            'status' => [
-                'required',
-                new Enum(Status::class),
-            ],
-            'intro' => [
-                'string',
-                'max:65000',
-            ],
-            'categoryId' => [
-                'nullable',
-                Rule::exists(Category::class, 'id')
-            ],
-            'videoUrl' => [
-                'nullable',
-                'string',
-                'max:255',
-                'url',
-                new YoutubeRule(),
-            ],
+            'entity.title' => $this->entity->getValidationRules()['title'],
+            'entity.slug' => $this->entity->getValidationRules()['slug'],
+            'entity.description' => $this->entity->getValidationRules()['description'],
+            'entity.status' => $this->entity->getValidationRules()['status'],
         ];
     }
 }

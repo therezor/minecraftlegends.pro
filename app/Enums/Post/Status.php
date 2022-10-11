@@ -4,11 +4,11 @@ namespace App\Enums\Post;
 
 use App\Enums\Selectable;
 
-enum Status: string
+enum Status: int
 {
     use Selectable;
 
-    case DRAFT = 'DRAFT';
-    case PUBLISHED = 'PUBLISHED';
-    case ARCHIVE = 'ARCHIVE';
+    case DRAFT = 0;
+    case PUBLISHED = 1;
+    case ARCHIVE = 2;
 }

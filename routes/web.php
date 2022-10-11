@@ -37,8 +37,7 @@ Route::group(['prefix' => 'panel', 'as' => 'panel.', 'middleware' => ['auth']], 
         ->whereNumber('page');
 
     Route::resource('posts', Panel\PostController::class)
-        ->whereNumber('category')
-        ->only(['index', 'create', 'edit']);
+        ->whereNumber('post');
 });
 
 require __DIR__.'/auth.php';

@@ -33,12 +33,36 @@ class Page extends Model implements HasTranslation, HasValidation
     public function getValidationRules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'alpha_dash', 'max:255'],
-            'description' => ['nullable', 'string', 'max:500'],
-            'content' => ['required', 'string'],
-            'og_title' => ['nullable', 'string', 'max:255'],
-            'og_description' => ['nullable', 'string', 'max:255'],
+            'title' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+            'slug' => [
+                'required',
+                'alpha_dash',
+                'max:255',
+                Rule::unique(Page::class, 'slug')->withoutTrashed()->ignore($this->id),
+            ],
+            'description' => [
+                'nullable',
+                'string',
+                'max:500',
+            ],
+            'content' => [
+                'required',
+                'string',
+            ],
+            'og_title' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
+            'og_description' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
         ];
     }
 

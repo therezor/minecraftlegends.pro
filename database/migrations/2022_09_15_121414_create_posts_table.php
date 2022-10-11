@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->index()->unsigned();
-            $table->tinyInteger('visibility')->unsigned()->index()->default(0);;
-            $table->tinyInteger('type')->unsigned()->index()->default(0);
             $table->tinyInteger('featured')->unsigned()->index()->default(0)->nullable();
             $table->tinyInteger('status')->unsigned()->index()->default(0)->nullable();
+
+            $table->unsignedTinyInteger('per_page')->nullable();
 
             $table->unsignedBigInteger('image_id')->index()->nullable();
             $table->string('title');

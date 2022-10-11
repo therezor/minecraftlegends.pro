@@ -1,8 +1,6 @@
 <?php
 
-namespace App\Fields\Helpers;
-
-use App\Fields\Contracts\Field;
+namespace App\Fields\Contracts;
 
 interface LabelCallback
 {
