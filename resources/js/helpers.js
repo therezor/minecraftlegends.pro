@@ -8,6 +8,34 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    let editorTriggerList = [].slice.call(document.querySelectorAll('.html-editor'))
+    editorTriggerList.map(function (editorTriggerEl) {
+        if (ClassicEditor !== undefined) {
+            editorTriggerEl.required = false;
+            ClassicEditor.create(editorTriggerEl);
+        }
+    });
+
+    // Slug
+    let slugTriggerList = [].slice.call(document.querySelectorAll('input[data-slug-input]'))
+    slugTriggerList.map(function (slugTriggerEl) {
+        slugTriggerEl.oninput = function (event) {
+            let title = document.querySelector(event.target.getAttribute('data-slug-input'));
+            title.value = event.target.value.toString()
+                .toLowerCase()
+                .normalize('NFD')                   // split an accented letter in the base letter and the acent
+                .replace(/[\u0300-\u036f]/g, '')   // remove all previously split accents
+                .replace(/\s+/g, '-') // Replace spaces with -
+                .replace(/&/g, '-and-') // Replace & with 'and'
+                .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+                .replace(/\-\-+/g, '-') // Replace multiple - with single -
+                .trim();
+
+            title.dispatchEvent(new Event('input')); // For livewire
+        }
+    });
+
+
     // Link with method
     let linkTriggerList = [].slice.call(document.querySelectorAll('a[data-method]'))
     linkTriggerList.map(function (linkTriggerEl) {

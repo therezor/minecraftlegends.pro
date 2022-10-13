@@ -4,7 +4,7 @@ namespace App\Enums\Menu;
 
 enum Type: string
 {
-    case MAIN = 'main';
-    case MEGA = 'mega';
-    case FOOTER = 'footer';
+    case MAIN = 'MAIN';
+    case MEGA = 'MEGA';
+    case FOOTER = 'FOOTER';
 }

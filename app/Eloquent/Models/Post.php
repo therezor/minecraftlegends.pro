@@ -8,6 +8,7 @@ use App\Enums\Post\Featured;
 use App\Enums\Post\Status;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
@@ -126,5 +127,10 @@ class Post extends Model implements HasTranslation, HasValidation
     public function ogImage(): BelongsTo
     {
         return $this->belongsTo(Image::class, 'og_image_id', 'id');
+    }
+
+    public function blocks(): HasMany
+    {
+        return $this->hasMany(Block::class, 'post_id', 'id');
     }
 }

@@ -6,6 +6,7 @@ use App\Eloquent\Models\Post;
 use App\Eloquent\Repositories\CategoryRepository;
 use App\Eloquent\Repositories\ImageRepository;
 use App\Eloquent\Repositories\PostRepository;
+use App\Eloquent\Models\Block;
 use Livewire\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
 use Livewire\Component;
@@ -16,15 +17,6 @@ class Form extends Component
 
     public Post $entity;
 
-    public array $blocks = [
-        1 => [
-            'title' => '',
-            'imageUrl' => null,
-            'imageUpload' => null,
-            'video_url' => '',
-            'content' => '',
-        ],
-    ];
     public TemporaryUploadedFile|string|null $imageUpload = null;
 
     protected PostRepository $postRepository;
@@ -52,9 +44,10 @@ class Form extends Component
 
     public function submit()
     {
+        $this->validate();
         dd($this->entity);
         return;
-        $this->validate();
+
 
         $attributes = [
             'title' => $this->title,
@@ -70,6 +63,11 @@ class Form extends Component
             : $this->create($attributes);
 
         return redirect()->route($this->routePrefix . '.index');
+    }
+
+    public function addTextBlock()
+    {
+        $this->entity->blocks->add(new Block());
     }
 
     public function updatedImageUpload()

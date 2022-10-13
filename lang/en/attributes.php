@@ -18,6 +18,9 @@ return [
     'description' => 'Description',
     'og_title' => 'OG Title',
     'og_description' => 'OG Description',
+    'status' => 'Status',
+    'image_id' => 'Image',
+    'og_image_id' => 'OG Image',
 
     'users_count' => 'Users',
     'posts_count' => 'Posts',

@@ -13,10 +13,6 @@
 
 @section('content')
     <div class="row g-5">
-        <div class="card">
-            <div class="card-body">
-                @livewire('panel.posts.form', ['entity' => $entity])
-            </div>
-        </div>
+        @livewire('panel.posts.form', ['entity' => $entity])
     </div>
 @endsection

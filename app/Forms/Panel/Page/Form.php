@@ -8,7 +8,11 @@ class Form extends BaseForm
 {
     public function buildForm()
     {
-        $this->add('title', 'text');
+        $this->add('title', 'text', [
+            'attr' => [
+                'data-slug-input' => "#slug",
+            ],
+        ]);
         $this->add('slug', 'text');
         $this->add('og_title', 'text');
         $this->add('og_description', 'text');
