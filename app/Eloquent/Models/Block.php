@@ -63,12 +63,12 @@ class Block extends Model implements HasTranslation, HasValidation
                 'max:255',
             ],
             'title' => [
-                'required',
+                'nullable',
                 'string',
                 'max:255',
             ],
             'description' => [
-                'required',
+                'nullable',
                 'string',
                 'max:500',
             ],

@@ -168,6 +168,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        '*.image_id' => 'image',
+    ],
 
 ];

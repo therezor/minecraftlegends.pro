@@ -4,6 +4,7 @@ namespace App\Eloquent\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * App\Eloquent\Models\Image
@@ -52,8 +53,8 @@ class Image extends Model
         return url('/storage/' . $this->directory . $this->filename);
     }
 
-    public function getThumbnailAttribute()
+    public function getStoragePathAttribute()
     {
-        return url('/storage/' . $this->directory . 'thumbnail_' . $this->filename);
+        return Storage::disk($this->disk)->path($this->directory . $this->filename);
     }
 }

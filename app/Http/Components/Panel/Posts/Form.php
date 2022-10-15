@@ -7,32 +7,35 @@ use App\Eloquent\Repositories\CategoryRepository;
 use App\Eloquent\Repositories\ImageRepository;
 use App\Eloquent\Repositories\PostRepository;
 use App\Eloquent\Models\Block;
-use Livewire\TemporaryUploadedFile;
-use Livewire\WithFileUploads;
+use App\Eloquent\Transformers\BlockTransformer;
+use App\Eloquent\Transformers\PostTransformer;
+use App\Enums\Block\Type;
 use Livewire\Component;
+use App\Http\Components\Traits\WithImageUploads;
 
 class Form extends Component
 {
-    use WithFileUploads;
+    use WithImageUploads;
 
+    public array $post = [];
+    public int $counter = 0;
     public Post $entity;
-
-    public TemporaryUploadedFile|string|null $imageUpload = null;
 
     protected PostRepository $postRepository;
     protected CategoryRepository $categoryRepository;
-    protected ImageRepository $imageRepository;
-
-    public function mount(Post $entity)
-    {
-        $this->entity = $entity;
-    }
 
     public function boot(PostRepository $postRepository, CategoryRepository $categoryRepository, ImageRepository $imageRepository)
     {
         $this->postRepository = $postRepository;
         $this->categoryRepository = $categoryRepository;
         $this->imageRepository = $imageRepository;
+    }
+
+    public function mount()
+    {
+        $this->post = (new PostTransformer($this->entity))->toArray();
+
+        $this->post['blocks'][] = (new BlockTransformer(new Block(['type' => Type::TEXT])))->toArray();
     }
 
     public function render()
@@ -45,18 +48,9 @@ class Form extends Component
     public function submit()
     {
         $this->validate();
-        dd($this->entity);
+        dd($this->post);
         return;
 
-
-        $attributes = [
-            'title' => $this->title,
-            'slug' => $this->slug,
-            'intro' => $this->intro,
-            'status' => $this->status,
-            'category_id' => $this->categoryId,
-            'video_url' => $this->videoUrl,
-        ];
 
         $this->itemId
             ? $this->update($attributes)
@@ -65,80 +59,49 @@ class Form extends Component
         return redirect()->route($this->routePrefix . '.index');
     }
 
-    public function addTextBlock()
+    public function addBlock(string $type)
     {
-        $this->entity->blocks->add(new Block());
+        $this->post['blocks'][] = (new BlockTransformer(new Block(['type' => $type])))->toArray();
     }
 
-    public function updatedImageUpload()
+    public function moveBlockUp(int $key)
     {
-        $this->validate([
-            'imageUpload' => ['image', 'max:10240'],
-        ]);
-
-        $this->imageUrl = ($this->imageUpload instanceof TemporaryUploadedFile)
-            ? $this->imageUpload->temporaryUrl()
-            : null;
-    }
-
-    public function removeImage()
-    {
-        $this->imageUpload = null;
-        $this->imageUrl = null;
-    }
-
-    protected function fillProperties()
-    {
-        /** @var Post $item */
-        $item = $this->postRepository->findOrFail($this->itemId);
-        $this->title = $item->title;
-        $this->slug = $item->slug;
-        $this->intro = $item->intro;
-        $this->status = $item->status->value;
-        $this->categoryId = $item->category_id;
-        $this->videoUrl = $item->video_url;
-        $this->imageUrl = $item->image_id ? $item->image->url : null;
-    }
-
-    protected function update(array $attributes)
-    {
-        if (!$this->imageUrl) {
-            $attributes['image_id'] = null;
+        if (!isset($this->post['blocks'][$key - 1])) {
+            return;
         }
-
-        if ($this->imageUpload) {
-            $attributes['image_id'] = $this->imageRepository->upload($this->imageUpload)->id;
-        }
-
-        $this->postRepository->update($this->itemId, $attributes);
-
-        if (!$this->imageUrl) {
-            // Delete old image
-            /** @var Post $item */
-            $item = $this->postRepository->findOrFail($this->itemId);
-            if ($item->image_id) {
-                $this->imageRepository->delete($item->image_id);
-            }
-        }
+        $buffer = $this->post['blocks'][$key];
+        $this->post['blocks'][$key] = $this->post['blocks'][$key - 1];
+        $this->post['blocks'][$key - 1] = $buffer;
     }
 
-    protected function create(array $attributes)
+    public function moveBlockDown(int $key)
     {
-        $attributes['user_id'] = auth()->id();
-        if ($this->imageUpload) {
-            $attributes['image_id'] = $this->imageRepository->upload($this->imageUpload)->id;
+        if (!isset($this->post['blocks'][$key + 1])) {
+            return;
         }
+        $buffer = $this->post['blocks'][$key];
+        $this->post['blocks'][$key] = $this->post['blocks'][$key + 1];
+        $this->post['blocks'][$key + 1] = $buffer;
+    }
 
-        $this->postRepository->create($attributes);
+    public function removeBlock(int $key)
+    {
+        unset($this->post['blocks'][$key]);
     }
 
     protected function rules(): array
     {
+
         return [
-            'entity.title' => $this->entity->getValidationRules()['title'],
-            'entity.slug' => $this->entity->getValidationRules()['slug'],
-            'entity.description' => $this->entity->getValidationRules()['description'],
-            'entity.status' => $this->entity->getValidationRules()['status'],
+            'post.title' => $this->entity->getValidationRules()['title'],
+            'post.slug' => $this->entity->getValidationRules()['slug'],
+            'post.description' => $this->entity->getValidationRules()['description'],
+            'post.status' => $this->entity->getValidationRules()['status'],
+            'post.image_id' => $this->entity->getValidationRules()['image_id'],
+
+            'post.blocks.*.title' => [],
+            'post.blocks.*.description' => [],
+            'post.blocks.*.data' => [],
         ];
     }
 }

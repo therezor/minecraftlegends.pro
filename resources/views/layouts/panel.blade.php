@@ -42,7 +42,9 @@
 </div>
 
 <script defer src="{{ mix('js/panel.js') }}"></script>
-<script defer src="{{ mix('js/classic-editor.js') }}"></script>
+<script defer src="{{ mix('js/html-editor.js') }}"></script>
+
+@stack('scripts')
 @livewireScripts
 </body>
 </html>

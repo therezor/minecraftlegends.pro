@@ -1,15 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Html Editor
-    let editorTriggerList = [].slice.call(document.querySelectorAll('.html-editor'))
-    editorTriggerList.map(function (editorTriggerEl) {
-        if (ClassicEditor !== undefined) {
-            editorTriggerEl.required = false;
-            ClassicEditor.create(editorTriggerEl);
-        }
-    });
-
-    let editorTriggerList = [].slice.call(document.querySelectorAll('.html-editor'))
-    editorTriggerList.map(function (editorTriggerEl) {
+    let classicEditorTriggerList = [].slice.call(document.querySelectorAll('.html-editor'))
+    classicEditorTriggerList.map(function (editorTriggerEl) {
         if (ClassicEditor !== undefined) {
             editorTriggerEl.required = false;
             ClassicEditor.create(editorTriggerEl);
