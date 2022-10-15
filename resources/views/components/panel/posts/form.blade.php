@@ -73,7 +73,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <x-form-select name="categoryId" :options="['' => ''] + $categoriesSelect" />
+                        <x-form-select name="categoryId" class="multi-select" :options="$categoriesSelect" />
                     </div>
 
                     <div class="mb-4">
