@@ -21,6 +21,7 @@ return [
     'status' => 'Status',
     'image_id' => 'Image',
     'og_image_id' => 'OG Image',
+    'categories' => 'Categories',
 
     'users_count' => 'Users',
     'posts_count' => 'Posts',

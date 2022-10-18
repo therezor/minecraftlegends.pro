@@ -81,9 +81,3 @@
   * Copyright 2011-2022 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
-
-/*!
-  * BsMultiSelect v1.1.18 (https://dashboardcode.github.io/BsMultiSelect/)
-  * Copyright 2017-2021 Roman Pokrovskij (github user rpokrovskij)
-  * Licensed under Apache 2 (https://github.com/DashboardCode/BsMultiSelect/blob/master/LICENSE)
-  */

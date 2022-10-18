@@ -28,6 +28,7 @@ class PostTransformer
             'og_image_id' => $this->post->og_image_id,
             'og_title' => $this->post->og_title,
             'og_description' => $this->post->og_description,
+            'category_ids' => $this->post->categories->pluck('id')->toArray(),
             'blocks' => $this->post->blocks
                 ->map(fn (Block $block) => (new BlockTransformer($block))->toArray())
                 ->toArray(),

@@ -19,7 +19,6 @@ class BlockTransformer
         return [
             'id' => $this->block->id,
             'type' => $this->block->type->value,
-            'display_order' => $this->block->display_order,
             'title' => $this->block->title,
             'description' => $this->block->description,
             'data' => $this->block->data,

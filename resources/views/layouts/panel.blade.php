@@ -45,6 +45,6 @@
 <script defer src="{{ mix('js/html-editor.js') }}"></script>
 
 @stack('scripts')
-@livewireScripts
+
 </body>
 </html>

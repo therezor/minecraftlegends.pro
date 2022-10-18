@@ -17,6 +17,7 @@ mix.setPublicPath('public/')
     .sass('resources/css/bootstrap-icons.scss', 'css/bootstrap-icons.css')
     .js('resources/js/app.js', 'js/app.js')
     .js('resources/js/panel.js', 'js/panel.js')
+    .js('resources/js/post-editor.js', 'js/post-editor.js')
     .version('public/js/html-editor.js')
     .sourceMaps();
 

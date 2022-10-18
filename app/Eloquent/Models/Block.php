@@ -70,7 +70,7 @@ class Block extends Model implements HasTranslation, HasValidation
             'description' => [
                 'nullable',
                 'string',
-                'max:500',
+                'max:65000',
             ],
             'data' => [
                 'nullable',

@@ -4,11 +4,13 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="mb-4">
-                        <x-form-input required name="post.title" data-slug-input="#auto_id_entity\.slug" label="{{ trans('attributes.title') }}"/>
-                    </div>
-
-                    <div class="mb-4">
-                        <x-form-input required name="post.slug" label="{{trans('attributes.slug') }}"/>
+                        <a class="text-muted" data-bs-toggle="collapse" href="#collapse-slug" role="button" aria-expanded="false">
+                            <i class="bi bi-link"></i>
+                        </a>
+                        <x-form-input required name="post.title" data-slug-input="#slug-input" label="{{ trans('attributes.title') }}"/>
+                        <div id="collapse-slug" class="collapse mt-4">
+                            <x-form-input required name="post.slug" id="slug-input" placeholder="{{trans('attributes.slug') }}"/>
+                        </div>
                     </div>
 
                     <div class="mb-4">
@@ -34,7 +36,8 @@
                 </div>
             @endforeach
 
-            <div class="row g-5">
+            @if(count($post['blocks']) <= 24)
+                <div class="row g-5">
                 <div class="col-md-3 col-6">
                     <button wire:click.prevent="addBlock('{{ \App\Enums\Block\Type::TEXT->value }}')" wire:loading.attr="disabled" class="form-item-click align-items-center justify-content-center form-control h-24 border-primary-hover">
                         <i class="bi bi-card-text text-muted h1"></i>
@@ -63,7 +66,7 @@
                     </button>
                 </div>
             </div>
-
+            @endif
         </div>
         <div class="col-md-4">
             <div class="card position-sticky top-0">
@@ -73,7 +76,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <x-form-select name="categoryId" class="multi-select" :options="$categoriesSelect" />
+                        <x-form-select name="post.category_ids" class="multi-select" multiple :options="$categoriesSelect" label="{{ trans('attributes.categories') }}" />
                     </div>
 
                     <div class="mb-4">
@@ -92,48 +95,6 @@
 </x-form>
 
 @push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            function initializeEditor(el) {
-                if (el.classList.contains('block-item')) {
-                    [].slice.call(el.querySelectorAll('.text-editor')).map(function (editorTriggerEl) {
-                        if (ClassicEditor !== undefined) {
-                            editorTriggerEl.required = false;
-                            ClassicEditor.create(editorTriggerEl, {
-                                toolbar: {
-                                    items: [
-                                        'heading', '|',
-                                        'bold', 'italic',  'link', 'bulletedList', 'numberedList', '|',
-                                        'outdent', 'indent', '|',
-                                        'undo', 'redo', 'removeFormat'
-                                    ],
-                                    shouldNotGroupWhenFull: true
-                                },
-                                heading: {
-                                    options: [
-                                        { model: 'paragraph', title: 'Paragraph' },
-                                        { model: 'heading3', view: 'h3', title: 'Heading 1', class: 'ck-heading_heading1' },
-                                        { model: 'heading4', view: 'h4', title: 'Heading 2', class: 'ck-heading_heading2' },
-                                        { model: 'heading5', view: 'h5', title: 'Heading 3', class: 'ck-heading_heading3' }
-                                    ]
-                                }
-                            }).then( editor => {
-                                editor.model.document.on('change:data', async () => {
-                                    editorTriggerEl.value = editor.getData();
-                                    editorTriggerEl.dispatchEvent(new Event('input'));
-                                });
-                            });
-                        }
-                    });
-                }
-            }
-
-            Livewire.hook('element.initialized', (el, component) => {
-                initializeEditor(el);
-            });
-            Livewire.hook('element.updated', (el, component) => {
-                initializeEditor(el);
-            })
-        });
-    </script>
+    <script src="{{ mix('js/post-editor.js') }}"></script>
+    @livewireScripts
 @endpush

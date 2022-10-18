@@ -10,6 +10,8 @@ use App\Eloquent\Models\Block;
 use App\Eloquent\Transformers\BlockTransformer;
 use App\Eloquent\Transformers\PostTransformer;
 use App\Enums\Block\Type;
+use Embed\Embed;
+use Illuminate\Validation\Rules\Enum;
 use Livewire\Component;
 use App\Http\Components\Traits\WithImageUploads;
 
@@ -23,12 +25,18 @@ class Form extends Component
 
     protected PostRepository $postRepository;
     protected CategoryRepository $categoryRepository;
+    protected Embed $embed;
 
-    public function boot(PostRepository $postRepository, CategoryRepository $categoryRepository, ImageRepository $imageRepository)
-    {
+    public function boot(
+        PostRepository $postRepository,
+        CategoryRepository $categoryRepository,
+        ImageRepository $imageRepository,
+        Embed $embed
+    ) {
         $this->postRepository = $postRepository;
         $this->categoryRepository = $categoryRepository;
         $this->imageRepository = $imageRepository;
+        $this->embed = $embed;
     }
 
     public function mount()
@@ -49,6 +57,7 @@ class Form extends Component
     {
         $this->validate();
         dd($this->post);
+
         return;
 
 
@@ -89,9 +98,30 @@ class Form extends Component
         unset($this->post['blocks'][$key]);
     }
 
+    public function uploadVideo(int $key)
+    {
+        if (empty($this->post['blocks'][$key])) {
+            return;
+        }
+
+        try {
+            $embedCode = $this->embed->get($this->post['blocks'][$key]['data']['video_url'] ?? '');
+
+            $this->post['blocks'][$key]['title'] = (string) $embedCode->title;
+            $this->post['blocks'][$key]['data']['embed_code'] = (string) $embedCode->code;
+        } catch (\Throwable $e) {
+            return;
+        }
+    }
+
+    public function removeVideo(int $key)
+    {
+        unset($this->post['blocks'][$key]['data']['video_url']);
+        unset($this->post['blocks'][$key]['data']['embed_code']);
+    }
+
     protected function rules(): array
     {
-
         return [
             'post.title' => $this->entity->getValidationRules()['title'],
             'post.slug' => $this->entity->getValidationRules()['slug'],
@@ -99,9 +129,39 @@ class Form extends Component
             'post.status' => $this->entity->getValidationRules()['status'],
             'post.image_id' => $this->entity->getValidationRules()['image_id'],
 
-            'post.blocks.*.title' => [],
-            'post.blocks.*.description' => [],
-            'post.blocks.*.data' => [],
+            'post.blocks.*.type' => [
+                'required',
+                new Enum(Type::class),
+            ],
+            'post.blocks.*.title' => [
+                'required_if:post.blocks.*.type,' . Type::TEXT->value,
+                'required_if:post.blocks.*.type,' . Type::LIST->value,
+                'nullable',
+                'string',
+                'max:255',
+            ],
+            'post.blocks.*.description' =>  [
+                'required_if:post.blocks.*.type,' . Type::TEXT->value,
+                'nullable',
+                'string',
+                'max:65000',
+            ],
+            'post.blocks.*.data' => [
+                'nullable',
+                'array'
+            ],
+            'post.blocks.*.data.counter' => [
+                'required_if:post.blocks.*.type,' . Type::LIST->value,
+                'nullable',
+                'int',
+                'min:1',
+                'max:512',
+            ],
+            'post.blocks.*.data.url' => [
+                'required_if:post.blocks.*.type,' . Type::VIDEO->value,
+                'nullable',
+                'video_url'
+            ],
         ];
     }
 }

@@ -1,7 +1,8 @@
 {
-    "/js/app.js": "/js/app.js?id=5026fa6b6b35a42e6c85d8f8adcfe705",
-    "/js/panel.js": "/js/panel.js?id=22996ac8ce5aa8e291ad882f7f00d307",
-    "/css/bootstrap-icons.css": "/css/bootstrap-icons.css?id=5517e45fd117d08262ca612c72635efa",
-    "/css/app.css": "/css/app.css?id=44b0dbd051f9560f05e8c0057676ff81",
+    "/js/app.js": "/js/app.js?id=81867228cb8b36b8f8ffa7492d2deb39",
+    "/js/panel.js": "/js/panel.js?id=5c5ddab91709a549bb283bff88301746",
+    "/js/post-editor.js": "/js/post-editor.js?id=81bf59f93a2bf07b796b676106f841bd",
+    "/css/bootstrap-icons.css": "/css/bootstrap-icons.css?id=d5222db3a81541e32a2f901cec023619",
+    "/css/app.css": "/css/app.css?id=6192f9fe060561c227a010554bd4ed99",
     "/js/html-editor.js": "/js/html-editor.js?id=b5ceaee09a95129c6f603e4015338a8e"
 }

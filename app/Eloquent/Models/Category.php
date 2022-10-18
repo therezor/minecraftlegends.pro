@@ -5,6 +5,7 @@ namespace App\Eloquent\Models;
 use App\Eloquent\Models\Contracts\HasTranslation;
 use App\Eloquent\Models\Contracts\HasValidation;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Validation\Rule;
@@ -47,6 +48,7 @@ class Category extends Model implements HasTranslation, HasValidation
         'name',
         'icon',
     ];
+
     public function getTranslationPrefix(): string
     {
         return 'attributes';
@@ -71,8 +73,8 @@ class Category extends Model implements HasTranslation, HasValidation
         ];
     }
 
-    public function posts(): HasMany
+    public function posts(): BelongsToMany
     {
-        return $this->hasMany(Post::class, 'category_id', 'id');
+        return $this->belongsToMany(Post::class, 'post_category', 'category_id', 'post_id');
     }
 }

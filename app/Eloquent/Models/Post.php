@@ -8,6 +8,7 @@ use App\Enums\Post\Featured;
 use App\Enums\Post\Status;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Validation\Rule;
@@ -132,5 +133,10 @@ class Post extends Model implements HasTranslation, HasValidation
     public function blocks(): HasMany
     {
         return $this->hasMany(Block::class, 'post_id', 'id');
+    }
+
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class, 'post_category', 'post_id', 'category_id');
     }
 }
