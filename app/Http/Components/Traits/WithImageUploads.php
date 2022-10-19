@@ -5,7 +5,6 @@ namespace App\Http\Components\Traits;
 use App\Eloquent\Repositories\ImageRepository;
 use Illuminate\Validation\ValidationException;
 use Livewire\FileUploadConfiguration;
-use Livewire\TemporaryUploadedFile;
 use Facades\Livewire\GenerateSignedUploadUrl;
 
 trait WithImageUploads
@@ -22,7 +21,7 @@ trait WithImageUploads
         foreach ($tmpPath as $path) {
             $images = [];
             $path = storage_path('app/' . FileUploadConfiguration::directory() . $path);
-            $images[] = $this->imageRepository->uploadFromPath($path)->id;
+            $images[] = $this->imageRepository->uploadFromPath($path, auth()->user())->id;
         }
 
         $this->emit('upload:finished', $name, $images)->self();

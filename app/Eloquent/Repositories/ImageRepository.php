@@ -3,6 +3,7 @@
 namespace App\Eloquent\Repositories;
 
 use App\Eloquent\Models\Image;
+use App\Eloquent\Models\User;
 use Illuminate\Support\Str;
 use Intervention\Image\Constraint;
 use Livewire\TemporaryUploadedFile;
@@ -22,7 +23,7 @@ class ImageRepository extends BaseRepository
         return Image::class;
     }
 
-    public function uploadFromPath(string $path)
+    public function uploadFromPath(string $path, User $user)
     {
         $file = $this->encodeImage($path, static::MAX_WIDTH, static::MAX_HEIGHT);
         $today = now()->toDateString();
@@ -35,6 +36,7 @@ class ImageRepository extends BaseRepository
             'disk' => static::DISK,
             'directory' => $directory,
             'filename' => $filename,
+            'user_id' => $user->id,
         ]);
     }
 

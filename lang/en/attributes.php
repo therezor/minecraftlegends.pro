@@ -22,6 +22,8 @@ return [
     'image_id' => 'Image',
     'og_image_id' => 'OG Image',
     'categories' => 'Categories',
+    'alt' => 'Alt',
+    'caption' => 'Caption',
 
     'users_count' => 'Users',
     'posts_count' => 'Posts',

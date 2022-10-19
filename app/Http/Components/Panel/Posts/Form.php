@@ -2,6 +2,7 @@
 
 namespace App\Http\Components\Panel\Posts;
 
+use App\Eloquent\Models\Image;
 use App\Eloquent\Models\Post;
 use App\Eloquent\Repositories\CategoryRepository;
 use App\Eloquent\Repositories\ImageRepository;
@@ -11,6 +12,7 @@ use App\Eloquent\Transformers\BlockTransformer;
 use App\Eloquent\Transformers\PostTransformer;
 use App\Enums\Block\Type;
 use Embed\Embed;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Component;
 use App\Http\Components\Traits\WithImageUploads;
@@ -157,10 +159,25 @@ class Form extends Component
                 'min:1',
                 'max:512',
             ],
-            'post.blocks.*.data.url' => [
+            'post.blocks.*.image_id' => [
+                'required_if:post.blocks.*.type,' . Type::IMAGE->value,
+                'nullable',
+                Rule::exists(Image::class, 'id'),
+            ],
+            'post.blocks.*.data.alt' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
+            'post.blocks.*.data.caption' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
+            'post.blocks.*.data.video_url' => [
                 'required_if:post.blocks.*.type,' . Type::VIDEO->value,
                 'nullable',
-                'video_url'
+                'url'
             ],
         ];
     }

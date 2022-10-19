@@ -20,11 +20,13 @@ return new class extends Migration
             $table->unsignedSmallInteger('display_order')->default(0)->index();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
+            $table->unsignedBigInteger('image_id')->index()->nullable();
             $table->json('data')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreign('image_id')->references('id')->on('images')->onDelete('set null');
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
         });
     }

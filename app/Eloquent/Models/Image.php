@@ -3,6 +3,7 @@
 namespace App\Eloquent\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 
@@ -38,14 +39,15 @@ class Image extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'user_id',
         'disk',
         'directory',
         'filename',
     ];
 
-    public function posts(): HasMany
+    public function user(): BelongsTo
     {
-        return $this->hasMany(Post::class, 'image_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function getUrlAttribute()

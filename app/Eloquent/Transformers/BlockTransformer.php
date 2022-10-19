@@ -21,6 +21,7 @@ class BlockTransformer
             'type' => $this->block->type->value,
             'title' => $this->block->title,
             'description' => $this->block->description,
+            'image_id' => $this->block->image_id,
             'data' => $this->block->data,
         ];
     }

@@ -4,12 +4,15 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="mb-4">
-                        <a class="text-muted" data-bs-toggle="collapse" href="#collapse-slug" role="button" aria-expanded="false">
+                        <a wire:ignore.self class="text-muted" data-bs-toggle="collapse" href="#collapse-slug" role="button" aria-expanded="false">
                             <i class="bi bi-link"></i>
                         </a>
                         <x-form-input required name="post.title" data-slug-input="#slug-input" label="{{ trans('attributes.title') }}"/>
-                        <div id="collapse-slug" class="collapse mt-4">
-                            <x-form-input required name="post.slug" id="slug-input" placeholder="{{trans('attributes.slug') }}"/>
+                        <div wire:ignore.self id="collapse-slug" class="collapse mt-4">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-text">&sol;</span>
+                                <x-form-input required class="form-control" name="post.slug" id="slug-input" placeholder="{{trans('attributes.slug') }}"/>
+                            </div>
                         </div>
                     </div>
 
@@ -41,28 +44,28 @@
                 <div class="col-md-3 col-6">
                     <button wire:click.prevent="addBlock('{{ \App\Enums\Block\Type::TEXT->value }}')" wire:loading.attr="disabled" class="form-item-click align-items-center justify-content-center form-control h-24 border-primary-hover">
                         <i class="bi bi-card-text text-muted h1"></i>
-                        <span class="text-muted text-sm d-block">Text</span>
+                        <span class="text-muted text-sm d-block">{{ __('Text') }}</span>
                     </button>
                 </div>
 
                 <div class="col-md-3 col-6">
                     <button wire:click.prevent="addBlock('{{ \App\Enums\Block\Type::LIST->value }}')" wire:loading.attr="disabled" class="mx-auto form-item-click align-items-center justify-content-center form-control h-24 border-primary-hover">
                         <i class="bi bi-card-list text-muted h1"></i>
-                        <span class="text-muted text-sm d-block">List</span>
+                        <span class="text-muted text-sm d-block">{{ __('List') }}</span>
                     </button>
                 </div>
 
                 <div class="col-md-3 col-6">
                     <button wire:click.prevent="addBlock('{{ \App\Enums\Block\Type::IMAGE->value }}')" wire:loading.attr="disabled" class="mx-auto form-item-click align-items-center justify-content-center form-control h-24 border-primary-hover">
                         <i class="bi bi-card-image text-muted h1"></i>
-                        <span class="text-muted text-sm d-block">Image</span>
+                        <span class="text-muted text-sm d-block">{{ __('Image') }}</span>
                     </button>
                 </div>
 
                 <div class="col-md-3 col-6">
                     <button wire:click.prevent="addBlock('{{ \App\Enums\Block\Type::VIDEO->value }}')" wire:loading.attr="disabled" class="mx-auto form-item-click align-items-center justify-content-center form-control h-24 border-primary-hover">
                         <i class="bi bi bi-play-btn text-muted h1"></i>
-                        <span class="text-muted text-sm d-block">Video</span>
+                        <span class="text-muted text-sm d-block">{{ __('Video') }}</span>
                     </button>
                 </div>
             </div>
