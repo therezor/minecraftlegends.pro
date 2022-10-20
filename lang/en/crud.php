@@ -17,6 +17,7 @@ return [
     'empty_result' => 'Empty...',
 
     'more' => 'More...',
+    'all'  => 'All',
 
     'show'    => 'View',
     'create'  => 'Create',

@@ -79,11 +79,19 @@
                     </div>
 
                     <div class="mb-4">
-                        <x-form-select name="post.category_ids" class="multi-select" multiple :options="$categoriesSelect" label="{{ trans('attributes.categories') }}" />
+                        <x-form-select required name="post.category_ids" class="multi-select" multiple :options="$categoriesSelect" label="{{ trans('attributes.categories') }}" />
                     </div>
 
                     <div class="mb-4">
-                        <x-form-select required name="post.status" :options="['' => ''] + \App\Enums\Post\Status::select()" label="{{ trans('attributes.status') }}" />
+                        <x-form-select required name="post.per_page" :options="$perPageSelect" label="{{ trans('attributes.per_page') }}" />
+                    </div>
+
+                    <div class="mb-4">
+                        <x-form-select required name="post.featured" :options="\App\Enums\Post\Featured::select()" label="{{ trans('attributes.featured') }}" />
+                    </div>
+
+                    <div class="mb-4">
+                        <x-form-select required name="post.status" :options="\App\Enums\Post\Status::select()" label="{{ trans('attributes.status') }}" />
                     </div>
 
                     <div class="d-flex flex-row gap-3">

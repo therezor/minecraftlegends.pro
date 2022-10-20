@@ -52,20 +52,26 @@ class Form extends Component
     {
         $categoriesSelect = $this->categoryRepository->select();
 
-        return view('components.panel.posts.form', ['categoriesSelect' => $categoriesSelect]);
+        $range = range(1, 10);
+        $perPageSelect = ['' => trans('crud.all')] + array_combine($range, $range);
+
+        return view('components.panel.posts.form', [
+            'categoriesSelect' => $categoriesSelect,
+            'perPageSelect' => $perPageSelect,
+        ]);
     }
 
     public function submit()
     {
         $this->validate();
-        dd($this->post);
 
-        return;
+        if ($this->entity->id) {
+            $this->postRepository->update($this->entity->id, $this->post);
 
+            return redirect()->route($this->routePrefix . '.index');
+        }
 
-        $this->itemId
-            ? $this->update($attributes)
-            : $this->create($attributes);
+        $this->postRepository->create($this->post);
 
         return redirect()->route($this->routePrefix . '.index');
     }
@@ -130,6 +136,7 @@ class Form extends Component
             'post.description' => $this->entity->getValidationRules()['description'],
             'post.status' => $this->entity->getValidationRules()['status'],
             'post.image_id' => $this->entity->getValidationRules()['image_id'],
+            'post.per_page' => $this->entity->getValidationRules()['per_page'],
 
             'post.blocks.*.type' => [
                 'required',
@@ -178,6 +185,11 @@ class Form extends Component
                 'required_if:post.blocks.*.type,' . Type::VIDEO->value,
                 'nullable',
                 'url'
+            ],
+            'post.blocks.*.data.embed_code' => [
+                'required_if:post.blocks.*.type,' . Type::VIDEO->value,
+                'nullable',
+                'string'
             ],
         ];
     }

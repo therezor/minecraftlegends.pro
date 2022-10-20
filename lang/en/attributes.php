@@ -24,6 +24,8 @@ return [
     'categories' => 'Categories',
     'alt' => 'Alt',
     'caption' => 'Caption',
+    'per_page' => 'Blocks per page',
+    'featured' => 'Featured',
 
     'users_count' => 'Users',
     'posts_count' => 'Posts',
