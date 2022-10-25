@@ -4,11 +4,11 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="mb-4">
-                        <a wire:ignore.self class="text-muted" data-bs-toggle="collapse" href="#collapse-slug" role="button" aria-expanded="false">
+                        <a class="text-muted" data-bs-toggle="collapse" href="#collapse-slug" role="button" aria-expanded="false">
                             <i class="bi bi-link"></i>
                         </a>
                         <x-form-input required name="post.title" data-slug-input="#slug-input" label="{{ trans('attributes.title') }}"/>
-                        <div wire:ignore.self id="collapse-slug" class="collapse mt-4">
+                        <div id="collapse-slug" @class(['collapse mt-4', 'show' => $errors->has('post.slug')])>
                             <div class="input-group input-group-sm">
                                 <span class="input-group-text">&sol;</span>
                                 <x-form-input required class="form-control" name="post.slug" id="slug-input" placeholder="{{trans('attributes.slug') }}"/>
@@ -83,7 +83,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <x-form-select required name="post.per_page" :options="$perPageSelect" label="{{ trans('attributes.per_page') }}" />
+                        <x-form-select name="post.per_page" :options="$perPageSelect" label="{{ trans('attributes.per_page') }}" />
                     </div>
 
                     <div class="mb-4">
@@ -96,7 +96,13 @@
 
                     <div class="d-flex flex-row gap-3">
                         <a href="{{ URL::previous() }}" class="btn btn-neutral">{{ trans('crud.cancel') }}</a>
-                        <button type="submit" class="ms-auto btn btn-primary">{{ trans('crud.create') }}</button>
+                        <button type="submit" class="ms-auto btn btn-primary">
+                            @empty($post['id'])
+                                {{ trans('crud.create') }}
+                            @else
+                                {{ trans('crud.update') }}
+                            @endempty
+                        </button>
                     </div>
                 </div>
             </div>

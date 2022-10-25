@@ -33,7 +33,7 @@ return [
     'role' => [
         'name' => 'Role name',
     ],
-    'author' => [
+    'user' => [
         'name' => 'Author name',
     ],
 ];

@@ -14,6 +14,54 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 
+/**
+ * App\Eloquent\Models\Post
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property Featured|null $featured
+ * @property Status|null $status
+ * @property int|null $per_page
+ * @property int|null $image_id
+ * @property string $title
+ * @property string $slug
+ * @property string|null $description
+ * @property int|null $og_image_id
+ * @property string|null $og_title
+ * @property string|null $og_description
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Eloquent\Models\Block[] $blocks
+ * @property-read int|null $blocks_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Eloquent\Models\Category[] $categories
+ * @property-read int|null $categories_count
+ * @property-read \App\Eloquent\Models\Image|null $image
+ * @property-read \App\Eloquent\Models\Image|null $ogImage
+ * @property-read \App\Eloquent\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Post onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereFeatured($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereImageId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereOgDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereOgImageId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereOgTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post wherePerPage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|Post withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Post withoutTrashed()
+ * @mixin \Eloquent
+ */
 class Post extends Model implements HasTranslation, HasValidation
 {
     use SoftDeletes;

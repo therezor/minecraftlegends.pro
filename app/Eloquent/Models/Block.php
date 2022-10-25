@@ -10,7 +10,42 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
+use Mews\Purifier\Casts\CleanHtml;
 
+/**
+ * App\Eloquent\Models\Block
+ *
+ * @property int $id
+ * @property int $post_id
+ * @property Type $type
+ * @property int $display_order
+ * @property string|null $title
+ * @property string|null $description
+ * @property int|null $image_id
+ * @property array|null $data
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Eloquent\Models\Post $post
+ * @method static \Illuminate\Database\Eloquent\Builder|Block newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Block newQuery()
+ * @method static \Illuminate\Database\Query\Builder|Block onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Block query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Block whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Block whereData($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Block whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Block whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Block whereDisplayOrder($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Block whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Block whereImageId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Block wherePostId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Block whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Block whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Block whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Block withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Block withoutTrashed()
+ * @mixin \Eloquent
+ */
 class Block extends Model implements HasTranslation, HasValidation
 {
     use SoftDeletes;
@@ -37,6 +72,7 @@ class Block extends Model implements HasTranslation, HasValidation
     protected $casts = [
         'type' => Type::class,
         'display_order' => 'int',
+        'description' => CleanHtml::class,
         'data' => 'json',
     ];
 

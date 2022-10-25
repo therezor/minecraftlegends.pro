@@ -4,10 +4,13 @@ namespace App\Http\Crud\Panel;
 
 use App\Eloquent\Repositories\Criteria\WithCountCriteria;
 use App\Eloquent\Repositories\RoleRepository;
+use App\Enums\Role\Permission;
 use App\Forms\Panel\Role\{Form, FilterForm};
 use App\Http\Crud\Traits\RedirectToShow;
 use App\Fields\{Actions, ArrayList, DateTime, Field};
 use App\Http\Crud\BaseCrud;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class RoleCrud extends BaseCrud
 {
@@ -45,7 +48,7 @@ class RoleCrud extends BaseCrud
             Field::make('id'),
             Field::make('name'),
             Field::make('email'),
-            ArrayList::make('permissions')->enum(),
+            ArrayList::make('permissions')->valueCallback(fn ($val) => Arr::only(Permission::select(), $val)),
             Field::make('users_count'),
             Field::make('created_at'),
             Field::make('updated_at'),

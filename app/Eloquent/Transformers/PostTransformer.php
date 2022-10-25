@@ -18,6 +18,7 @@ class PostTransformer
     {
         return [
             'id' => $this->post->id,
+            'user_id' => $this->post->user_id,
             'featured' => $this->post->featured->value,
             'status' => $this->post->status->value,
             'per_page' => $this->post->per_page,

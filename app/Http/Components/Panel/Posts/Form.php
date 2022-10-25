@@ -2,6 +2,7 @@
 
 namespace App\Http\Components\Panel\Posts;
 
+use App\Eloquent\Models\Category;
 use App\Eloquent\Models\Image;
 use App\Eloquent\Models\Post;
 use App\Eloquent\Repositories\CategoryRepository;
@@ -13,17 +14,15 @@ use App\Eloquent\Transformers\PostTransformer;
 use App\Enums\Block\Type;
 use Embed\Embed;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Enum;
 use Livewire\Component;
 use App\Http\Components\Traits\WithImageUploads;
+use Livewire\Exceptions\CannotBindToModelDataWithoutValidationRuleException;
 
 class Form extends Component
 {
     use WithImageUploads;
 
     public array $post = [];
-    public int $counter = 0;
-    public Post $entity;
 
     protected PostRepository $postRepository;
     protected CategoryRepository $categoryRepository;
@@ -41,11 +40,9 @@ class Form extends Component
         $this->embed = $embed;
     }
 
-    public function mount()
+    public function mount(Post $entity)
     {
-        $this->post = (new PostTransformer($this->entity))->toArray();
-
-        $this->post['blocks'][] = (new BlockTransformer(new Block(['type' => Type::TEXT])))->toArray();
+        $this->post = (new PostTransformer($entity))->toArray();
     }
 
     public function render()
@@ -65,15 +62,15 @@ class Form extends Component
     {
         $this->validate();
 
-        if ($this->entity->id) {
-            $this->postRepository->update($this->entity->id, $this->post);
+        if (empty($this->post['id'])) {
+            $this->postRepository->create($this->post);
 
-            return redirect()->route($this->routePrefix . '.index');
+            return redirect()->route('panel.posts.index');
         }
 
-        $this->postRepository->create($this->post);
+        $this->postRepository->update($this->post['id'], $this->post);
 
-        return redirect()->route($this->routePrefix . '.index');
+        return redirect()->route('panel.posts.index');
     }
 
     public function addBlock(string $type)
@@ -115,9 +112,11 @@ class Form extends Component
         try {
             $embedCode = $this->embed->get($this->post['blocks'][$key]['data']['video_url'] ?? '');
 
-            $this->post['blocks'][$key]['title'] = (string) $embedCode->title;
-            $this->post['blocks'][$key]['data']['embed_code'] = (string) $embedCode->code;
+            $this->post['blocks'][$key]['title'] = (string)$embedCode->title;
+            $this->post['blocks'][$key]['data']['embed_code'] = (string)$embedCode->code;
         } catch (\Throwable $e) {
+            $this->post['blocks'][$key]['data']['video_url'] = null;
+
             return;
         }
     }
@@ -130,18 +129,24 @@ class Form extends Component
 
     protected function rules(): array
     {
-        return [
-            'post.title' => $this->entity->getValidationRules()['title'],
-            'post.slug' => $this->entity->getValidationRules()['slug'],
-            'post.description' => $this->entity->getValidationRules()['description'],
-            'post.status' => $this->entity->getValidationRules()['status'],
-            'post.image_id' => $this->entity->getValidationRules()['image_id'],
-            'post.per_page' => $this->entity->getValidationRules()['per_page'],
+        $rules = empty($this->post['id'])
+            ? $this->postRepository->newModel()->getValidationRules()
+            : $this->postRepository->find($this->post['id'])->getValidationRules();
 
-            'post.blocks.*.type' => [
+        return [
+            'post.title' => $rules['title'],
+            'post.slug' => $rules['slug'],
+            'post.description' => $rules['description'],
+            'post.status' => $rules['status'],
+            'post.featured' => $rules['featured'],
+            'post.image_id' => $rules['image_id'],
+            'post.per_page' => $rules['per_page'],
+            'post.category_ids' => [
                 'required',
-                new Enum(Type::class),
+                'array',
+                Rule::exists(Category::class, 'id')->withoutTrashed(),
             ],
+
             'post.blocks.*.title' => [
                 'required_if:post.blocks.*.type,' . Type::TEXT->value,
                 'required_if:post.blocks.*.type,' . Type::LIST->value,
@@ -149,7 +154,7 @@ class Form extends Component
                 'string',
                 'max:255',
             ],
-            'post.blocks.*.description' =>  [
+            'post.blocks.*.description' => [
                 'required_if:post.blocks.*.type,' . Type::TEXT->value,
                 'nullable',
                 'string',
@@ -157,7 +162,7 @@ class Form extends Component
             ],
             'post.blocks.*.data' => [
                 'nullable',
-                'array'
+                'array',
             ],
             'post.blocks.*.data.counter' => [
                 'required_if:post.blocks.*.type,' . Type::LIST->value,
@@ -184,13 +189,18 @@ class Form extends Component
             'post.blocks.*.data.video_url' => [
                 'required_if:post.blocks.*.type,' . Type::VIDEO->value,
                 'nullable',
-                'url'
-            ],
-            'post.blocks.*.data.embed_code' => [
-                'required_if:post.blocks.*.type,' . Type::VIDEO->value,
-                'nullable',
-                'string'
+                'url',
             ],
         ];
+    }
+
+    public function syncInput($name, $value, $rehash = true)
+    {
+        throw_if(
+            $this->missingRuleFor($name),
+            new CannotBindToModelDataWithoutValidationRuleException($name, $this::getName())
+        );
+
+        parent::syncInput($name, $value, $rehash);
     }
 }

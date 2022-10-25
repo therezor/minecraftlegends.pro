@@ -5,7 +5,6 @@ namespace App\Fields;
 use App\Eloquent\Models\Contracts\HasTranslation;
 use App\Fields\Contracts\Field;
 use App\Fields\Traits\Callbackable;
-use App\Fields\Traits\EnumValue;
 use App\Fields\Traits\HasMeta;
 use App\Fields\Traits\Sortable;
 use App\Fields\Traits\TranslateValue;
@@ -17,7 +16,6 @@ class BaseField implements Field
     use Sortable;
     use HasMeta;
     use TranslateValue;
-    use EnumValue;
 
     protected $name;
 
