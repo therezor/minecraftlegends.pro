@@ -47,6 +47,8 @@ class Category extends Model implements HasTranslation, HasValidation
     protected $fillable = [
         'name',
         'icon',
+        'slug',
+        'display_order',
     ];
 
     public function getTranslationPrefix(): string
@@ -70,11 +72,24 @@ class Category extends Model implements HasTranslation, HasValidation
                 'max:255',
                 Rule::unique(Category::class, 'icon')->ignore($this->id)->withoutTrashed(),
             ],
+
+            'slug' => [
+                'required',
+                'alpha_dash',
+                'max:255',
+                Rule::unique(Category::class, 'slug')->withoutTrashed()->ignore($this->id),
+            ],
+
+            'display_order' => [
+                'required',
+                'integer',
+                'min:0',
+            ],
         ];
     }
 
-    public function posts(): BelongsToMany
+    public function posts(): HasMany
     {
-        return $this->belongsToMany(Post::class, 'post_category', 'category_id', 'post_id');
+        return $this->hasMany(Post::class, 'category_id', 'id');
     }
 }

@@ -73,6 +73,7 @@ class Post extends Model implements HasTranslation, HasValidation
      */
     protected $fillable = [
         'user_id',
+        'category_id',
         'featured',
         'status',
         'per_page',
@@ -111,6 +112,10 @@ class Post extends Model implements HasTranslation, HasValidation
             'user_id' => [
                 'required',
                 Rule::exists(User::class, 'id'),
+            ],
+            'category_id' => [
+                'required',
+                Rule::exists(Category::class, 'id'),
             ],
             'featured' => [
                 'required',
@@ -163,7 +168,12 @@ class Post extends Model implements HasTranslation, HasValidation
         ];
     }
 
-    public function user(): BelongsTo
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
@@ -180,11 +190,6 @@ class Post extends Model implements HasTranslation, HasValidation
 
     public function blocks(): HasMany
     {
-        return $this->hasMany(Block::class, 'post_id', 'id');
-    }
-
-    public function categories(): BelongsToMany
-    {
-        return $this->belongsToMany(Category::class, 'post_category', 'post_id', 'category_id');
+        return $this->hasMany(Block::class, 'post_id', 'id')->orderBy('display_order', 'asc');
     }
 }

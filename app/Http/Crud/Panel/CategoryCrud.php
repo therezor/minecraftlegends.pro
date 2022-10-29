@@ -35,6 +35,7 @@ class CategoryCrud extends BaseCrud
             Field::make('name')->sortable(),
             Icon::make('icon'),
             Field::make('posts_count'),
+            Field::make('display_order')->sortable(),
             Actions::make('id', $this->getRouteName()),
         ];
     }
@@ -46,6 +47,7 @@ class CategoryCrud extends BaseCrud
             Field::make('name'),
             Field::make('posts_count'),
             Icon::make('icon'),
+            Field::make('display_order'),
             Field::make('created_at'),
             Field::make('updated_at'),
         ];

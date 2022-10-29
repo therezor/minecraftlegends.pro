@@ -35,7 +35,7 @@ class PostCrud extends BaseCrud
             Enum::make('status')->sortable(),
             Enum::make('featured')->sortable(),
             DateTime::make('created_at'),
-            Field::make('user.name'),
+            Field::make('author.name'),
             Actions::make('id', $this->getRouteName()),
         ];
     }

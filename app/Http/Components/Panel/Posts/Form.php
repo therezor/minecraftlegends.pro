@@ -2,7 +2,6 @@
 
 namespace App\Http\Components\Panel\Posts;
 
-use App\Eloquent\Models\Category;
 use App\Eloquent\Models\Image;
 use App\Eloquent\Models\Post;
 use App\Eloquent\Repositories\CategoryRepository;
@@ -47,7 +46,7 @@ class Form extends Component
 
     public function render()
     {
-        $categoriesSelect = $this->categoryRepository->select();
+        $categoriesSelect =  ['' => ''] + $this->categoryRepository->select();
 
         $range = range(1, 10);
         $perPageSelect = ['' => trans('crud.all')] + array_combine($range, $range);
@@ -141,11 +140,7 @@ class Form extends Component
             'post.featured' => $rules['featured'],
             'post.image_id' => $rules['image_id'],
             'post.per_page' => $rules['per_page'],
-            'post.category_ids' => [
-                'required',
-                'array',
-                Rule::exists(Category::class, 'id')->withoutTrashed(),
-            ],
+            'post.category_id' => $rules['category_id'],
 
             'post.blocks.*.title' => [
                 'required_if:post.blocks.*.type,' . Type::TEXT->value,

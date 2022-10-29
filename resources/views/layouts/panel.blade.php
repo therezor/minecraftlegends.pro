@@ -33,7 +33,7 @@
         </header>
 
         <main class="pb-6 bg-surface-secondary">
-            <div class="container-fluid">
+            <div class="container">
                 @include('sections.messages')
                 @yield('content')
             </div>

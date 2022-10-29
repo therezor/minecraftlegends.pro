@@ -21,7 +21,6 @@ class PostRepository extends BaseRepository
             /** @var Post $post */
             $post = parent::create($attributes);
 
-            $this->saveCategories($post, $attributes);
             $this->saveBlocks($post, $attributes);
 
             return $post;
@@ -34,18 +33,10 @@ class PostRepository extends BaseRepository
             /** @var Post $post */
             $post = parent::update($id, $attributes);
 
-            $this->saveCategories($post, $attributes);
             $this->saveBlocks($post, $attributes);
 
             return $post;
         });
-    }
-
-    protected function saveCategories(Post $post, array $attributes)
-    {
-        if(isset($attributes['category_ids'])) {
-            $post->categories()->sync($attributes['category_ids']);
-        }
     }
 
     protected function saveBlocks(Post $post, array $attributes)

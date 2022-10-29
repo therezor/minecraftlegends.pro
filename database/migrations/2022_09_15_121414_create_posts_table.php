@@ -18,8 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->index()->unsigned();
             $table->tinyInteger('featured')->unsigned()->index()->default(0)->nullable();
             $table->tinyInteger('status')->unsigned()->index()->default(0)->nullable();
+            $table->unsignedBigInteger('category_id')->nullable()->index();
 
             $table->unsignedTinyInteger('per_page')->nullable();
+
 
             $table->unsignedBigInteger('image_id')->index()->nullable();
             $table->string('title');
@@ -33,6 +35,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
             $table->foreign('image_id')->references('id')->on('images')->onDelete('set null');
             $table->foreign('og_image_id')->references('id')->on('images')->onDelete('set null');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

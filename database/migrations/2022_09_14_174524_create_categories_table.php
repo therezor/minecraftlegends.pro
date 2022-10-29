@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('icon');
+            $table->string('slug')->index();
+            $table->unsignedSmallInteger('display_order')->default(0)->index();
             $table->timestamps();
             $table->softDeletes();
         });

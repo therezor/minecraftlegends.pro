@@ -13,7 +13,7 @@
 @endsection
 
 @section('content')
-    <div class="row row g-5">
+    <div class="row g-5">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">

@@ -79,7 +79,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <x-form-select required name="post.category_ids" class="multi-select" multiple :options="$categoriesSelect" label="{{ trans('attributes.categories') }}" />
+                        <x-form-select required name="post.category_id" :options="$categoriesSelect" label="{{ trans('attributes.category_id') }}" />
                     </div>
 
                     <div class="mb-4">

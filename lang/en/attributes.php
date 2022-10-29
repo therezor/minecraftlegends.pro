@@ -21,11 +21,12 @@ return [
     'status' => 'Status',
     'image_id' => 'Image',
     'og_image_id' => 'OG Image',
-    'categories' => 'Categories',
+    'category_id' => 'Category',
     'alt' => 'Alt',
     'caption' => 'Caption',
     'per_page' => 'Blocks per page',
     'featured' => 'Featured',
+    'display_order' => 'Display order',
 
     'users_count' => 'Users',
     'posts_count' => 'Posts',
@@ -33,7 +34,7 @@ return [
     'role' => [
         'name' => 'Role name',
     ],
-    'user' => [
+    'author' => [
         'name' => 'Author name',
     ],
 ];

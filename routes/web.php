@@ -4,6 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Panel;
 use App\Enums\Role\Permission;
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PageController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,9 +20,6 @@ use App\Enums\Role\Permission;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::group(['prefix' => 'panel', 'as' => 'panel.', 'middleware' => ['auth']], function () {
     Route::get('/', [Panel\DashboardController::class, 'index'])
@@ -41,3 +43,9 @@ Route::group(['prefix' => 'panel', 'as' => 'panel.', 'middleware' => ['auth']], 
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('category/{slug}', [CategoryController::class, 'show'])->name('categories.show');
+Route::get('page/{slug}', [PageController::class, 'show'])->name('pages.show');
+Route::get('{slug}', [PostController::class, 'show'])->name('posts.show');
+

@@ -1,26 +1,27 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-0 py-3">
     <div class="container-xl">
-        <!-- Navbar toggle -->
+
         <button class="navbar-toggler bg-dark-focus ms-n2" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
                 aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <!-- Logo -->
-        <a class="navbar-brand" href="#">
+
+        <a class="navbar-brand" href="{{ route('index') }}">
             <img src="https://preview.webpixels.io/web/img/logos/clever-light.svg" class="h-8" alt="...">
         </a>
 
-        <!-- Collapse -->
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <!-- Nav -->
             <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#" aria-current="page">Home</a>
-                <a class="nav-item nav-link" href="#">Product</a>
-                <a class="nav-item nav-link" href="#">Features</a>
-                <a class="nav-item nav-link" href="#">Pricing</a>
+                <a class="nav-item nav-link @if(Route::is('index')) active @endif" href="{{ route('index') }}" aria-current="page">Home</a>
+                @foreach($categories as $category)
+                    <a class="nav-item nav-link @if(Route::is('categories.show') && Route::input('slug')  === $category->slug) active @endif" href="{{ route('categories.show', $category->slug) }}">
+                        @if($category->icon) <i class="{{ $category->icon }}"></i> @endif
+                        {{ $category->name }}
+                    </a>
+                @endforeach
             </div>
-            <!-- Right navigation -->
+
             <div class="navbar-nav align-items-center d-flex ms-auto">
                 <form class="col-12 col-md-auto form-dark">
                     <input type="search" class="form-control form-control-sm" placeholder="Search..."
