@@ -8,12 +8,10 @@
             <main class="col-md-8">
                 <h1 class="mb-3">
                     {{ __('Search result') }}
-
-                    @if($term)
-                        <small class="text-muted text-sm">{{ $term }}</small>
-                    @endif
                 </h1>
-
+                {{ Form::open(['method' => 'get', 'route' => 'search', 'class' => 'mb-5']) }}
+                {{ Form::search('term', $term, ['class' => 'form-control form-control', 'placeholder' => __('Search...')]) }}
+                {{ Form::close() }}
                 @forelse($posts as $post)
                     <div class="card mb-5">
                         @if($post->image_id)

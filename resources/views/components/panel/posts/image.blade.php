@@ -1,7 +1,7 @@
 @if($imageId)
     <div class="ratio ratio-16x9 position-relative">
         <img src="{{ imageUrl($imageId) }}" alt="{{ __('Uploaded image') }}" class="rounded fit-cover">
-        <div>
+        <div class="zi-n1">
             <button class="btn btn-danger btn-sm btn-square position-absolute top-1 end-1" wire:click.prevent="removeImage('{{ $inputName }}')" wire:loading.attr="disabled">
                 <i class="bi bi-x-lg"></i>
             </button>

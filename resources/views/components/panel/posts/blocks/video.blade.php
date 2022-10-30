@@ -5,7 +5,7 @@
 
     <div class="ratio ratio-16x9 position-relative">
         {!! $block['data']['embed_code'] !!}
-        <div>
+        <div class="zi-n1">
             <button class="btn btn-danger btn-sm btn-square position-absolute top-1 end-1" wire:click.prevent="removeVideo('{{ $key }}')" wire:loading.attr="disabled">
                 <i class="bi bi-x-lg"></i>
             </button>

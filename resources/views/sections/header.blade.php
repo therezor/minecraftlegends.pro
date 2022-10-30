@@ -24,7 +24,7 @@
 
             <div class="navbar-nav align-items-center d-flex ms-auto">
                 {{ Form::open(['method' => 'get', 'route' => 'search', 'class' => 'col-12 col-md-auto form-dark']) }}
-                    <input name="term" type="search" class="form-control form-control-sm" placeholder="Search..." aria-label="Search">
+                {{ Form::search('term', request()->get('term'), ['class' => 'form-control form-control-sm', 'placeholder' => __('Search...')]) }}
                 {{ Form::close() }}
 
                 <div class="mt-md-0 mt-4">
