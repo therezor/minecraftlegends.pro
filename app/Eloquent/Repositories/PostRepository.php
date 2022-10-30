@@ -4,6 +4,7 @@ namespace App\Eloquent\Repositories;
 
 use App\Eloquent\Models\Block;
 use App\Eloquent\Models\Post;
+use App\Eloquent\Models\User;
 use App\Enums\Block\Type;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -37,6 +38,13 @@ class PostRepository extends BaseRepository
 
             return $post;
         });
+    }
+
+    public function vote(Post $post, User $user, int $points): Post
+    {
+        $post->votes()->syncWithPivotValues([$user->id], ['points' => $points], false);
+
+        return $post;
     }
 
     protected function saveBlocks(Post $post, array $attributes)

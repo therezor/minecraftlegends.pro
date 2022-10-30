@@ -14,7 +14,7 @@
                     <div class="card mb-5">
                         @if($post->image_id)
                             <a href="{{ route('posts.show', $post->slug) }}" class="ratio ratio-16x9">
-                                <img class="card-img-top" src="{{ imageUrl($post->image_id) }}" alt="{{ $post->title }}">
+                                <img class="card-img-top" loading="lazy" src="{{ imageUrl($post->image_id) }}" alt="{{ $post->title }}">
                             </a>
                         @endif
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Eloquent\Models\Post;
 use App\Eloquent\Repositories\PostRepository;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -19,8 +20,28 @@ class PostController extends Controller
         $post = $this->postRepository->findByOrFail('slug', $slug);
 
         $blocks = $this->paginateBlocks($post);
+        $votePoints = (int) $post->votes()->sum('post_votes.points');
+        $vote = auth()->id()
+            ? $post->votes()->where('user_id', auth()->id())->first()?->pivot
+            : null;
 
-        return view('posts.show', ['post' => $post, 'blocks' => $blocks]);
+        return view('posts.show', [
+            'post' => $post,
+            'blocks' => $blocks,
+            'vote' => $vote,
+            'votePoints' => $votePoints,
+        ]);
+    }
+
+    public function vote($id, Request $request)
+    {
+        $post = $this->postRepository->findOrFail($id);
+
+        $points = (int) $request->input('points');
+        $points = ($points === 1) ? $points : -1;
+        $this->postRepository->vote($post, auth()->user(), $points);
+
+        return redirect()->back();
     }
 
     protected function paginateBlocks(Post $post)

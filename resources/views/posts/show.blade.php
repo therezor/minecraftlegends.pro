@@ -10,7 +10,7 @@
                     <div class="card-body">
                         @if(!$post->per_page || $blocks->currentPage() === 1)
                             @if($post->image_id)
-                                <img class="card-img mb-4" src="{{ imageUrl($post->image_id) }}" alt="{{ $post->title }}">
+                                <img class="card-img mb-4" loading="lazy" src="{{ imageUrl($post->image_id) }}" alt="{{ $post->title }}">
                             @endif
 
                             <h1 class="mb-4">{{ $post->title }}</h1>

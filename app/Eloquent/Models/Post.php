@@ -21,6 +21,7 @@ use Illuminate\Validation\Rules\Enum;
  * @property int $user_id
  * @property Featured|null $featured
  * @property Status|null $status
+ * @property int|null $category_id
  * @property int|null $per_page
  * @property int|null $image_id
  * @property string $title
@@ -32,17 +33,19 @@ use Illuminate\Validation\Rules\Enum;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Eloquent\Models\User $author
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Eloquent\Models\Block[] $blocks
  * @property-read int|null $blocks_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Eloquent\Models\Category[] $categories
- * @property-read int|null $categories_count
+ * @property-read \App\Eloquent\Models\Category|null $category
  * @property-read \App\Eloquent\Models\Image|null $image
  * @property-read \App\Eloquent\Models\Image|null $ogImage
- * @property-read \App\Eloquent\Models\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Eloquent\Models\User[] $votes
+ * @property-read int|null $votes_count
  * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Post newQuery()
  * @method static \Illuminate\Database\Query\Builder|Post onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Post query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereDescription($value)
@@ -191,5 +194,11 @@ class Post extends Model implements HasTranslation, HasValidation
     public function blocks(): HasMany
     {
         return $this->hasMany(Block::class, 'post_id', 'id')->orderBy('display_order', 'asc');
+    }
+
+    public function votes(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'post_votes', 'post_id', 'user_id')
+            ->withPivot('points');
     }
 }

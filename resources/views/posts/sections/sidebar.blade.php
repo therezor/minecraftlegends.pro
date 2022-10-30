@@ -30,27 +30,10 @@
         </div>
     </div>
 
-
     <div class="card mb-5">
         <div class="card-body">
             <div class="h4 mb-3">{{ __('What do you think?') }}</div>
-            <div class="row g-3">
-                <div class="col-4">
-                    <a class="btn d-block btn-neutral text-opacity-100-hover text-success-hover" href="#"
-                       title="Vote up">
-                        <i class="bi bi-hand-thumbs-up"></i>
-                    </a>
-                </div>
-                <div class="col-4">
-                    <div class="btn d-block btn-success disabled">215</div>
-                </div>
-                <div class="col-4">
-                    <a class="btn d-block btn-neutral text-opacity-100-hover text-danger-hover" href="#"
-                       title="Vote down">
-                        <i class="bi bi-hand-thumbs-down"></i>
-                    </a>
-                </div>
-            </div>
+            @include('posts.sections.vote')
         </div>
     </div>
     <div class="card mb-5">

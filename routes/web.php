@@ -44,6 +44,12 @@ Route::group(['prefix' => 'panel', 'as' => 'panel.', 'middleware' => ['auth']], 
 
 require __DIR__.'/auth.php';
 
+Route::group(['middleware' => ['auth']], function () {
+    Route::post('vote/{id}', [PostController::class, 'vote'])
+        ->name('posts.vote')
+        ->whereNumber('id');
+});
+
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('category/{slug}', [CategoryController::class, 'show'])->name('categories.show');
 Route::get('page/{slug}', [PageController::class, 'show'])->name('pages.show');

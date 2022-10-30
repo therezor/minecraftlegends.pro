@@ -20,7 +20,7 @@ use Mews\Purifier\Casts\CleanHtml;
  * @property Type $type
  * @property int $display_order
  * @property string|null $title
- * @property string|null $description
+ * @property array|null $description
  * @property int|null $image_id
  * @property array|null $data
  * @property \Illuminate\Support\Carbon|null $created_at
