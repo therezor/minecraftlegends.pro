@@ -19,7 +19,7 @@
                         @endif
 
                         @foreach($blocks as $block)
-                            @include('posts.blocks.' . $block->type->value)
+                            @include('posts.blocks.' . mb_strtolower($block->type->value))
                         @endforeach
 
                         @if($post->per_page)
