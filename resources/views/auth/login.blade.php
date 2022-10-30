@@ -8,11 +8,10 @@
                 <div class="row">
                     <div class="col-lg-10 col-md-9 col-xl-7 mx-auto">
                         <div class="text-center mb-8">
-                            <a class="d-inline-block mb-3" href="/">
-                                <img src="https://preview.webpixels.io/web/img/logos/clever-primary-sm.svg" class="h-12" alt="...">
+                            <a class="d-inline-block mb-3" href="{{ route('index') }}">
+                                <img src="{{ asset('img/logo.png') }}" class="h-12" alt="...">
                             </a>
-                            <div class="h4">{{ __('Login to continue to:') }}</div>
-                            <div class="h3">{{ config('app.name') }}</div>
+                            <div class="h4">{{ __('Login to continue') }}</div>
                         </div>
                         @include('components.status')
                         @include('components.errors')

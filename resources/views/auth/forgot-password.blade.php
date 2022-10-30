@@ -8,8 +8,8 @@
                 <div class="row">
                     <div class="col-lg-10 col-md-9 col-xl-7 mx-auto">
                         <div class="text-center mb-8">
-                            <a class="d-inline-block mb-3" href="/">
-                                <img src="https://preview.webpixels.io/web/img/logos/clever-primary-sm.svg" class="h-12" alt="...">
+                            <a class="d-inline-block mb-3" href="{{ route('index') }}">
+                                <img src="{{ asset('img/logo.png') }}" class="h-12" alt="...">
                             </a>
                             <div class="h4">{{ __('Forgot your password?') }}</div>
                             <div>{{ __('No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}</div>

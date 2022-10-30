@@ -1,0 +1,45 @@
+// Color system
+
+// White/Grays/Black colors
+$white:    #FFF;
+$gray-50:  #FAFAFA;    // Alternate background
+$gray-100: #F5F9FC;    // Base background
+$gray-200: #E7EAF0;
+$gray-300: #CFD6DF;
+$gray-400: #ABB6C5;
+$gray-500: #8898A9;    // Disabled text
+$gray-600: #6B7B93;    // Placeholder text
+$gray-700: #525F7F;    // Text content
+$gray-800: #2D3748;    // Text content old(44444e)
+$gray-900: #16192C;    // Text content
+$black:    #000;
+
+// Customize the light and dark text colors for use in our color contrast function.
+$color-contrast-dark:      $black;
+$color-contrast-light:     $white;
+
+// Base colors
+$blue:    #0099FF;
+$indigo:  #5C60F5;
+$purple:  #8957FF;
+$pink:    #FF579A;
+$magenta: #EE33FF;
+$red:     #FF3366;
+$orange:  #FF8C00;
+$yellow:  #FFBB00;
+$green:   #00CC88;
+$teal:    #22DDDD;
+$cyan:    #00D4FF;
+
+
+// Theme colors
+$primary:       $blue;
+$secondary:     $gray-300;
+$tertiary:      $pink;
+$success:       $green;
+$info:          $cyan;
+$warning:       $orange;
+$danger:        $red;
+$light:         $white;
+$dark:          $gray-900;
+

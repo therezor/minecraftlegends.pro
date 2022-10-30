@@ -8,7 +8,7 @@
         </button>
 
         <a class="navbar-brand" href="{{ route('index') }}">
-            <img src="https://preview.webpixels.io/web/img/logos/clever-light.svg" class="h-8" alt="...">
+            <img src="{{ asset('img/logo.png') }}" class="h-8" alt="...">
         </a>
 
         <div class="collapse navbar-collapse" id="navbarCollapse">

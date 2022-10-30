@@ -8,8 +8,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Brand -->
-        <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="/">
-            <img src="https://preview.webpixels.io/web/img/logos/clever-primary.svg" alt="...">
+        <a class="navbar-brand py-lg-2 mb-lg-5 px-lg-6 me-0" href="{{ route('index') }}">
+            <img src="{{ asset('img/logo.png') }}" alt="...">
         </a>
         <!-- Collapse -->
         <div class="collapse navbar-collapse" id="sidebarCollapse">
