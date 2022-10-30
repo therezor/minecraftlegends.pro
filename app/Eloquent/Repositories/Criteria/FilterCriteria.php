@@ -57,7 +57,7 @@ class FilterCriteria implements Criteria
     public function whereLike($column): self
     {
         $this->callbacks[$column] = function (Builder $query, $value) use ($column) {
-            return $query->where($column, 'ilike', '%' . $this->escapeLike($value) . '%');
+            return $query->where($column, 'like', '%' . $this->escapeLike($value) . '%');
         };
 
         return $this;
