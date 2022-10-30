@@ -17,6 +17,12 @@ class PageController extends Controller
     {
         $page = $this->pageRepository->findByOrFail('slug', $slug);
 
+        $this->seo()->setTitle($page->title, false);
+        $this->seo()->setDescription($page->description);
+        $this->seo()->opengraph()->setTitle($page->og_title);
+        $this->seo()->opengraph()->setDescription($page->og_description);
+        $this->seo()->setCanonical(route('pages.show', $slug));
+
         return view('pages.show', ['page' => $page]);
     }
 }

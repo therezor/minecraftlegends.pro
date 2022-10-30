@@ -16,6 +16,8 @@ class EmailVerificationPromptController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $this->seo()->metatags()->setRobots('none');
+
         return $request->user()->hasVerifiedEmail()
                     ? redirect()->intended()
                     : view('auth.verify-email');

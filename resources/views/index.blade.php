@@ -9,10 +9,10 @@
                     <div class="col-md-10 col-xl-8 text-md-center">
                         <div>
                             <h1 class="ls-tight font-bolder display-3 text-white mb-7">
-                                Minecraft legends Pro
+                                {{ __('Minecraft legends Pro') }}
                             </h1>
                             <p class="lead text-white text-opacity-75 mb-10">
-                                With an intuitive markup, powerful and lightning fast build tools, Clever has everything you need to turn your ideas into incredible products.
+                                {{ __('Welcome to MinecraftLegends fan site. Here you can track the latest news and modifications, download mods,  share the experience with others, and give helpful advice to new users.') }}
                             </p>
                         </div>
                     </div>

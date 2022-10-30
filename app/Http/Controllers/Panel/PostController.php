@@ -36,4 +36,11 @@ class PostController extends BaseCrudController
             ->with('entity', $entity)
             ->with('crud', $this->crud);
     }
+
+    public function show($id)
+    {
+        $entity = $this->crud->getRepository()->findOrFail($id);
+
+        return redirect()->route('posts.show', $entity->slug);
+    }
 }

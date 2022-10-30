@@ -25,6 +25,25 @@ class PostController extends Controller
             ? $post->votes()->where('user_id', auth()->id())->first()?->pivot
             : null;
 
+        $this->seo()->setTitle($post->title, false);
+        $this->seo()->setDescription($post->description);
+        $this->seo()->opengraph()->setType('article');
+        $this->seo()->opengraph()->setArticle([
+            'published_time' => $post->created_at,
+            'modified_time' => $post->updated_at,
+            'author' => $post->author->name,
+        ]);
+        if ($post->og_title) {
+            $this->seo()->opengraph()->setTitle($post->og_title);
+        }
+        if ($post->og_description) {
+            $this->seo()->opengraph()->setDescription($post->og_description);
+        }
+        if ($post->image_id || $post->og_image_id) {
+            $this->seo()->opengraph()->addImage(imageUrl($post->og_image_id ?? $post->image_id));
+        }
+        $this->seo()->setCanonical(route('posts.show', $slug));
+
         return view('posts.show', [
             'post' => $post,
             'blocks' => $blocks,

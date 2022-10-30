@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('body')
     @include('sections.header')
 

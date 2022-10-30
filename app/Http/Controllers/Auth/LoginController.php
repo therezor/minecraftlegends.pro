@@ -16,6 +16,8 @@ class LoginController extends Controller
      */
     public function create()
     {
+        $this->seo()->metatags()->setRobots('none');
+
         return view('auth.login');
     }
 

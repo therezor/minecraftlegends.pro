@@ -27,6 +27,10 @@ class CategoryController extends Controller
             ->pushCriteria(new OrderByCriteria('id'))
             ->paginate(20);
 
+        $this->seo()->setTitle($category->name);
+        $this->seo()->setDescription(__('Category') . ' ' . $category->name);
+        $this->seo()->setCanonical(route('categories.show', $slug));
+
         return view('categories.show', ['category' => $category, 'posts' => $posts]);
     }
 }

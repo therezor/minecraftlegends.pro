@@ -18,4 +18,11 @@ class PageController extends BaseCrudController
 
         $this->crud = $crud;
     }
+
+    public function show($id)
+    {
+        $entity = $this->crud->getRepository()->findOrFail($id);
+
+        return redirect()->route('pages.show', $entity->slug);
+    }
 }

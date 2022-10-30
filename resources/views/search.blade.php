@@ -14,8 +14,6 @@
                     @endif
                 </h1>
 
-
-
                 @forelse($posts as $post)
                     <div class="card mb-5">
                         @if($post->image_id)

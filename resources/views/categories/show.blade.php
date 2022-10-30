@@ -1,5 +1,12 @@
 @extends('layouts.app')
 
+@section('title',  $category->name . (($posts->currentPage() !== 1) ? ' | Page ' . $posts->currentPage() : ''))
+@section('description', __('Category') . ' ' . $category->name)
+
+@section('og_title', $category->name)
+@section('og_description', __('Category') . ' ' . $category->name)
+
+
 @section('body')
     @include('sections.header')
 
