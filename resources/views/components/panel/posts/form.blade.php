@@ -34,7 +34,7 @@
                         <button class="btn btn-square btn-sm btn-danger ms-auto" wire:loading.attr="disabled" wire:target="post.blocks" wire:click.prevent="removeBlock('{{ $key }}')"><i class="bi bi-trash"></i></button>
                     </div>
                     <div class="card-body">
-                        @include('components.panel.posts.blocks.' . $block['type'])
+                        @include('components.panel.posts.blocks.' . mb_strtolower($block['type']))
                     </div>
                 </div>
             @endforeach
