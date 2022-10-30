@@ -21,7 +21,7 @@
         </div>
     </div>
 @else
-    {{ Form::open(['route' => ['posts.vote', $post->id]]) }}
+    {{ Form::open(['method' => 'post', 'route' => ['posts.vote', $post->id]]) }}
     <div class="row g-3">
         <div class="col-4 d-grid">
             <button @class([

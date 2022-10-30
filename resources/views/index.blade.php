@@ -2,22 +2,24 @@
 
 @section('body')
     @include('sections.header')
-    <div class="py-10 py-md-24 bg-dark">
-        <div class="container-xl max-w-screen-xl">
-            <div class="row justify-content-md-center">
-                <div class="col-md-10 col-xl-8 text-md-center">
-                    <div>
-                        <h1 class="ls-tight font-bolder display-3 text-white mb-7">
-                            Minecraft legends Pro
-                        </h1>
-                        <p class="lead text-white text-opacity-75 mb-10">
-                            With an intuitive markup, powerful and lightning fast build tools, Clever has everything you need to turn your ideas into incredible products.
-                        </p>
+    @if($posts->currentPage() === 1)
+        <div class="py-10 py-md-24 bg-dark">
+            <div class="container-xl max-w-screen-xl">
+                <div class="row justify-content-md-center">
+                    <div class="col-md-10 col-xl-8 text-md-center">
+                        <div>
+                            <h1 class="ls-tight font-bolder display-3 text-white mb-7">
+                                Minecraft legends Pro
+                            </h1>
+                            <p class="lead text-white text-opacity-75 mb-10">
+                                With an intuitive markup, powerful and lightning fast build tools, Clever has everything you need to turn your ideas into incredible products.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
     <div class="py-5 container-xl">
         <div class="row g-5">
             <main class="col-md-8">
@@ -37,6 +39,7 @@
                     </div>
                 </div>
                 @endforeach
+                {{ $posts->links() }}
             </main>
             <aside class="col-md-4">
                 @include('sections.sidebar')

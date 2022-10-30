@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('search', [HomeController::class, 'search'])->name('search');
 Route::get('category/{slug}', [CategoryController::class, 'show'])->name('categories.show');
 Route::get('page/{slug}', [PageController::class, 'show'])->name('pages.show');
 Route::get('{slug}', [PostController::class, 'show'])->name('posts.show');

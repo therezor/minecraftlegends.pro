@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('post_id')->index();
             $table->string('type');
             $table->unsignedSmallInteger('display_order')->default(0)->index();
-            $table->string('title')->nullable();
-            $table->text('description')->nullable();
+            $table->string('title')->fullText()->nullable();
+            $table->text('description')->fullText()->nullable();
             $table->unsignedBigInteger('image_id')->index()->nullable();
             $table->json('data')->nullable();
 

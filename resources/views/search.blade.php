@@ -7,10 +7,16 @@
         <div class="row g-5">
             <main class="col-md-8">
                 <h1 class="mb-3">
-                    {{ $category->name }}
+                    {{ __('Search result') }}
+
+                    @if($term)
+                        <small class="text-muted text-sm">{{ $term }}</small>
+                    @endif
                 </h1>
 
-                @foreach($posts as $post)
+
+
+                @forelse($posts as $post)
                     <div class="card mb-5">
                         @if($post->image_id)
                             <a href="{{ route('posts.show', $post->slug) }}" class="ratio ratio-16x9">
@@ -25,7 +31,12 @@
                             <p>{{ $post->description }}</p>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="alert alert-warning" role="alert">
+                        {{ __('Nothing found') }}
+                    </div>
+                @endforelse
+
                 {{ $posts->links() }}
             </main>
             <aside class="col-md-4">

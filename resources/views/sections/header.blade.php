@@ -23,10 +23,9 @@
             </div>
 
             <div class="navbar-nav align-items-center d-flex ms-auto">
-                <form class="col-12 col-md-auto form-dark">
-                    <input type="search" class="form-control form-control-sm" placeholder="Search..."
-                           aria-label="Search">
-                </form>
+                {{ Form::open(['method' => 'get', 'route' => 'search', 'class' => 'col-12 col-md-auto form-dark']) }}
+                    <input name="term" type="search" class="form-control form-control-sm" placeholder="Search..." aria-label="Search">
+                {{ Form::close() }}
 
                 <div class="mt-md-0 mt-4">
                     @guest
@@ -46,10 +45,10 @@
                                     <a class="dropdown-item" href="{{ route('panel.index') }}"><i
                                                 class="bi bi-tools me-3"></i> {{ __('Dashboard') }}</a>
                                 @endif
-                                <a class="dropdown-item" href="#"><i
-                                            class="bi bi-plus-circle-dotted me-3"></i> {{ __('Add story') }}</a>
-                                <a class="dropdown-item" href="#"><i class="bi bi-gear me-3"></i> {{ __('Settings') }}
-                                </a>
+{{--                                <a class="dropdown-item" href="#"><i--}}
+{{--                                            class="bi bi-plus-circle-dotted me-3"></i> {{ __('Add story') }}</a>--}}
+{{--                                <a class="dropdown-item" href="#"><i class="bi bi-gear me-3"></i> {{ __('Settings') }}--}}
+{{--                                </a>--}}
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button class="dropdown-item btn-link" type="submit">

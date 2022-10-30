@@ -24,9 +24,9 @@ return new class extends Migration
 
 
             $table->unsignedBigInteger('image_id')->index()->nullable();
-            $table->string('title');
+            $table->string('title')->fullText();;
             $table->string('slug')->index();
-            $table->text('description')->nullable();
+            $table->text('description')->fullText()->nullable();
 
             $table->unsignedBigInteger('og_image_id')->index()->nullable();
             $table->string('og_title')->nullable();
