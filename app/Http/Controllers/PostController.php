@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Eloquent\Models\Post;
 use App\Eloquent\Repositories\PostRepository;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -17,12 +19,13 @@ class PostController extends Controller
 
     public function show($slug)
     {
+        /** @var Post $post */
         $post = $this->postRepository->findByOrFail('slug', $slug);
 
         $blocks = $this->paginateBlocks($post);
         $votePoints = (int) $post->votes()->sum('post_votes.points');
         $vote = auth()->id()
-            ? $post->votes()->where('user_id', auth()->id())->first()?->pivot
+            ? $post->votes()->where('user_id', auth()->id())->first()?->getRelationValue('pivot')
             : null;
 
         $this->seo()->setTitle($post->title);
@@ -54,6 +57,7 @@ class PostController extends Controller
 
     public function vote($id, Request $request)
     {
+        /** @var Post $post */
         $post = $this->postRepository->findOrFail($id);
 
         $points = (int) $request->input('points');
@@ -63,7 +67,7 @@ class PostController extends Controller
         return redirect()->back();
     }
 
-    protected function paginateBlocks(Post $post)
+    protected function paginateBlocks(Post $post): Collection | LengthAwarePaginator
     {
         if ($post->per_page) {
             $blocks = $post->blocks()->paginate($post->per_page);

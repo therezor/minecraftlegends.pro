@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Eloquent\Models\Page;
 use App\Eloquent\Repositories\PageRepository;
 
 class PageController extends Controller
@@ -15,6 +16,7 @@ class PageController extends Controller
 
     public function show($slug)
     {
+        /** @var Page $page */
         $page = $this->pageRepository->findByOrFail('slug', $slug);
 
         $this->seo()->setTitle($page->title, false);

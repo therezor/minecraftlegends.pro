@@ -10,7 +10,7 @@ use App\Fields\Traits\Sortable;
 use App\Fields\Traits\TranslateValue;
 use Illuminate\Support\HtmlString;
 
-class BaseField implements Field
+abstract class BaseField implements Field
 {
     use Callbackable;
     use Sortable;
@@ -34,6 +34,7 @@ class BaseField implements Field
 
     public static function make(...$args)
     {
+        /** @phpstan-ignore-next-line */
         return new static(...$args);
     }
 

@@ -128,9 +128,12 @@ class Form extends Component
 
     protected function rules(): array
     {
-        $rules = empty($this->post['id'])
-            ? $this->postRepository->newModel()->getValidationRules()
-            : $this->postRepository->find($this->post['id'])->getValidationRules();
+        /** @var Post $model */
+        $model = empty($this->post['id'])
+            ? $this->postRepository->newModel()
+            : $this->postRepository->find($this->post['id']);
+
+        $rules = $model->getValidationRules();
 
         return [
             'post.title' => $rules['title'],

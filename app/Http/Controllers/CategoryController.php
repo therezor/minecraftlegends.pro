@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Eloquent\Models\Category;
 use App\Eloquent\Repositories\CategoryRepository;
 use App\Eloquent\Repositories\Criteria\OrderByCriteria;
 use App\Eloquent\Repositories\Criteria\Posts\InCategoryCriteria;
@@ -21,6 +22,7 @@ class CategoryController extends Controller
 
     public function show($slug)
     {
+        /** @var Category $category */
         $category = $this->categoryRepository->findByOrFail('slug', $slug);
         $posts = $this->postRepository->pushCriteria(new PublishedCriteria())
             ->pushCriteria(new InCategoryCriteria($category))

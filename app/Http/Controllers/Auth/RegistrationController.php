@@ -20,7 +20,7 @@ class RegistrationController extends Controller
      */
     public function create()
     {
-        $this->seo()->metatags()->setRobots('none');
+        $this->setRobots('none');
 
         return view('auth.register');
     }

@@ -75,7 +75,7 @@ abstract class BaseRepository implements RepositoryContract
     /**
      * @inheritdoc
      */
-    public function update(string $id, array $attributes): Model
+    public function update(int $id, array $attributes): Model
     {
         $model = $this->findOrFail($id);
         $model->fill($attributes);
@@ -93,19 +93,19 @@ abstract class BaseRepository implements RepositoryContract
         return $this->newQuery()->updateOrCreate($attributes, $values);
     }
 
-    public function delete(string $id): bool
+    public function delete(int $id): bool
     {
         $model = $this->findOrFail($id);
 
         return (bool) $model->delete();
     }
 
-    public function find(string $id): ?Model
+    public function find(int $id): ?Model
     {
         return $this->newQuery()->find($id);
     }
 
-    public function findOrFail(string $id): Model
+    public function findOrFail(int $id): Model
     {
         return $this->newQuery()->findOrFail($id);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Panel;
 
+use App\Eloquent\Models\Post;
 use App\Enums\Role\Permission;
 use App\Http\Controllers\BaseCrudController;
 use App\Http\Crud\Panel\PostCrud;
@@ -20,6 +21,7 @@ class PostController extends BaseCrudController
 
     public function create()
     {
+        /** @var Post $entity */
         $entity = $this->crud->getRepository()->newModel();
         $entity->user_id = auth()->id();
 
@@ -30,6 +32,7 @@ class PostController extends BaseCrudController
 
     public function edit($id)
     {
+        /** @var Post $entity */
         $entity = $this->crud->getRepository()->findOrFail($id);
 
         return view('panel.posts.edit')
@@ -39,6 +42,7 @@ class PostController extends BaseCrudController
 
     public function show($id)
     {
+        /** @var Post $entity */
         $entity = $this->crud->getRepository()->findOrFail($id);
 
         return redirect()->route('posts.show', $entity->slug);

@@ -14,8 +14,7 @@ trait Sortable
 
     protected $defaultSortOrder = 'desc';
 
-    /** @var SortableCriteria */
-    protected $sortableCriteria = null;
+    protected ?SortableCriteria $sortableCriteria = null;
 
     public function sortable(bool $sortable = true, SortableCriteria $criteria = null): self
     {

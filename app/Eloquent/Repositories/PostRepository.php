@@ -28,7 +28,7 @@ class PostRepository extends BaseRepository
         });
     }
 
-    public function update(string $id, array $attributes): Model
+    public function update(int $id, array $attributes): Model
     {
         return DB::transaction(function () use ($id, $attributes) {
             /** @var Post $post */

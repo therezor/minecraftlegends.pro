@@ -18,7 +18,8 @@
         "league/glide": "^2.2",
         "livewire/livewire": "^2.10",
         "mews/purifier": "^3.3",
-        "protonemedia/laravel-form-components": "^3.6"
+        "protonemedia/laravel-form-components": "^3.6",
+        "watson/sitemap": "^5.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",

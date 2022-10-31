@@ -18,8 +18,8 @@ trait WithImageUploads
 
     public function finishUpload($name, $tmpPath, $isMultiple)
     {
+        $images = [];
         foreach ($tmpPath as $path) {
-            $images = [];
             $path = storage_path('app/' . FileUploadConfiguration::directory() . $path);
             $images[] = $this->imageRepository->uploadFromPath($path, auth()->user())->id;
         }

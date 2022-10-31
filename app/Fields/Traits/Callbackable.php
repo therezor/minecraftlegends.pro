@@ -17,11 +17,4 @@ trait Callbackable
 
         return $this;
     }
-
-    public function renderCallback(?callable $callback): self
-    {
-        $this->renderCallback = $callback;
-
-        return $this;
-    }
 }

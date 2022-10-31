@@ -39,7 +39,7 @@ class HomeController extends Controller
             ->paginate(20);
 
         $this->seo()->setTitle(__('Search'));
-        $this->seo()->metatags()->setRobots('none');
+        $this->setRobots('none');
 
         return view('search', ['posts' => $posts, 'term' => $term]);
     }

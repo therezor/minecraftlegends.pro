@@ -3,13 +3,13 @@
 namespace App\Fields\Collections;
 
 use Illuminate\Support\Collection;
-use App\Fields\Contracts\Field;
+use App\Fields\BaseField;
 
 class FieldCollection extends Collection
 {
     public function onlySortable(): self
     {
-        return $this->filter(function (Field $field) {
+        return $this->filter(function (BaseField $field) {
             return true === $field->isSortable() && null !== $field->getName();
         });
     }
@@ -27,7 +27,7 @@ class FieldCollection extends Collection
 
     public function firstByName($name)
     {
-        return $this->first(function (Field $field) use ($name) {
+        return $this->first(function (BaseField $field) use ($name) {
             return $field->getName() === $name;
         });
     }

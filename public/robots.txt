@@ -6,3 +6,5 @@ Disallow: /forgot-password
 Disallow: /reset-password
 Disallow: /livewire
 Disallow: /search
+
+Sitemap: https://minecraftlegends.pro/sitemap.xml

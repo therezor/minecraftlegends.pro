@@ -25,13 +25,13 @@ interface Repository extends RepositoryCriteria
     /**
      * @param array<string, mixed> $attributes
      */
-    public function update(string $id, array $attributes): Model;
+    public function update(int $id, array $attributes): Model;
 
-    public function delete(string $id): bool;
+    public function delete(int $id): bool;
 
-    public function find(string $id): ?Model;
+    public function find(int $id): ?Model;
 
-    public function findOrFail(string $id): Model;
+    public function findOrFail(int $id): Model;
 
     public function findBy(string $field, mixed $value): ?Model;
 

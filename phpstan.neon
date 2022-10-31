@@ -11,6 +11,9 @@ parameters:
 
     checkGenericClassInNonGenericObjectType: false
 
+    universalObjectCratesClasses:
+        - Illuminate\Database\Eloquent\Relations\Pivot
+
 #    ignoreErrors:
 #        - '#PHPDoc tag @var#'
 #
