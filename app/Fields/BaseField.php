@@ -32,12 +32,6 @@ abstract class BaseField implements Field
         $this->name = $name;
     }
 
-    public static function make(...$args)
-    {
-        /** @phpstan-ignore-next-line */
-        return new static(...$args);
-    }
-
     public function getName(): string
     {
         return $this->name;

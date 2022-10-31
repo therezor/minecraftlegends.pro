@@ -25,6 +25,11 @@ class Actions extends BaseField
         parent::__construct($name);
     }
 
+    public static function make(string $name, string $routePrefix): self
+    {
+        return new self($name, $routePrefix);
+    }
+
     public function getRoutePrefix()
     {
         return $this->routePrefix;

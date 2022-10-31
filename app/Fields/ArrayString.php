@@ -6,6 +6,11 @@ class ArrayString extends BaseField
 {
     protected $glue = ', ';
 
+    public static function make(string $name): self
+    {
+        return new self($name);
+    }
+
     public function glue($glue): self
     {
         $this->glue = $glue;

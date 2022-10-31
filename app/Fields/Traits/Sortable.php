@@ -16,7 +16,7 @@ trait Sortable
 
     protected ?SortableCriteria $sortableCriteria = null;
 
-    public function sortable(bool $sortable = true, SortableCriteria $criteria = null): self
+    public function sortable(bool $sortable = true, SortableCriteria $criteria = null): static
     {
         $this->sortable = $sortable;
         $this->sortableCriteria = $criteria;

@@ -6,9 +6,9 @@ use Carbon\Carbon;
 
 class Date extends BaseField
 {
-    protected $format = 'Y-m-d';
+    protected string $format = 'Y-m-d';
 
-    public function __construct(string $name, $format = null)
+    public function __construct(string $name, string $format = null)
     {
         if ($format) {
             $this->format = $format;
@@ -29,7 +29,12 @@ class Date extends BaseField
         parent::__construct($name);
     }
 
-    protected function getDateFormat()
+    public static function make(string $name, string $format = null): self
+    {
+        return new self($name, $format);
+    }
+
+    protected function getDateFormat(): string
     {
         return $this->format;
     }

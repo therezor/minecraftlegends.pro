@@ -18,4 +18,9 @@ class Text extends BaseField
 
         parent::__construct($name);
     }
+
+    public static function make(string $name): self
+    {
+        return new self($name);
+    }
 }

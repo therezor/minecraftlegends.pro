@@ -12,4 +12,9 @@ class Field extends BaseField
 
         return $this;
     }
+
+    public static function make(string $name): self
+    {
+        return new self($name);
+    }
 }
