@@ -27,6 +27,7 @@ return [
             'HTML.Doctype'             => 'HTML 4.01 Transitional',
             'HTML.Allowed'             => 'h3,h4,h5,strong,i,em,a[href|title],ul,ol,li,p,br',
             'HTML.Nofollow'            => true,
+            'HTML.TargetBlank'         => true,
             'AutoFormat.RemoveEmpty'   => true,
         ],
     ],
