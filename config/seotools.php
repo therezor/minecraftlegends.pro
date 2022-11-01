@@ -56,7 +56,7 @@ return [
          * The default values to be used by the twitter cards generator.
          */
         'defaults' => [
-            'card' => 'summary',
+            'card' => 'summary_large_image',
             'site' => env('APP_NAME'),
             'image' => env('APP_URL') . '/img/og-image.jpg',
         ],
