@@ -28,7 +28,7 @@ class SitemapController extends Controller
             return $sitemap->render();
         }
 
-        $sitemap->addTag(route('index'), null, 'daily', '1');
+        $sitemap->addTag(route('index'), now(), 'daily', '1');
         foreach ($posts as $post) {
             $tag = $sitemap->addTag(route('posts.show', $post->slug), $post->updated_at, 'daily', '0.8');
 

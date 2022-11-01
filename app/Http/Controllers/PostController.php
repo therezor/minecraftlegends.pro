@@ -38,12 +38,14 @@ class PostController extends Controller
         ]);
         if ($post->og_title) {
             $this->seo()->opengraph()->setTitle($post->og_title);
+            $this->seo()->twitter()->setTitle($post->og_title);
         }
         if ($post->og_description) {
             $this->seo()->opengraph()->setDescription($post->og_description);
+            $this->seo()->twitter()->setDescription($post->og_description);
         }
         if ($post->image_id || $post->og_image_id) {
-            $this->seo()->opengraph()->addImage(imageUrl($post->og_image_id ?? $post->image_id));
+            $this->seo()->addImages(imageUrl($post->og_image_id ?? $post->image_id));
         }
         $this->seo()->setCanonical(route('posts.show', $slug));
 
