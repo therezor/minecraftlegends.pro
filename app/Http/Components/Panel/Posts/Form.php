@@ -49,7 +49,7 @@ class Form extends Component
         $categoriesSelect =  ['' => ''] + $this->categoryRepository->select();
 
         $range = range(1, 10);
-        $perPageSelect = ['' => trans('crud.all')] + array_combine($range, $range);
+        $perPageSelect = [0 => trans('crud.all')] + array_combine($range, $range);
 
         return view('components.panel.posts.form', [
             'categoriesSelect' => $categoriesSelect,

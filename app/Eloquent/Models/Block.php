@@ -50,6 +50,8 @@ class Block extends Model implements HasTranslation, HasValidation
 {
     use SoftDeletes;
 
+    protected $table = 'blocks';
+
     /**
      * The attributes that are mass assignable.
      *

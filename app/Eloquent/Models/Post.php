@@ -69,6 +69,8 @@ class Post extends Model implements HasTranslation, HasValidation
 {
     use SoftDeletes;
 
+    protected $table = 'posts';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -129,9 +131,9 @@ class Post extends Model implements HasTranslation, HasValidation
                 new Enum(Status::class),
             ],
             'per_page' => [
-                'nullable',
+                'required',
                 'int',
-                'min:1',
+                'min:0',
                 'max:10',
             ],
             'image_id' => [

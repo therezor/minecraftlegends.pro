@@ -1,5 +1,5 @@
 const mix = require('laravel-mix');
-
+require('laravel-mix-purgecss');
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -19,7 +19,27 @@ mix.setPublicPath('public/')
     .js('resources/js/panel.js', 'js/panel.js')
     .js('resources/js/post-editor.js', 'js/post-editor.js')
     .version('public/js/html-editor.js')
-    .sourceMaps();
+    .sourceMaps()
+    .purgeCss({
+        safelist: {
+            greedy: [
+                /* Bootstrap */
+                /popover/,
+                /tooltip/,
+                /modal/,
+                /fade/,
+                /show/,
+                /hide/,
+                /alert/,
+                /badge/,
+                /bg/,
+                /arrow/,
+                /collapse/,
+                /collapsing/
+            ]
+        },
+        enabled: true
+    });
 
 if (mix.inProduction()) {
     mix.sourceMaps(false);

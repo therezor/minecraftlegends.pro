@@ -50,6 +50,8 @@ class User extends Authenticatable implements MustVerifyEmail, HasValidation, Ha
     use Notifiable;
     use SoftDeletes;
 
+    protected $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *

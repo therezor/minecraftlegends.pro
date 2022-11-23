@@ -43,6 +43,8 @@ class Category extends Model implements HasTranslation, HasValidation
 {
     use SoftDeletes;
 
+    protected $table = 'categories';
+
     /**
      * The attributes that are mass assignable.
      *

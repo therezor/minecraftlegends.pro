@@ -7,6 +7,7 @@ use App\Eloquent\Models\Post;
 use App\Eloquent\Models\User;
 use App\Enums\Block\Type;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class PostRepository extends BaseRepository
@@ -49,7 +50,11 @@ class PostRepository extends BaseRepository
 
     protected function saveBlocks(Post $post, array $attributes)
     {
-        foreach ($attributes['blocks'] ?? [] as $key => $data) {
+        $blocks = $attributes['blocks'] ?? [];
+        // Remove deleted blocks
+        $post->blocks()->whereNotIn('id', Arr::pluck($blocks, 'id'))->delete();
+
+        foreach ($blocks as $key => $data) {
             $type = Type::from($data['type']);
 
             $block = empty($data['id'])

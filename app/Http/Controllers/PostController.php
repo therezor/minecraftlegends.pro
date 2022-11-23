@@ -28,7 +28,7 @@ class PostController extends Controller
             ? $post->votes()->where('user_id', auth()->id())->first()?->getRelationValue('pivot')
             : null;
 
-        $this->seo()->setTitle($post->title);
+        $this->seo()->setTitle($post->title, false);
         $this->seo()->setDescription($post->description);
         $this->seo()->opengraph()->setType('article');
         $this->seo()->opengraph()->setArticle([

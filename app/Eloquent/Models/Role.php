@@ -40,6 +40,8 @@ class Role extends Model implements HasTranslation, HasValidation
 {
     use SoftDeletes;
 
+    protected $table = 'roles';
+
     /**
      * The attributes that are mass assignable.
      *
