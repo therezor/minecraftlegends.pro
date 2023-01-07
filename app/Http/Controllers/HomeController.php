@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Eloquent\Repositories\Criteria\LimitCriteria;
 use App\Eloquent\Repositories\Criteria\OrderByCriteria;
+use App\Eloquent\Repositories\Criteria\Posts\FeaturedCriteria;
 use App\Eloquent\Repositories\Criteria\Posts\PublishedCriteria;
 use App\Eloquent\Repositories\Criteria\Posts\SearchCriteria;
 use App\Eloquent\Repositories\PostRepository;
+use App\Enums\Post\Featured;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,11 +26,22 @@ class HomeController extends Controller
             ->pushCriteria(new OrderByCriteria('id'))
             ->paginate(20);
 
+        $featured = $this->postRepository
+            ->pushCriteria(new FeaturedCriteria(Featured::FEATURED))
+            ->pushCriteria(new OrderByCriteria('id'))
+            ->pushCriteria(new PublishedCriteria())
+            ->pushCriteria(new LimitCriteria(3))
+            ->get();
+
+        $editorChoice = $this->postRepository->popCriteria(FeaturedCriteria::class)
+            ->pushCriteria(new FeaturedCriteria(Featured::EDITOR_CHOICE))
+            ->get();
+
         $this->seo()->setTitle(__('Guides, mods, hacks, tips form Minecraft legends'), false);
         $this->seo()->setDescription(__('Welcome to MinecraftLegends fan site. Here you can track the latest news and modifications, download mods,  share the experience with others, and give helpful advice to new users.'));
         $this->seo()->setCanonical(route('index'));
 
-        return view('index', ['posts' => $posts]);
+        return view('index', ['posts' => $posts, 'featured' => $featured, 'editorChoice' => $editorChoice]);
     }
 
     public function search(Request $request)

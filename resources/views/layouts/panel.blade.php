@@ -13,7 +13,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link media="all" type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link media="all" type="text/css" rel="stylesheet" href="{{ mix('css/bootstrap-icons.css') }}">
 </head>
 <body class="bg-surface-secondary">
 
@@ -46,7 +45,6 @@
     </div>
 </div>
 
-<script defer src="{{ mix('js/panel.js') }}"></script>
 <script defer src="{{ mix('js/html-editor.js') }}"></script>
 
 @stack('scripts')

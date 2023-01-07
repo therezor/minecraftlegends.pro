@@ -1,51 +1,75 @@
-@extends('layouts.app')
+@extends('layouts.public')
 
-@section('body')
-    @include('sections.header')
+@section('container')
     @if($posts->currentPage() === 1)
-        <div class="py-10 py-md-24 bg-dark">
-            <div class="container-xl max-w-screen-xl">
-                <div class="row justify-content-md-center">
-                    <div class="col-md-10 col-xl-8 text-md-center">
-                        <div>
-                            <h1 class="ls-tight font-bolder display-3 text-white mb-7">
-                                {{ __('Minecraft legends Pro') }}
-                            </h1>
-                            <p class="lead text-white text-opacity-75 mb-10">
-                                {{ __('Welcome to MinecraftLegends fan site. Here you can track the latest news and modifications, download mods,  share the experience with others, and give helpful advice to new users.') }}
-                            </p>
-                        </div>
+        <div class="bg-body-extra-light">
+            <div class="content content-full">
+                <div class="row g-0 justify-content-center text-center">
+                    <div class="col-md-10 py-5">
+                        <h1 class="fs-2 fw-bold mb-3">
+                            {{ __('Minecraft legends Pro') }}
+                        </h1>
+                        <p class="fs-5 fw-medium text-muted mb-4 mx-xl-8">
+                            {{ __('Welcome to the MinecraftLegends fan club! Here, you will be able to track the latest news and modifications, download mods, share your experience with others, and offer helpful advice to new users.') }}
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-    @endif
-    <div class="py-5 container-xl">
-        <div class="row g-5">
-            <main class="col-md-8">
-                @foreach($posts as $post)
-                    <div class="card mb-5">
-                        @if($post->image_id)
-                            <a href="{{ route('posts.show', $post->slug) }}" class="ratio ratio-16x9">
-                                <img class="card-img-top" loading="lazy" src="{{ imageUrl($post->image_id) }}" alt="{{ $post->title }}">
-                            </a>
-                        @endif
 
-                    <div class="card-body">
-                        <a href="{{ route('posts.show', $post->slug) }}">
-                            <h2 class="text-primary-hover">{{ $post->title }}</h2>
-                        </a>
-                        <p>{{ $post->description }}</p>
+        @if($editorChoice->isNotEmpty())
+            <div class="bg-body-dark">
+                <div class="content content-boxed">
+
+                    <h2 class="content-heading">{{ __('Editor choice') }}</h2>
+
+                    <div class="row">
+                        @foreach($editorChoice as $post)
+                            @include('posts.sections.card')
+                        @endforeach
                     </div>
                 </div>
-                @endforeach
-                {{ $posts->links() }}
-            </main>
-            <aside class="col-md-4">
-                @include('sections.sidebar')
-            </aside>
-        </div>
-    </div>
+            </div>
+        @endif
+    @endif
 
-    @include('sections.footer')
+    <div class="content content-boxed">
+        @foreach($posts as $post)
+            <div class="block block-rounded">
+                <div class="block-content">
+                    <div class="row items-push">
+                        @if($post->image_id)
+                            <div class="col-md-4 col-lg-5">
+                                    <a class="img-link img-link-simple"  href="{{ route('posts.show', $post->slug) }}">
+                                        <img class="img-fluid rounded" loading="lazy" src="{{ imageUrl($post->image_id) }}" alt="{{ $post->title }}">
+                                    </a>
+                            </div>
+                        @endif
+                        <div @class(['d-md-flex align-items-center', 'col-md-8 col-lg-7' => $post->image_id])>
+                            <div>
+                                <h2 class="mb-1 h-4">
+                                    <a class="text-dark" href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a>
+                                </h2>
+                                <p class="fs-sm text-muted">
+                                    {{ $post->description }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
+        {{ $posts->links() }}
+
+        @if($featured->isNotEmpty())
+            <h2 class="content-heading">{{ __('Featured') }}</h2>
+
+            <div class="row">
+                @foreach($featured as $post)
+                    @include('posts.sections.card')
+                @endforeach
+            </div>
+        @endif
+    </div>
 @endsection

@@ -1,65 +1,84 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-0 py-3">
-    <div class="container-xl">
+<header id="page-header">
+    <div class="content-header">
+        <div class="d-flex align-items-center">
+            <a href="{{ route('index') }}">
+                <img src="{{ asset('img/logo.png') }}" width="203" height="40" alt="...">
+            </a>
+        </div>
 
-        <button class="navbar-toggler bg-dark-focus ms-n2" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="d-flex align-items-center">
+            <button type="button" class="btn btn-sm btn-alt-secondary d-md-none" data-toggle="layout" data-action="header_search_on">
+                <i class="fa fa-fw fa-search"></i>
+            </button>
 
-        <a class="navbar-brand" href="{{ route('index') }}">
-            <img src="{{ asset('img/logo.png') }}" class="h-8" alt="...">
-        </a>
-
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link @if(Route::is('index')) active @endif" href="{{ route('index') }}" aria-current="page">Home</a>
-                @foreach($categories as $category)
-                    <a class="nav-item nav-link @if(Route::is('categories.show') && Route::input('slug')  === $category->slug) active @endif" href="{{ route('categories.show', $category->slug) }}">
-                        @if($category->icon) <i class="{{ $category->icon }}"></i> @endif
-                        {{ $category->name }}
-                    </a>
-                @endforeach
-            </div>
-
-            <div class="navbar-nav align-items-center d-flex ms-auto">
-                {{ Form::open(['method' => 'get', 'route' => 'search', 'class' => 'col-12 col-md-auto form-dark']) }}
-                {{ Form::search('term', request()->get('term'), ['class' => 'form-control form-control-sm', 'placeholder' => __('Search...')]) }}
-                {{ Form::close() }}
-
-                <div class="mt-md-0 mt-4">
-                    @guest
-                        <a class="nav-link d-inline-block me-4 me-md-0"
-                           href="{{ route('login') }}">{{ __('Log in') }}</a>
-                        <a href="{{ route('register') }}" class="btn btn-sm btn-light">{{ __('Register') }}</a>
-                    @else
-                        <div class="dropdown">
-                            <a href="#dropdown-profile" class="nav-link text-center" data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                <i class="bi bi-person-fill"></i>
-                                {{ auth()->user()->name }}
-                                <i class="bi bi-chevron-down text-xs"></i>
-                            </a>
-                            <div id="dropdown-profile" class="dropdown-menu dropdown-menu-end px-2 mb-2">
-                                @can(\App\Enums\Role\Permission::DASHBOARD_VIEW->value)
-                                    <a class="dropdown-item" href="{{ route('panel.index') }}"><i
-                                                class="bi bi-tools me-3"></i> {{ __('Dashboard') }}</a>
-                                @endif
-{{--                                <a class="dropdown-item" href="#"><i--}}
-{{--                                            class="bi bi-plus-circle-dotted me-3"></i> {{ __('Add story') }}</a>--}}
-{{--                                <a class="dropdown-item" href="#"><i class="bi bi-gear me-3"></i> {{ __('Settings') }}--}}
-{{--                                </a>--}}
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button class="dropdown-item btn-link" type="submit">
-                                        <i class="bi bi bi-box-arrow-right me-3"></i> {{ __('Log out') }}
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    @endguest
+            {{ Form::open(['method' => 'get', 'route' => 'search', 'class' => 'd-none d-md-inline-block']) }}
+                <div class="input-group input-group-sm">
+                    {{ Form::search('term', request()->get('term'), ['class' => 'form-control form-control-alt', 'placeholder' => __('Search...')]) }}
+                    <span class="input-group-text bg-body border-0">
+                        <i class="fa fa-fw fa-search"></i>
+                    </span>
                 </div>
+            {{ Form::close() }}
+
+            @guest
+                <div class="dropdown d-lg-none ms-2">
+                    <button type="button" class="btn btn-sm btn-alt-secondary d-lg-none" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-fw fa-user"></i>
+                    </button>
+
+                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown" style="">
+                        <div class="p-2">
+                            <a href="{{ route('register') }}" class="btn btn-sm btn-primary d-block mb-2">{{ __('Register') }}</a>
+                            <a class="btn btn-sm btn-outline-primary d-block" href="{{ route('login') }}">{{ __('Log in') }}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <a class="btn btn-sm btn-outline-primary ms-2 d-none d-lg-inline-block" href="{{ route('login') }}">{{ __('Log in') }}</a>
+                <a href="{{ route('register') }}" class="btn btn-sm btn-primary ms-2 d-none d-lg-inline-block">{{ __('Register') }}</a>
+            @else
+                <div class="dropdown d-inline-block ms-2">
+                    <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-fw fa-user"></i>
+                        <span class="d-none d-sm-inline-block ms-2">{{ Str::limit(auth()->user()->name, 9) }}</span>
+                        <i class="fa fa-fw fa-angle-down d-none d-sm-inline-block opacity-50 ms-1"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0 border-0" aria-labelledby="page-header-user-dropdown" style="">
+                        <div class="p-3 text-center bg-body-light border-bottom rounded-top">
+                            <p class="mt-2 mb-0 fw-medium">{{ auth()->user()->name }}</p>
+                            <p class="mb-0 text-muted fs-sm fw-medium">{{ auth()->user()->role->name }}</p>
+                        </div>
+                        @can(\App\Enums\Role\Permission::DASHBOARD_VIEW->value)
+                            <div class="p-2">
+                                <a class="dropdown-item fs-sm fw-medium" href="{{ route('panel.index') }}">
+                                    <i class="fa fas fa-fw fa-table-columns"></i> {{ __('Dashboard') }}
+                                </a>
+                            </div>
+                            <div role="separator" class="dropdown-divider m-0"></div>
+                        @endif
+                        <div class="p-2">
+                            {{ Form::open(['method' => 'post', 'route' => 'logout']) }}
+                                <button class="dropdown-item btn-link fs-sm fw-medium" type="submit">
+                                    <i class="fa fas fa-fw fa-right-from-bracket"></i> {{ __('Log out') }}
+                                </button>
+                            {{ Form::close() }}
+                        </div>
+                    </div>
+                </div>
+            @endguest
+        </div>
+
+        <div id="page-header-search" class="overlay-header bg-body-extra-light">
+            <div class="content-header">
+                {{ Form::open(['method' => 'get', 'route' => 'search', 'class' => 'w-100']) }}
+                    <div class="input-group">
+                        <button type="button" class="btn btn-alt-danger" data-toggle="layout" data-action="header_search_off">
+                            <i class="fa fa-fw fa-times-circle"></i>
+                        </button>
+                        {{ Form::search('term', request()->get('term'), ['class' => 'form-control', 'placeholder' => __('Search...')]) }}
+                    </div>
+                {{ Form::close() }}
             </div>
         </div>
     </div>
-</nav>
+</header>

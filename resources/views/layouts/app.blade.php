@@ -16,11 +16,7 @@
     <link media="all" type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
 <body>
-    <div id="page-container">
-        <main id="main-container">
-            @yield('body')
-        </main>
-    </div>
+    @yield('body')
     <script defer src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>
