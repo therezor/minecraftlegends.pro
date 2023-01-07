@@ -14,11 +14,13 @@
     <link rel="manifest" href="/site.webmanifest">
 
     <link media="all" type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link media="all" type="text/css" rel="stylesheet" href="{{ mix('css/bootstrap-icons.css') }}">
 </head>
-<body class="bg-surface-secondary">
-    @yield('body')
-
+<body>
+    <div id="page-container">
+        <main id="main-container">
+            @yield('body')
+        </main>
+    </div>
     <script defer src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>

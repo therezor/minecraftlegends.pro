@@ -1,37 +1,29 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
-@section('body')
-    <div class="px-5 py-5 p-lg-0">
-        <div class="d-flex justify-content-center">
-            <div
-                class="col-12 col-md-9 col-lg-7 min-h-lg-screen d-flex flex-column justify-content-center py-lg-16 px-lg-20 position-relative">
-                <div class="row">
-                    <div class="col-lg-10 col-md-9 col-xl-7 mx-auto">
-                        <div class="text-center mb-8">
-                            <a class="d-inline-block mb-3" href="{{ route('index') }}">
-                                <img src="{{ asset('img/logo.png') }}" class="h-12" alt="...">
-                            </a>
-                            <div class="h4">{{ __('Forgot your password?') }}</div>
-                            <div>{{ __('No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}</div>
-                        </div>
-                        @include('components.status')
-                        @include('components.errors')
+@section('heading', __('Forgot your password?'))
 
-                        <form method="POST" action="{{ route('password.email') }}">
-                            @csrf
-                            <div class="mb-5">
-                                <label class="form-label" for="email">{{ __('Email address') }}</label>
-                                <input value="{{ old('email') }}" required autofocus type="email" class="form-control" id="email" name="email" placeholder="{{ __('Email address') }}">
-                            </div>
-                            <div>
-                                <button type="submit" class="btn btn-primary w-full">
-                                    {{ __('Email Password Reset Link') }}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+@section('subheading', __('No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.'))
+
+@section('form')
+    {{ Form::open(['method' => 'post', 'route' => 'password.email']) }}
+    <div class="py-3">
+        <div class="mb-4">
+            {{ Form::email('email', null, ['placeholder' => __('Email address'), 'required' => true, 'autofocus'=> true, 'class' => 'form-control form-control-lg form-control-alt']) }}
         </div>
+    </div>
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-6 col-xxl-6">
+            <button type="submit" class="btn w-100 btn-primary">
+                <i class="fa fa-fw fa-envelope me-1"></i> {{ __('Send Mail') }}
+            </button>
+        </div>
+    </div>
+    {{ Form::close() }}
+@endsection
+
+@section('footer')
+    <div class="fs-sm text-center text-muted py-3">
+        {{ __('Remembered password?') }}
+        <a href="{{ route('login') }}">{{ __('Log in') }}</a>
     </div>
 @endsection

@@ -12,16 +12,20 @@ require('laravel-mix-purgecss');
  */
 
 mix.setPublicPath('public/')
-    // Default
-    .sass('resources/css/app.scss', 'css/app.css')
-    .sass('resources/css/bootstrap-icons.scss', 'css/bootstrap-icons.css')
-    .js('resources/js/app.js', 'js/app.js')
-    .js('resources/js/panel.js', 'js/panel.js')
-    .js('resources/js/post-editor.js', 'js/post-editor.js')
+    .sass('resources/sass/main.scss', 'css/app.css')
+
+    .js('resources/js/oneui/app.js', 'js/app.js')
+    // .js('resources/js/panel.js', 'js/panel.js')
+    // .js('resources/js/post-editor.js', 'js/post-editor.js')
+
     .version('public/js/html-editor.js')
-    .sourceMaps()
     .purgeCss({
+        skippedContentGlobs: ['bootstrap-icons.css'],
         safelist: {
+            standard: [
+                'bi',
+                /^bi-/
+            ],
             greedy: [
                 /* Bootstrap */
                 /popover/,
@@ -38,8 +42,9 @@ mix.setPublicPath('public/')
                 /collapsing/
             ]
         },
-        enabled: true
-    });
+        enabled: mix.inProduction()
+    })
+    .sourceMaps();
 
 if (mix.inProduction()) {
     mix.sourceMaps(false);

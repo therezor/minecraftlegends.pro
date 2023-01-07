@@ -1,0 +1,22 @@
+//
+// Custom Variables
+//
+// Here you can add your own variables overrides
+//
+// The file is included before any other variable file,
+// so you can override them because they all use !default
+// --------------------------------------------------
+
+// For example, changing the primary color
+// $primary: #a48ad4;
+
+$primary:       #3498db;
+$secondary:     #8a93a2;
+$success:       #65A30D;
+$info:          #0891B2;
+$warning:       #EA580C;
+$danger:        #DC2626;
+$light:         #ebeef2;
+$dark:          #334155;
+
+$font-size-root:   18px;

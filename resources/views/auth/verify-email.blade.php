@@ -1,4 +1,26 @@
-@extends('layouts.app')
+@extends('layouts.auth')
+
+@section('heading', __('Thanks for signing up!'))
+
+@section('subheading', __('Please check your inbox'))
+
+@section('form')
+    {{ Form::open(['method' => 'post', 'route' => 'verification.send']) }}
+    <p>
+        {{ __('Before getting started, could you verify your email address by clicking on the link we just emailed to you?') }}
+    </p>
+    <p>
+        {{ __('If you didn\'t receive the email, we will gladly send you another.') }}
+    </p>
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-xxl-8">
+            <button type="submit" class="btn w-100 btn-alt-secondary">
+                <i class="fa fa-fw fa-paper-plane me-1 opacity-50"></i> {{ __('Resend Email') }}
+            </button>
+        </div>
+    </div>
+    {{ Form::close() }}
+@endsection
 
 @section('body')
     <div class="px-5 py-5 p-lg-0">

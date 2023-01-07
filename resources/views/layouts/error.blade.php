@@ -7,12 +7,34 @@
 
     <link media="all" type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
-<body class="bg-surface-secondary">
-    <div class="d-flex align-items-center justify-content-center min-h-screen">
-        <div class="text-center">
-            <h1 class="display-1 fw-bold">@yield('code')</h1>
-            <p class="fs-3">@yield('message')</p>
-        </div>
+<body>
+    <div id="page-container">
+        <main id="main-container">
+            <div class="hero">
+                <div class="hero-inner text-center">
+                    <div class="bg-body-extra-light">
+                        <div class="content content-full overflow-hidden">
+                            <div class="py-4">
+                                <h1 class="display-1 fw-bolder @yield('code-class', 'text-primary')">
+                                    @yield('code')
+                                </h1>
+                                <h2 class="h3 fw-normal mb-3">
+                                    @yield('title')
+                                </h2>
+                                <p class="h6 fw-normal text-muted mb-3">
+                                    @yield('message')
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content content-full text-muted fs-sm fw-medium">
+                        <a class="link-fx" href="javascript:location.reload();">{{ __('Refresh') }}</a>
+                            {{ __('or') }}
+                        <a class="link-fx" href="{{ route('index') }}">{{ __('Back to Homepage') }}</a>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
 </body>
 </html>

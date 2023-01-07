@@ -1,52 +1,45 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
-@section('body')
-    <div class="px-5 py-5 p-lg-0">
-        <div class="d-flex justify-content-center">
-            <div
-                class="col-12 col-md-9 col-lg-7 min-h-lg-screen d-flex flex-column justify-content-center py-lg-16 px-lg-20 position-relative">
-                <div class="row">
-                    <div class="col-lg-10 col-md-9 col-xl-7 mx-auto">
-                        <div class="text-center mb-8">
-                            <a class="d-inline-block mb-3" href="{{ route('index') }}">
-                                <img src="{{ asset('img/logo.png') }}" class="h-12" alt="...">
-                            </a>
-                            <div class="h4">{{ __('Login to continue') }}</div>
-                        </div>
-                        @include('components.status')
-                        @include('components.errors')
-                        <form method="POST" action="{{ route('login') }}">
-                            @csrf
-                            <div class="mb-5">
-                                <label class="form-label" for="email">{{ __('Email address') }}</label>
-                                <input value="{{ old('email') }}" required autofocus type="email" class="form-control" id="email" name="email" placeholder="{{ __('Email address') }}">
-                            </div>
-                            <div class="mb-5">
-                                <label class="form-label" for="password">{{ __('Password') }}</label>
-                                <input required type="password" class="form-control" id="password" name="password" placeholder="{{ __('Password') }}" autocomplete="current-password">
-                                <a href="{{ route('password.request') }}" class="text-sm">{{ __('Forgot your password?') }}</a>
-                            </div>
-                            <div class="mb-5">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember-me">
-                                    <label class="form-check-label" for="remember-me">
-                                        {{ __('Remember me') }}
-                                    </label>
-                                </div>
-                            </div>
-                            <div>
-                                <button type="submit" class="btn btn-primary w-full">
-                                    {{ __('Log in') }}
-                                </button>
-                            </div>
-                        </form>
-                        <div class="my-6">
-                            <small>{{ __('Don\'t have an account?') }}</small>
-                            <a href="{{ route('register') }}" class="text-warning text-sm font-semibold">{{ __('Register') }}</a>
-                        </div>
+@section('heading', __('Login'))
+
+@section('subheading', __('Great to have you back!'))
+
+@section('form')
+    {{ Form::open(['method' => 'post', 'route' => 'login']) }}
+        <div class="py-3">
+            <div class="mb-4">
+                {{ Form::email('email', null, ['placeholder' => __('Email address'), 'required' => true, 'autofocus'=> true, 'class' => 'form-control form-control-lg form-control-alt']) }}
+            </div>
+            <div class="mb-4">
+                {{ Form::password('password', ['placeholder' => __('Password'), 'required' => true, 'class' => 'form-control form-control-lg form-control-alt']) }}
+            </div>
+            <div class="mb-4">
+                <div class="d-md-flex align-items-md-center justify-content-md-between">
+                    <div class="form-check">
+                        {{ Form::checkbox('remember', 1, null, ['id' => 'remember-me', 'class' => 'form-check-input']) }}
+                        <label class="form-check-label" for="remember-me">
+                            {{ __('Remember me') }}
+                        </label>
+                    </div>
+                    <div class="py-2">
+                        <a href="{{ route('password.request') }}" class="fs-sm fw-medium">{{ __('Forgot your password?') }}</a>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-xxl-5">
+                <button type="submit" class="btn w-100 btn-alt-primary">
+                    <i class="fa fa-fw fa-sign-in-alt me-1 opacity-50"></i> {{ __('Log in') }}
+                </button>
+            </div>
+        </div>
+    {{ Form::close() }}
+@endsection
+
+@section('footer')
+    <div class="fs-sm text-center text-muted py-3">
+        {{ __('Don\'t have an account?') }}
+        <a href="{{ route('register') }}">{{ __('Register') }}</a>
     </div>
 @endsection

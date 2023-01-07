@@ -1,5 +1,6 @@
 @extends('layouts.error')
 
-@section('title', __('Server Error'))
+@section('title', __('Internal Server Error'))
 @section('code', '500')
-@section('message', __('Server Error'))
+@section('code-class', 'text-city')
+@section('message', __('An internal server error has occurred. Please try again later.'))
