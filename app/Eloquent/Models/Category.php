@@ -15,7 +15,6 @@ use Illuminate\Validation\Rule;
  *
  * @property int $id
  * @property string $name
- * @property string $icon
  * @property string $slug
  * @property int $display_order
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -30,7 +29,6 @@ use Illuminate\Validation\Rule;
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereDisplayOrder($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereIcon($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereSlug($value)
@@ -52,7 +50,6 @@ class Category extends Model implements HasTranslation, HasValidation
      */
     protected $fillable = [
         'name',
-        'icon',
         'slug',
         'display_order',
     ];
@@ -70,13 +67,6 @@ class Category extends Model implements HasTranslation, HasValidation
                 'string',
                 'max:255',
                 Rule::unique(Category::class, 'name')->ignore($this->id)->withoutTrashed(),
-            ],
-
-            'icon' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique(Category::class, 'icon')->ignore($this->id)->withoutTrashed(),
             ],
 
             'slug' => [

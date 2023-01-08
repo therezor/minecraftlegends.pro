@@ -1,45 +1,43 @@
-@extends('layouts.app')
+@extends('layouts.public')
 
-@section('title',  $category->name . (($posts->currentPage() !== 1) ? ' | Page ' . $posts->currentPage() : ''))
-@section('description', __('Category') . ' ' . $category->name)
-
-@section('og_title', $category->name)
-@section('og_description', __('Category') . ' ' . $category->name)
-
-
-@section('body')
-    @include('sections.header')
-
-    <div class="py-5 container-xl">
-        <div class="row g-5">
-            <main class="col-md-8">
-                <h1 class="mb-3">
+@section('container')
+    <div class="bg-body-light">
+        <div class="content content-full">
+            <div class="py-3 text-center">
+                <h1 class="h3 fw-bold mb-2">
                     {{ $category->name }}
                 </h1>
-
-                @foreach($posts as $post)
-                    <div class="card mb-5">
-                        @if($post->image_id)
-                            <a href="{{ route('posts.show', $post->slug) }}" class="ratio ratio-16x9">
-                                <img class="card-img-top" loading="lazy" src="{{ imageUrl($post->image_id) }}" alt="{{ $post->title }}">
-                            </a>
-                        @endif
-
-                        <div class="card-body">
-                            <a href="{{ route('posts.show', $post->slug) }}">
-                                <h2 class="text-primary-hover">{{ $post->title }}</h2>
-                            </a>
-                            <p>{{ $post->description }}</p>
-                        </div>
-                    </div>
-                @endforeach
-                {{ $posts->links() }}
-            </main>
-            <aside class="col-md-4">
-                @include('sections.sidebar')
-            </aside>
+            </div>
         </div>
     </div>
 
-    @include('sections.footer')
+    <div class="content content-boxed">
+        @foreach($posts as $post)
+            <div class="block block-rounded">
+                <div class="block-content">
+                    <div class="row items-push">
+                        @if($post->image_id)
+                            <div class="col-md-4 col-lg-5">
+                                <a class="img-link img-link-simple"  href="{{ route('posts.show', $post->slug) }}">
+                                    <img class="img-fluid rounded" loading="lazy" src="{{ imageUrl($post->image_id) }}" alt="{{ $post->title }}">
+                                </a>
+                            </div>
+                        @endif
+                        <div @class(['d-md-flex align-items-center', 'col-md-8 col-lg-7' => $post->image_id])>
+                            <div>
+                                <h2 class="mb-1 h-4">
+                                    <a class="text-dark" href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a>
+                                </h2>
+                                <p class="fs-sm text-muted">
+                                    {{ $post->description }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
+        {{ $posts->links() }}
+    </div>
 @endsection

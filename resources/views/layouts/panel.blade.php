@@ -1,53 +1,33 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', config('app.name'))</title>
+@extends('layouts.app')
 
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png}">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+@section('body')
+    <div id="page-container" class="sidebar-o sidebar-dark side-scroll page-header-fixed main-content-narrow side-trans-enabled">
+        @include('panel.sections.sidebar')
+        @include('panel.sections.header')
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <link media="all" type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
-</head>
-<body class="bg-surface-secondary">
-
-<div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
-    @include('panel.sections.sidebar')
-
-    <div class="h-screen flex-grow-1 overflow-y-lg-auto">
-        <header class="py-6">
-            <div class="container-fluid">
-                <div class="mb-npx">
-                    <div class="row align-items-center">
-                        <div class="col-sm-6 col-12 mb-4 mb-sm-0">
-                            @yield('header')
+        <main id="main-container">
+            <div class="bg-body-light">
+                <div class="content content-full">
+                    <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center py-2">
+                        <div class="flex-grow-1">
+                            <h1 class="h3 fw-bold mb-2">
+                                @yield('header')
+                            </h1>
                         </div>
-
-                        <div class="col-sm-6 col-12 text-sm-end">
+                        <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3">
                             @stack('actions')
-                        </div>
+                        </nav>
                     </div>
                 </div>
             </div>
-        </header>
 
-        <main class="pb-6 bg-surface-secondary">
-            <div class="container">
-                @include('sections.messages')
+            <div class="content">
+                @include('components.messages')
+
                 @yield('content')
             </div>
         </main>
+
+        @include('sections.footer')
     </div>
-</div>
-
-<script defer src="{{ mix('js/html-editor.js') }}"></script>
-
-@stack('scripts')
-
-</body>
-</html>
+@endsection

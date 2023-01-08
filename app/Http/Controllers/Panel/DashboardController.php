@@ -8,6 +8,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $this->seo()->setTitle(__('Dashboard'));
+
         return view('panel.dashboard');
     }
 }

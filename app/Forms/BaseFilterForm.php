@@ -5,7 +5,6 @@ namespace App\Forms;
 use App\Eloquent\Repositories\Criteria\FilterCriteria;
 use Kris\LaravelFormBuilder\Form;
 use App\Forms\Traits\TranslatableModel;
-use App\Eloquent\Repositories\Contracts\Criteria;
 
 class BaseFilterForm extends Form
 {
@@ -29,10 +28,6 @@ class BaseFilterForm extends Form
 
     protected function setupFieldOptions($name, &$options)
     {
-        if (empty($options['wrapper']['class'])) {
-            $options['wrapper']['class'] = config('laravel-form-builder.defaults.wrapper_class') . ' col';
-        }
-
         if (empty($options['attr']['class'])) {
             $options['attr']['class'] = config('laravel-form-builder.defaults.field_class') . ' form-control-sm';
         }
@@ -42,10 +37,5 @@ class BaseFilterForm extends Form
         }
 
         parent::setupFieldOptions($name, $options);
-    }
-
-    protected function addSpacer($name, $class = 'w-100')
-    {
-        return $this->add($name, 'static', ['wrapper' => ['class' => $class], 'label' => false]);
     }
 }

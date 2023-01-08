@@ -16,6 +16,7 @@ class EmailVerificationPromptController extends Controller
     public function __invoke(Request $request)
     {
         $this->setRobots('none');
+        $this->seo()->setTitle(__('Please check your inbox'));
 
         return $request->user()->hasVerifiedEmail()
             ? redirect()->intended()

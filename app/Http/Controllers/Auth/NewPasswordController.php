@@ -21,6 +21,7 @@ class NewPasswordController extends Controller
     public function create(Request $request)
     {
         $this->setRobots('none');
+        $this->seo()->setTitle(__('Reset password'));
 
         return view('auth.reset-password', ['request' => $request]);
     }

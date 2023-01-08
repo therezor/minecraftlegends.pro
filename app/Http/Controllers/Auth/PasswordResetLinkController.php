@@ -16,6 +16,7 @@ class PasswordResetLinkController extends Controller
     public function create()
     {
         $this->setRobots('none');
+        $this->seo()->setTitle(__('Forgot your password?'));
 
         return view('auth.forgot-password');
     }

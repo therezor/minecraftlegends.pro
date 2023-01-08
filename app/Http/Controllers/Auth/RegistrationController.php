@@ -21,6 +21,7 @@ class RegistrationController extends Controller
     public function create()
     {
         $this->setRobots('none');
+        $this->seo()->setTitle(__('Create new account'));
 
         return view('auth.register');
     }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 use App\Fields\Collections\FieldCollection;
 use App\Forms\BaseFilterForm;
 use App\Http\Crud\BaseCrud;
@@ -15,6 +14,8 @@ abstract class BaseCrudController extends Controller
 
     public function index(Request $request)
     {
+        $this->seo()->setTitle($this->crud->title());
+
         $fields = $this->crud->getListFields();
 
         $sortFields = (new FieldCollection($fields))->onlySortable();
@@ -46,6 +47,8 @@ abstract class BaseCrudController extends Controller
 
     public function create()
     {
+        $this->seo()->setTitle($this->crud->title());
+
         $entity = $this->crud->getRepository()->newModel();
 
         $form = $this->crud->getCreateFormClass();
@@ -94,6 +97,8 @@ abstract class BaseCrudController extends Controller
 
     public function show($id)
     {
+        $this->seo()->setTitle($this->crud->title());
+
         $entity = $this->crud->getRepository()->findOrFail($id);
 
         $fields = $this->crud->getShowFields();
@@ -106,6 +111,8 @@ abstract class BaseCrudController extends Controller
 
     public function edit($id)
     {
+        $this->seo()->setTitle($this->crud->title());
+
         $entity = $this->crud->getRepository()->findOrFail($id);
 
         $form = $this->crud->getEditFormClass();

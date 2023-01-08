@@ -17,6 +17,7 @@ class LoginController extends Controller
     public function create()
     {
         $this->setRobots('none');
+        $this->seo()->setTitle(__('Login'));
 
         return view('auth.login');
     }
@@ -50,6 +51,6 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('index');
     }
 }

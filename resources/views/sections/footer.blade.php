@@ -21,6 +21,10 @@
                 </ul>
             </div>
             <div class="col-sm-6 order-sm-1 py-1 text-center text-sm-start">
+                <button type="button" class="btn btn-sm rounded-pill btn-alt-secondary me-2" title={{ __('Change theme') }}" data-toggle="layout" data-action="dark_mode_toggle">
+                    <i class="fa fa-circle-half-stroke"></i>
+                </button>
+
                 &copy; 2022 <a href="{{ route('index') }}" class="h6 text-sm font-bold">{{ config('app.name') }}</a>
                 {{ __('All rights reserved.') }}
             </div>

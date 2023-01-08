@@ -3,7 +3,7 @@
 namespace App\Http\Crud\Panel;
 
 use App\Eloquent\Repositories\PostRepository;
-use App\Forms\Panel\User\FilterForm;
+use App\Forms\Panel\Post\FilterForm;
 use App\Http\Crud\Traits\RedirectToShow;
 use App\Fields\{Actions, DateTime, Enum, Field};
 use App\Http\Crud\BaseCrud;

@@ -6,8 +6,8 @@
 
         <main id="main-container">
             @yield('container')
-
-            @include('sections.footer')
         </main>
+
+        @include('sections.footer')
     </div>
 @endsection

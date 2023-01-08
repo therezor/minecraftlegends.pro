@@ -1,5 +1,5 @@
-<table class="table table-hover">
-    <thead class="table-light">
+<table class="table table-striped table-vcenter">
+    <thead>
     <tr>
         @foreach($fields as $field)
             <th class="{{ $field->getMeta('list.class') }}" scope="col">
@@ -7,11 +7,11 @@
                     <a href="{{ $field->sortableUrl(request()) }}">
                         {{ $field->resolveLabel($emptyEntity) }}
                         @if($field->getSortDirection() === 'asc')
-                            <i class="bi bi-sort-up-alt"></i>
+                            <i class="fa fa-sort-up"></i>
                         @elseif($field->getSortDirection() === 'desc')
-                            <i class="bi bi-sort-down"></i>
+                            <i class="fa fa-sort-down"></i>
                         @else
-                            <i class="bi bi-list"></i>
+                            <i class="fa fa-sort"></i>
                         @endif
                     </a>
                 @else
