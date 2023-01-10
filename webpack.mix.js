@@ -14,9 +14,8 @@ require('laravel-mix-purgecss');
 mix.setPublicPath('public/')
     .sass('resources/sass/main.scss', 'css/app.css')
 
-    .js('resources/js/oneui/app.js', 'js/app.js')
-    // .js('resources/js/panel.js', 'js/panel.js')
-    // .js('resources/js/post-editor.js', 'js/post-editor.js')
+    .js('resources/js/app.js', 'js/app.js')
+    .js('resources/js/post-editor.js', 'js/post-editor.js')
 
     .version('public/js/html-editor.js')
     .purgeCss({

@@ -2,6 +2,7 @@
 
 namespace App\Http\Crud;
 
+use App\Enums\Crud\Method;
 use Illuminate\Support\Str;
 use App\Http\Crud\Traits\Hookable;
 use App\Http\Crud\Traits\Sortable;
@@ -26,13 +27,13 @@ abstract class BaseCrud
      * @var array
      */
     public $methods = [
-        'index',
-        'create',
-        'show',
-        'store',
-        'edit',
-        'update',
-        'destroy',
+        Method::INDEX,
+        Method::CREATE,
+        Method::SHOW,
+        Method::STORE,
+        Method::EDIT,
+        Method::UPDATE,
+        Method::DESTROY,
     ];
 
     /**
@@ -79,9 +80,9 @@ abstract class BaseCrud
         return null;
     }
 
-    public function getViewByMethod(string $method): string
+    public function getViewByMethod(Method $method): string
     {
-        return Str::finish($this->getViewPrefix(), '.') . $method;
+        return Str::finish($this->getViewPrefix(), '.') . $method->value;
     }
 
     public function getEntityActions(): array
@@ -98,12 +99,12 @@ abstract class BaseCrud
         return 'crud';
     }
 
-    public function getRouteByMethod($method)
+    public function getRouteByMethod(Method $method)
     {
         if (!in_array($method, $this->methods)) {
             return null;
         }
 
-        return Str::finish($this->getRouteName(), '.') . $method;
+        return Str::finish($this->getRouteName(), '.') . $method->value;
     }
 }

@@ -5,4 +5,4 @@
  */
 
 // Slick Slider, for more info and examples you can check out http://kenwheeler.github.io/slick/
-One.helpersOnLoad(['jq-slick']);
+App.helpersOnLoad(['jq-slick']);

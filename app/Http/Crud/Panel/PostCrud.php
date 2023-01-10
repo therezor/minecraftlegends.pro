@@ -3,7 +3,8 @@
 namespace App\Http\Crud\Panel;
 
 use App\Eloquent\Repositories\PostRepository;
-use App\Forms\Panel\Post\FilterForm;
+use App\Enums\Crud\Method;
+use App\Forms\Panel\Post\{Form, FilterForm};
 use App\Http\Crud\Traits\RedirectToShow;
 use App\Fields\{Actions, DateTime, Enum, Field};
 use App\Http\Crud\BaseCrud;
@@ -43,5 +44,23 @@ class PostCrud extends BaseCrud
     public function getFilterFormClass(): ?string
     {
         return FilterForm::class;
+    }
+
+    public function getCreateFormClass(): ?string
+    {
+        return Form::class;
+    }
+
+    public function getViewByMethod(Method $method): string
+    {
+        if (Method::CREATE === $method) {
+            return 'panel.posts.create';
+        }
+
+        if (Method::EDIT === $method) {
+            return 'panel.posts.edit';
+        }
+
+        return parent::getViewByMethod($method);
     }
 }

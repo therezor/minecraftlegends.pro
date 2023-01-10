@@ -7,7 +7,7 @@ return [
         'label_class' => 'form-label',
         'field_class' => 'form-control',
         'field_error_class' => 'is-invalid',
-        'help_block_class' => 'help-block',
+        'help_block_class' => 'form-text',
         'error_class' => 'invalid-feedback',
         'required_class' => 'required',
 
@@ -48,7 +48,7 @@ return [
     'default_namespace' => '',
 
     'custom_fields' => [
-//        'datetime' => App\Forms\Fields\Datetime::class
+        'image-upload' => \App\Fields\Form\ImageUpload::class,
     ],
 
     'plain_form_class' => \Kris\LaravelFormBuilder\Form::class,

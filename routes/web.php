@@ -9,6 +9,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,9 @@ use App\Http\Controllers\SitemapController;
 
 
 Route::group(['prefix' => 'panel', 'as' => 'panel.', 'middleware' => ['auth']], function () {
+    Route::post('images', [ImageController::class, 'store'])->name('images.upload');
+
+
     Route::get('/', [Panel\DashboardController::class, 'index'])
         ->middleware('can:' . Permission::DASHBOARD_VIEW->value)
         ->name('index');

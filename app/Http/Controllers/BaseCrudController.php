@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Crud\Method;
 use Illuminate\Http\Request;
 use App\Fields\Collections\FieldCollection;
 use App\Forms\BaseFilterForm;
@@ -37,7 +38,7 @@ abstract class BaseCrudController extends Controller
 
         $entities = $this->crud->getRepository()->paginate($this->crud->perPage);
 
-        return view($this->crud->getViewByMethod('index'))
+        return view($this->crud->getViewByMethod(Method::INDEX))
             ->with('crud', $this->crud)
             ->with('fields', $fields)
             ->with('emptyEntity', $emptyEntity)
@@ -57,11 +58,11 @@ abstract class BaseCrudController extends Controller
             $form = FormBuilder::create($form, [
                 'method' => 'post',
                 'model'  => $entity,
-                'route'  => $this->crud->getRouteByMethod('store'),
+                'route'  => $this->crud->getRouteByMethod(Method::STORE),
             ]);
         }
 
-        return view($this->crud->getViewByMethod('create'))
+        return view($this->crud->getViewByMethod(Method::CREATE))
             ->with('entity', $entity)
             ->with('form', $form)
             ->with('crud', $this->crud);
@@ -77,7 +78,7 @@ abstract class BaseCrudController extends Controller
             $form = FormBuilder::create($form, [
                 'method' => 'post',
                 'model'  => $entity,
-                'route'  => $this->crud->getRouteByMethod('store'),
+                'route'  => $this->crud->getRouteByMethod(Method::STORE),
             ]);
 
             $form->redirectIfNotValid();
@@ -91,7 +92,7 @@ abstract class BaseCrudController extends Controller
             $this->crud->afterStore($entity, $fieldValues);
         }
 
-        return redirect()->route($this->crud->getRouteByMethod('index'))
+        return redirect()->route($this->crud->getRouteByMethod(Method::INDEX))
             ->with('status', trans('crud.created'));
     }
 
@@ -103,7 +104,7 @@ abstract class BaseCrudController extends Controller
 
         $fields = $this->crud->getShowFields();
 
-        return view($this->crud->getViewByMethod('show'))
+        return view($this->crud->getViewByMethod(Method::SHOW))
             ->with('entity', $entity)
             ->with('fields', $fields)
             ->with('crud', $this->crud);
@@ -121,11 +122,11 @@ abstract class BaseCrudController extends Controller
             $form = FormBuilder::create($form, [
                 'method' => 'patch',
                 'model'  => $entity,
-                'route'  => [$this->crud->getRouteByMethod('update'), $id],
+                'route'  => [$this->crud->getRouteByMethod(Method::UPDATE), $id],
             ]);
         }
 
-        return view($this->crud->getViewByMethod('edit'))
+        return view($this->crud->getViewByMethod(Method::EDIT))
             ->with('entity', $entity)
             ->with('form', $form)
             ->with('crud', $this->crud);
@@ -141,7 +142,7 @@ abstract class BaseCrudController extends Controller
             $form = FormBuilder::create($form, [
                 'method' => 'patch',
                 'model'  => $entity,
-                'route'  => $this->crud->getRouteByMethod('update'),
+                'route'  => $this->crud->getRouteByMethod(Method::UPDATE),
             ]);
 
             $form->redirectIfNotValid();
@@ -155,7 +156,7 @@ abstract class BaseCrudController extends Controller
             $this->crud->afterUpdate($entity, $fieldValues);
         }
 
-        return redirect()->route($this->crud->getRouteByMethod('index'))
+        return redirect()->route($this->crud->getRouteByMethod(Method::INDEX))
             ->with('status', trans('crud.updated'));
     }
 
@@ -169,7 +170,7 @@ abstract class BaseCrudController extends Controller
 
         $this->crud->afterDestroy($entity);
 
-        return redirect()->route($this->crud->getRouteByMethod('index'))
+        return redirect()->route($this->crud->getRouteByMethod(Method::INDEX))
             ->with('status', trans('crud.deleted'));
     }
 }

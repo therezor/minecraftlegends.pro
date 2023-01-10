@@ -71,4 +71,4 @@ class pageTablesDatatables {
 }
 
 // Initialize when page loads
-One.onLoad(() => pageTablesDatatables.init());
+App.onLoad(() => pageTablesDatatables.init());

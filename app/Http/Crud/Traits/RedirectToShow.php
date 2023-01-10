@@ -2,6 +2,7 @@
 
 namespace App\Http\Crud\Traits;
 
+use App\Enums\Crud\Method;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 trait RedirectToShow
@@ -18,8 +19,8 @@ trait RedirectToShow
 
     protected function redirectToShow($entity)
     {
-        if (auth()->user()->can($this->getRouteByMethod('show'))) {
-            throw new HttpResponseException(redirect()->route($this->getRouteByMethod('show'), $entity)
+        if (auth()->user()->can($this->getRouteByMethod(Method::SHOW))) {
+            throw new HttpResponseException(redirect()->route($this->getRouteByMethod(Method::SHOW), $entity)
                 ->with('flash_success', trans('crud.updated')));
         }
     }

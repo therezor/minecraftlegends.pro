@@ -19,27 +19,6 @@ class PostController extends BaseCrudController
         $this->crud = $crud;
     }
 
-    public function create()
-    {
-        /** @var Post $entity */
-        $entity = $this->crud->getRepository()->newModel();
-        $entity->user_id = auth()->id();
-
-        return view('panel.posts.create')
-            ->with('entity', $entity)
-            ->with('crud', $this->crud);
-    }
-
-    public function edit($id)
-    {
-        /** @var Post $entity */
-        $entity = $this->crud->getRepository()->findOrFail($id);
-
-        return view('panel.posts.edit')
-            ->with('entity', $entity)
-            ->with('crud', $this->crud);
-    }
-
     public function show($id)
     {
         /** @var Post $entity */

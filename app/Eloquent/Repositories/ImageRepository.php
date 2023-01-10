@@ -4,6 +4,7 @@ namespace App\Eloquent\Repositories;
 
 use App\Eloquent\Models\Image;
 use App\Eloquent\Models\User;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Intervention\Image\Constraint;
 use Livewire\TemporaryUploadedFile;
@@ -23,9 +24,9 @@ class ImageRepository extends BaseRepository
         return Image::class;
     }
 
-    public function uploadFromPath(string $path, User $user)
+    public function upload(UploadedFile $uploadedFile, User $user): Image
     {
-        $file = $this->encodeImage($path, static::MAX_WIDTH, static::MAX_HEIGHT);
+        $file = $this->encodeImage($uploadedFile, static::MAX_WIDTH, static::MAX_HEIGHT);
         $today = now()->toDateString();
         $directory = "images/{$today}/";
         $filename = $this->uniqueFilename();
