@@ -31,7 +31,6 @@ class CategoryCrud extends BaseCrud
     public function getListFields(): array
     {
         return [
-            Field::make('id')->sortable(),
             Field::make('name')->sortable(),
             Field::make('posts_count'),
             Field::make('display_order')->sortable(),

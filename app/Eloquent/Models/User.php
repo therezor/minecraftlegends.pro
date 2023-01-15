@@ -5,6 +5,7 @@ namespace App\Eloquent\Models;
 use App\Eloquent\Models\Contracts\HasTranslation;
 use App\Eloquent\Models\Contracts\HasValidation;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,7 +15,7 @@ use Illuminate\Validation\Rule;
 /**
  * App\Eloquent\Models\User
  *
- * @property int $id
+ * @property string $id
  * @property string $name
  * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
@@ -23,7 +24,7 @@ use Illuminate\Validation\Rule;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property int|null $role_id
+ * @property string|null $role_id
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \App\Eloquent\Models\Role|null $role
@@ -47,6 +48,7 @@ use Illuminate\Validation\Rule;
  */
 class User extends Authenticatable implements MustVerifyEmail, HasValidation, HasTranslation
 {
+    use HasUuids;
     use Notifiable;
     use SoftDeletes;
 

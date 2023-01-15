@@ -5,6 +5,7 @@ namespace App\Eloquent\Models;
 use App\Eloquent\Models\Contracts\HasTranslation;
 use App\Eloquent\Models\Contracts\HasValidation;
 use App\Enums\Role\Permission;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,7 +15,7 @@ use Illuminate\Validation\Rules\Enum;
 /**
  * App\Eloquent\Models\Role
  *
- * @property int $id
+ * @property string $id
  * @property string $name
  * @property array $permissions
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -38,6 +39,7 @@ use Illuminate\Validation\Rules\Enum;
  */
 class Role extends Model implements HasTranslation, HasValidation
 {
+    use HasUuids;
     use SoftDeletes;
 
     protected $table = 'roles';

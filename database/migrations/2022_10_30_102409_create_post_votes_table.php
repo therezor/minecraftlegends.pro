@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('post_votes', function (Blueprint $table) {
-            $table->unsignedBigInteger('post_id')->index();
-            $table->unsignedBigInteger('user_id')->index();
+            $table->uuid('post_id')->index();
+            $table->uuid('user_id')->index();
 
             $table->unique(['post_id', 'user_id']);
             $table->tinyInteger('points');

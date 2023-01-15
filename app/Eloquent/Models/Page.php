@@ -4,6 +4,7 @@ namespace App\Eloquent\Models;
 
 use App\Eloquent\Models\Contracts\HasTranslation;
 use App\Eloquent\Models\Contracts\HasValidation;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,8 +13,8 @@ use Illuminate\Validation\Rule;
 /**
  * App\Eloquent\Models\Page
  *
- * @property int $id
- * @property int $user_id
+ * @property string $id
+ * @property string $user_id
  * @property string $title
  * @property string $slug
  * @property string $content
@@ -45,6 +46,7 @@ use Illuminate\Validation\Rule;
  */
 class Page extends Model implements HasTranslation, HasValidation
 {
+    use HasUuids;
     use SoftDeletes;
 
     protected $table = 'pages';
@@ -57,6 +59,7 @@ class Page extends Model implements HasTranslation, HasValidation
         'description',
         'og_title',
         'og_description',
+        'content',
     ];
 
     public function getTranslationPrefix(): string

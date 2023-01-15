@@ -31,7 +31,6 @@ class PostCrud extends BaseCrud
     public function getListFields(): array
     {
         return [
-            Field::make('id')->sortable(),
             Field::make('title')->sortable()->limit(45),
             Enum::make('status')->sortable(),
             Enum::make('featured')->sortable(),
@@ -62,5 +61,10 @@ class PostCrud extends BaseCrud
         }
 
         return parent::getViewByMethod($method);
+    }
+
+    public function beforeStore($entity, &$fieldValues)
+    {
+        $fieldValues['user_id'] = auth()->id();
     }
 }

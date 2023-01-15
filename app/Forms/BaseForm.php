@@ -8,7 +8,8 @@ use App\Forms\Traits\TranslatableModel;
 
 abstract class BaseForm extends Form
 {
-    use TranslatableModel, DefaultModelRules;
+    use TranslatableModel;
+    use DefaultModelRules;
 
     protected $formOptions = [
         'autocomplete' => 'off',

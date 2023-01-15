@@ -31,28 +31,22 @@ Route::group(['prefix' => 'panel', 'as' => 'panel.', 'middleware' => ['auth']], 
         ->middleware('can:' . Permission::DASHBOARD_VIEW->value)
         ->name('index');
 
-    Route::resource('roles', Panel\RoleController::class)
-        ->whereNumber('role');
+    Route::resource('roles', Panel\RoleController::class);
 
-    Route::resource('users', Panel\UserController::class)
-        ->whereNumber('user');
+    Route::resource('users', Panel\UserController::class);
 
-    Route::resource('categories', Panel\CategoryController::class)
-        ->whereNumber('category');
+    Route::resource('categories', Panel\CategoryController::class);
 
-    Route::resource('pages', Panel\PageController::class)
-        ->whereNumber('page');
+    Route::resource('pages', Panel\PageController::class);
 
-    Route::resource('posts', Panel\PostController::class)
-        ->whereNumber('post');
+    Route::resource('posts', Panel\PostController::class);
 });
 
 require __DIR__.'/auth.php';
 
 Route::group(['middleware' => ['auth']], function () {
     Route::post('vote/{id}', [PostController::class, 'vote'])
-        ->name('posts.vote')
-        ->whereNumber('id');
+        ->name('posts.vote');
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('index');

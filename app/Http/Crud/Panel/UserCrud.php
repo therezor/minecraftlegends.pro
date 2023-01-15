@@ -31,7 +31,6 @@ class UserCrud extends BaseCrud
     public function getListFields(): array
     {
         return [
-            Field::make('id')->sortable(),
             Field::make('name')->sortable(),
             Field::make('email')->sortable(),
             DateTime::make('email_verified_at'),

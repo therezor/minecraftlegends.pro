@@ -11,6 +11,11 @@ use Illuminate\Validation\Rule;
 
 class Form extends BaseForm
 {
+    protected $formOptions = [
+        'autocomplete' => 'off',
+        'files' => true,
+    ];
+
     protected CategoryRepository $categoryRepository;
 
     public function __construct(CategoryRepository $categoryRepository)
@@ -31,11 +36,6 @@ class Form extends BaseForm
         ]);
         $this->add('image', 'image-upload', [
             'label' => false,
-            'rules' => [
-                'required',
-                'image',
-                'max:10240',
-            ],
             'accept' => '*.jpg,*.jpeg,*.bmp,*.png',
             'help_block' => [
                 'text' => 'Max:10Mb | jpg, jpeg, bmp, png',
@@ -56,9 +56,6 @@ class Form extends BaseForm
             'empty_value' => ' ',
             'selected' => $this->getModel()->featured->value ?? null,
         ]);
-        $this->add('content', 'textarea', [
-            'default_value' => '',
-            'attr' => ['class' => 'html-editor'],
-        ]);
+        $this->add('content', 'content-editor');
     }
 }

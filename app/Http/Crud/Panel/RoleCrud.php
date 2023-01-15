@@ -34,7 +34,6 @@ class RoleCrud extends BaseCrud
     public function getListFields(): array
     {
         return [
-            Field::make('id')->sortable(),
             Field::make('name')->sortable(),
             DateTime::make('created_at')->sortable(),
             Field::make('users_count'),

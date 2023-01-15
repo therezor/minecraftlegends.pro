@@ -14,23 +14,24 @@ return new class extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id')->index()->unsigned();
+            $table->uuid('id')->primary();
+            $table->uuid('user_id')->index()->unsigned();
             $table->tinyInteger('featured')->unsigned()->index()->default(0)->nullable();
             $table->tinyInteger('status')->unsigned()->index()->default(0)->nullable();
-            $table->unsignedBigInteger('category_id')->nullable()->index();
+            $table->uuid('category_id')->nullable()->index();
 
             $table->unsignedTinyInteger('per_page')->nullable();
 
-
-            $table->unsignedBigInteger('image_id')->index()->nullable();
+            $table->uuid('image_id')->index()->nullable();
             $table->string('title')->fullText();;
             $table->string('slug')->index();
             $table->text('description')->fullText()->nullable();
 
-            $table->unsignedBigInteger('og_image_id')->index()->nullable();
+            $table->uuid('og_image_id')->index()->nullable();
             $table->string('og_title')->nullable();
             $table->string('og_description')->nullable();
+
+            $table->longText('content');
 
             $table->timestamps();
             $table->softDeletes();

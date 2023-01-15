@@ -15,8 +15,7 @@ mix.setPublicPath('public/')
     .sass('resources/sass/main.scss', 'css/app.css')
 
     .js('resources/js/app.js', 'js/app.js')
-    .js('resources/js/post-editor.js', 'js/post-editor.js')
-
+    .js('resources/js/modules/editor.js', 'js/editor.js')
     .version('public/js/html-editor.js')
     .purgeCss({
         skippedContentGlobs: ['bootstrap-icons.css'],

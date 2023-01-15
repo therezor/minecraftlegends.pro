@@ -49,6 +49,7 @@ return [
 
     'custom_fields' => [
         'image-upload' => \App\Fields\Form\ImageUpload::class,
+        'content-editor' => \App\Fields\Form\ContentEditor::class,
     ],
 
     'plain_form_class' => \Kris\LaravelFormBuilder\Form::class,

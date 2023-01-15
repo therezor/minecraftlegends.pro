@@ -6,6 +6,7 @@ use App\Eloquent\Models\Contracts\HasTranslation;
 use App\Eloquent\Models\Contracts\HasValidation;
 use App\Enums\Post\Featured;
 use App\Enums\Post\Status;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -17,25 +18,24 @@ use Illuminate\Validation\Rules\Enum;
 /**
  * App\Eloquent\Models\Post
  *
- * @property int $id
- * @property int $user_id
+ * @property string $id
+ * @property string $user_id
  * @property Featured|null $featured
  * @property Status|null $status
- * @property int|null $category_id
+ * @property string|null $category_id
  * @property int|null $per_page
- * @property int|null $image_id
+ * @property string|null $image_id
  * @property string $title
  * @property string $slug
  * @property string|null $description
- * @property int|null $og_image_id
+ * @property string|null $og_image_id
  * @property string|null $og_title
  * @property string|null $og_description
+ * @property string $content
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Eloquent\Models\User $author
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Eloquent\Models\Block[] $blocks
- * @property-read int|null $blocks_count
  * @property-read \App\Eloquent\Models\Category|null $category
  * @property-read \App\Eloquent\Models\Image|null $image
  * @property-read \App\Eloquent\Models\Image|null $ogImage
@@ -46,6 +46,7 @@ use Illuminate\Validation\Rules\Enum;
  * @method static \Illuminate\Database\Query\Builder|Post onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Post query()
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereContent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereDescription($value)
@@ -67,6 +68,7 @@ use Illuminate\Validation\Rules\Enum;
  */
 class Post extends Model implements HasTranslation, HasValidation
 {
+    use HasUuids;
     use SoftDeletes;
 
     protected $table = 'posts';
@@ -89,6 +91,7 @@ class Post extends Model implements HasTranslation, HasValidation
         'og_image_id',
         'og_title',
         'og_description',
+        'content',
     ];
 
     /**
@@ -130,15 +133,10 @@ class Post extends Model implements HasTranslation, HasValidation
                 'required',
                 new Enum(Status::class),
             ],
-            'per_page' => [
-                'required',
-                'int',
-                'min:0',
-                'max:10',
-            ],
-            'image_id' => [
+            'image' => [
                 'nullable',
-                Rule::exists(Image::class, 'id'),
+                'image',
+                'max:10240',
             ],
             'title' => [
                 'required',

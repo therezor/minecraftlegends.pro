@@ -4,6 +4,7 @@ namespace App\Eloquent\Models;
 
 use App\Eloquent\Models\Contracts\HasTranslation;
 use App\Eloquent\Models\Contracts\HasValidation;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +14,7 @@ use Illuminate\Validation\Rule;
 /**
  * App\Eloquent\Models\Category
  *
- * @property int $id
+ * @property string $id
  * @property string $name
  * @property string $slug
  * @property int $display_order
@@ -39,6 +40,7 @@ use Illuminate\Validation\Rule;
  */
 class Category extends Model implements HasTranslation, HasValidation
 {
+    use HasUuids;
     use SoftDeletes;
 
     protected $table = 'categories';

@@ -1,6 +1,6 @@
 class ImageUpload {
     constructor(preview) {
-        this.input = preview.parentNode.querySelector(preview.dataset.target);
+        this.input = preview.parentNode.parentNode.querySelector(preview.dataset.target);
         this.preview = preview;
         this.bindEvents();
     }

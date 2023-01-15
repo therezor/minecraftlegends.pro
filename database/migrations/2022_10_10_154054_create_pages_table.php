@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pages', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id')->index()->unsigned();
+            $table->uuid('id')->primary();
+            $table->uuid('user_id')->index()->unsigned();
             $table->string('title');
             $table->string('slug')->index();
             $table->longText('content');

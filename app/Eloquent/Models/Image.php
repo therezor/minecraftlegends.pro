@@ -2,6 +2,7 @@
 
 namespace App\Eloquent\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,8 +11,8 @@ use Illuminate\Support\Facades\Storage;
 /**
  * App\Eloquent\Models\Image
  *
- * @property int $id
- * @property int $user_id
+ * @property string $id
+ * @property string $user_id
  * @property string $disk
  * @property string $directory
  * @property string $filename
@@ -34,6 +35,8 @@ use Illuminate\Support\Facades\Storage;
  */
 class Image extends Model
 {
+    use HasUuids;
+
     protected $table = 'images';
 
     /**

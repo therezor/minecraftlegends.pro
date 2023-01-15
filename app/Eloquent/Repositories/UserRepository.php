@@ -26,7 +26,7 @@ class UserRepository extends BaseRepository
     /**
      * @inheritdoc
      */
-    public function update(int $id, array $attributes): Model
+    public function update(string $id, array $attributes): Model
     {
         $attributes = $this->hashPassword($attributes);
 

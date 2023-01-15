@@ -9,11 +9,9 @@
 @endif
 
 @if ($showField)
-    <div class="ratio ratio-16x9 mb-2">
-        <img src="{{ $options['value'] }}" alt="{{ __('Uploaded image') }}" data-target="{{ "[name='$name']" }}" class="img-preview rounded img-thumbnail">
-    </div>
+    <div class="content-editor form-control" data-target="{{ "[name='$name']" }}"></div>
 
-    {!! Form::file($name, $options['attr']) !!}
+    {!! Form::hidden($name, $options['value'], $options['attr']) !!}
 
     @include('fields.form.help-block')
 

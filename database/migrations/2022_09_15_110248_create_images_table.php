@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('images', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id')->index()->unsigned();
+            $table->uuid('id')->primary();
+            $table->uuid('user_id')->index()->unsigned();
             $table->string('disk');
             $table->string('directory');
             $table->string('filename');

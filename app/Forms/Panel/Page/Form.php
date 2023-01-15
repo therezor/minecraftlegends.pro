@@ -19,9 +19,6 @@ class Form extends BaseForm
         $this->add('description', 'textarea', [
             'attr' => ['rows' => 3],
         ]);
-        $this->add('content', 'textarea', [
-            'default_value' => '',
-            'attr' => ['class' => 'html-editor'],
-        ]);
+        $this->add('content', 'content-editor');
     }
 }
