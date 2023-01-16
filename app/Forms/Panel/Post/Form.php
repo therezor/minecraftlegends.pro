@@ -11,11 +11,6 @@ use Illuminate\Validation\Rule;
 
 class Form extends BaseForm
 {
-    protected $formOptions = [
-        'autocomplete' => 'off',
-        'files' => true,
-    ];
-
     protected CategoryRepository $categoryRepository;
 
     public function __construct(CategoryRepository $categoryRepository)

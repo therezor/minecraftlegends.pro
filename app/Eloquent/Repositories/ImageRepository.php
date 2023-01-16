@@ -7,9 +7,9 @@ use App\Eloquent\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Intervention\Image\Constraint;
-use Livewire\TemporaryUploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Optimizer;
+use Intervention\Image\Image as File;
 
 class ImageRepository extends BaseRepository
 {
@@ -27,18 +27,15 @@ class ImageRepository extends BaseRepository
     public function upload(UploadedFile $uploadedFile, User $user): Image
     {
         $file = $this->encodeImage($uploadedFile, static::MAX_WIDTH, static::MAX_HEIGHT);
-        $today = now()->toDateString();
-        $directory = "images/{$today}/";
-        $filename = $this->uniqueFilename();
 
-        Storage::disk(static::DISK)->put($directory . $filename, $file);
+        return $this->createModel($file, $user);
+    }
 
-        return parent::create([
-            'disk' => static::DISK,
-            'directory' => $directory,
-            'filename' => $filename,
-            'user_id' => $user->id,
-        ]);
+    public function fetch($url, User $user): Image
+    {
+        $file = $this->encodeImage($url, static::MAX_WIDTH, static::MAX_HEIGHT);
+
+        return $this->createModel($file, $user);
     }
 
     public function delete($id): bool
@@ -64,5 +61,21 @@ class ImageRepository extends BaseRepository
     protected function uniqueFilename()
     {
         return str_replace('.', '_', uniqid()) . Str::start(static::FORMAT, '.');
+    }
+
+    protected function createModel(File $file, User $user): Image
+    {
+        $today = now()->toDateString();
+        $directory = "images/{$today}/";
+        $filename = $this->uniqueFilename();
+
+        Storage::disk(static::DISK)->put($directory . $filename, $file);
+
+        return parent::create([
+            'disk' => static::DISK,
+            'directory' => $directory,
+            'filename' => $filename,
+            'user_id' => $user->id,
+        ]);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Forms;
 
+use Kris\LaravelFormBuilder\Fields\FormField;
 use Kris\LaravelFormBuilder\Form;
 use App\Forms\Traits\DefaultModelRules;
 use App\Forms\Traits\TranslatableModel;
@@ -31,5 +32,14 @@ abstract class BaseForm extends Form
         }
 
         parent::setupFieldOptions($name, $options);
+    }
+
+    protected function addField(FormField $field, $modify = false)
+    {
+        if ($field->getType() === 'image-upload') {
+            $this->formOptions['files'] = true;
+        }
+
+        return parent::addField($field, $modify);
     }
 }

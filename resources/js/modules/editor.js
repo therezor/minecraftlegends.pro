@@ -9,6 +9,7 @@ import ImageTool from '@editorjs/image';
 
 document.querySelectorAll('.content-editor').forEach(el => {
     let dataInput = el.parentNode.querySelector(el.dataset.target);
+    let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     const editor = new EditorJS({
         holder: el,
@@ -48,13 +49,18 @@ document.querySelectorAll('.content-editor').forEach(el => {
             image: {
                 class: ImageTool,
                 config: {
+                    additionalRequestHeaders: {
+                        'X-csrf-token': token,
+                    },
                     endpoints: {
-                        byFile: '/uploadFile', // Your backend file uploader endpoint
-                        byUrl: '/fetchUrl', // Your endpoint that provides uploading by Url
+                        byFile: el.dataset.uploadUrl, // Your backend file uploader endpoint
+                        byUrl: el.dataset.fetchUrl, // Your endpoint that provides uploading by Url
                     }
                 }
             }
         }
     });
+
+    window.editor1 = editor;
 });
 

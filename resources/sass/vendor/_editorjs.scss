@@ -1,0 +1,9 @@
+div.cdx-notifies {
+    right: 20px;
+    left: auto;
+    z-index: $zindex-block-fullscreen + 1;
+}
+div.cdx-notify__cross {
+    width: 20px;
+    height: 20px;
+}

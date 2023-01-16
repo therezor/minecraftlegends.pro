@@ -1,15 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Panel;
 use App\Enums\Role\Permission;
-
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\Panel;
+use App\Http\Controllers\Panel\ImageController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\SitemapController;
-use App\Http\Controllers\ImageController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +23,8 @@ use App\Http\Controllers\ImageController;
 
 
 Route::group(['prefix' => 'panel', 'as' => 'panel.', 'middleware' => ['auth']], function () {
-    Route::post('images', [ImageController::class, 'store'])->name('images.upload');
-
+    Route::post('images/upload', [ImageController::class, 'upload'])->name('images.upload');
+    Route::post('images/fetch', [ImageController::class, 'fetch'])->name('images.fetch');
 
     Route::get('/', [Panel\DashboardController::class, 'index'])
         ->middleware('can:' . Permission::DASHBOARD_VIEW->value)
