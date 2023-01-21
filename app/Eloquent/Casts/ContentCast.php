@@ -9,7 +9,7 @@ class ContentCast implements CastsAttributes
 {
     protected array $config = [];
 
-    public function get($model, string $key, $value, array $attributes)
+    public function get($model, string $key, $value, array $attributes): ?Content
     {
         return $value
             ? new Content($value)

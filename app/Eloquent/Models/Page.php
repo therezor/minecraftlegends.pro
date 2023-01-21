@@ -2,11 +2,16 @@
 
 namespace App\Eloquent\Models;
 
+use App\Eloquent\Casts\ContentCast;
 use App\Eloquent\Models\Contracts\HasTranslation;
 use App\Eloquent\Models\Contracts\HasValidation;
+use App\Enums\Post\Featured;
+use App\Enums\Post\Status;
+use App\Rules\ContentRule;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Validation\Rule;
 
@@ -17,7 +22,7 @@ use Illuminate\Validation\Rule;
  * @property string $user_id
  * @property string $title
  * @property string $slug
- * @property string $content
+ * @property \App\Eloquent\Casts\Dto\Content|null $content
  * @property string|null $description
  * @property string|null $og_title
  * @property string|null $og_description
@@ -25,6 +30,8 @@ use Illuminate\Validation\Rule;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Eloquent\Models\User $author
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Eloquent\Models\Image[] $images
+ * @property-read int|null $images_count
  * @method static \Illuminate\Database\Eloquent\Builder|Page newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Page newQuery()
  * @method static \Illuminate\Database\Query\Builder|Page onlyTrashed()
@@ -62,6 +69,10 @@ class Page extends Model implements HasTranslation, HasValidation
         'content',
     ];
 
+    protected $casts = [
+        'content' => ContentCast::class,
+    ];
+
     public function getTranslationPrefix(): string
     {
         return 'attributes';
@@ -86,10 +97,6 @@ class Page extends Model implements HasTranslation, HasValidation
                 'string',
                 'max:500',
             ],
-            'content' => [
-                'required',
-                'string',
-            ],
             'og_title' => [
                 'nullable',
                 'string',
@@ -100,11 +107,21 @@ class Page extends Model implements HasTranslation, HasValidation
                 'string',
                 'max:255',
             ],
+            'content' => [
+                'required',
+                'string',
+                new ContentRule(),
+            ],
         ];
     }
 
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function images(): BelongsToMany
+    {
+        return $this->belongsToMany(Image::class, 'image_page', 'page_id', 'image_id');
     }
 }

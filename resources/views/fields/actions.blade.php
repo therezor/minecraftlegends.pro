@@ -4,8 +4,8 @@
     </a>
 @endif
 
-@if($field->hasAction('show') && Route::has($field->getRoutePrefix() . '.edit'))
-    <a href="{{ route($field->getRoutePrefix() . '.edit', $value) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ trans('crud.update') }}" class="btn btn-sm btn-alt-warning">
+@if($field->hasAction('edit') && Route::has($field->getRoutePrefix() . '.edit'))
+    <a href="{{ route($field->getRoutePrefix() . '.edit', $value) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ trans('crud.edit') }}" class="btn btn-sm btn-alt-warning">
         <i class="fa fa-fw fa-pencil-alt"></i>
     </a>
 @endif

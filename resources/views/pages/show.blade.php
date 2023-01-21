@@ -11,7 +11,11 @@
         </div>
     </div>
 
-    <div class="content content-boxed">
-        {!! $page->content !!}
+    <div class="bg-body-extra-light">
+        <div class="content content-boxed">
+            @foreach($page->content->blocks() as $block)
+                @include('fields.blocks.' . $block['type'], ['data' => $block['data']])
+            @endforeach
+        </div>
     </div>
 @endsection

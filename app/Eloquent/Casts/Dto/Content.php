@@ -5,6 +5,7 @@ namespace App\Eloquent\Casts\Dto;
 use EditorJS\BlockHandler;
 use EditorJS\EditorJSException;
 use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Support\Collection;
 use Stringable;
 
 class Content implements Jsonable, Stringable
@@ -69,9 +70,9 @@ class Content implements Jsonable, Stringable
         return $this->data;
     }
 
-    public function blocks(): array
+    public function blocks(): Collection
     {
-        return $this->data['blocks'];
+        return collect($this->data['blocks']);
     }
 
     public function sanitize()

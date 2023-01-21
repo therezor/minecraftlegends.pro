@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('user_id')->index()->unsigned();
+            $table->uuid('user_id')->index();
             $table->string('title');
             $table->string('slug')->index();
             $table->longText('content');

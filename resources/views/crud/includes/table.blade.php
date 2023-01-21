@@ -1,4 +1,4 @@
-<table class="table table-striped table-vcenter">
+<table class="table table-vcenter mb-0">
     <thead>
     <tr>
         @foreach($fields as $field)

@@ -31,3 +31,7 @@
         @include('sections.footer')
     </div>
 @endsection
+
+@push('scripts')
+    <script defer src="{{ mix('js/editor.js') }}"></script>
+@endpush

@@ -11,3 +11,6 @@
 // For example you can create _component1.scss and include it as follows:
 // @import 'component1';
 
+a[data-method] {
+    pointer-events: none;
+}

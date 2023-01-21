@@ -4,6 +4,7 @@ namespace App\Eloquent\Repositories;
 
 use App\Eloquent\Models\Post;
 use App\Eloquent\Models\User;
+use App\Enums\Content\Type;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -20,7 +21,7 @@ class PostRepository extends BaseRepository
             /** @var Post $post */
             $post = parent::create($attributes);
 
-            $this->saveBlocks($post, $attributes);
+            $this->syncImages($post);
 
             return $post;
         });
@@ -32,7 +33,7 @@ class PostRepository extends BaseRepository
             /** @var Post $post */
             $post = parent::update($id, $attributes);
 
-            $this->saveBlocks($post, $attributes);
+            $this->syncImages($post);
 
             return $post;
         });
@@ -45,8 +46,14 @@ class PostRepository extends BaseRepository
         return $post;
     }
 
-    protected function saveBlocks(Post $post, array $attributes)
+    protected function syncImages(Post $post)
     {
+        $content = $post->content;
+        if (!$content) {
+            return;
+        }
 
+        $imageIds = $post->content->blocks()->where('type', Type::IMAGE->value)->pluck('data.file.id');
+        $post->images()->sync($imageIds);
     }
 }

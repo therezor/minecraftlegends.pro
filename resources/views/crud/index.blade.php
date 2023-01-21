@@ -22,10 +22,8 @@
             @endif
         </div>
 
-        <div class="block-content">
-            <div class="table-responsive">
-                @include('crud.includes.table')
-            </div>
+        <div class="table-responsive">
+            @include('crud.includes.table')
         </div>
 
         <div class="block-content block-content-full block-content-sm bg-body-light fs-sm">

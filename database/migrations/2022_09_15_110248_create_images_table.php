@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('user_id')->index()->unsigned();
+            $table->uuid('user_id')->index();
             $table->string('disk');
             $table->string('directory');
             $table->string('filename');

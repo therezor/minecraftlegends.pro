@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('user_id')->index()->unsigned();
+            $table->uuid('user_id')->index();
             $table->tinyInteger('featured')->unsigned()->index()->default(0)->nullable();
             $table->tinyInteger('status')->unsigned()->index()->default(0)->nullable();
             $table->uuid('category_id')->nullable()->index();

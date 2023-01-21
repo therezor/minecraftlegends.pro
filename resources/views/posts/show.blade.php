@@ -22,7 +22,7 @@
                         <p>{{ $post->description }}</p>
 
                         @foreach($post->content->blocks() as $block)
-                            @include('posts.blocks.' . $block['type'], ['data' => $block['data']])
+                            @include('fields.blocks.' . $block['type'], ['data' => $block['data']])
                         @endforeach
                     </article>
 

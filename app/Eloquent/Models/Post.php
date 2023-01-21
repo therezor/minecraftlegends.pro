@@ -7,11 +7,11 @@ use App\Eloquent\Models\Contracts\HasTranslation;
 use App\Eloquent\Models\Contracts\HasValidation;
 use App\Enums\Post\Featured;
 use App\Enums\Post\Status;
+use App\Rules\ContentRule;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
@@ -32,13 +32,15 @@ use Illuminate\Validation\Rules\Enum;
  * @property string|null $og_image_id
  * @property string|null $og_title
  * @property string|null $og_description
- * @property string $content
+ * @property \App\Eloquent\Casts\Dto\Content|null $content
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Eloquent\Models\User $author
  * @property-read \App\Eloquent\Models\Category|null $category
  * @property-read \App\Eloquent\Models\Image|null $image
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Eloquent\Models\Image[] $images
+ * @property-read int|null $images_count
  * @property-read \App\Eloquent\Models\Image|null $ogImage
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Eloquent\Models\User[] $votes
  * @property-read int|null $votes_count
@@ -170,6 +172,11 @@ class Post extends Model implements HasTranslation, HasValidation
                 'string',
                 'max:255',
             ],
+            'content' => [
+                'required',
+                'string',
+                new ContentRule(),
+            ],
         ];
     }
 
@@ -197,5 +204,10 @@ class Post extends Model implements HasTranslation, HasValidation
     {
         return $this->belongsToMany(User::class, 'post_votes', 'post_id', 'user_id')
             ->withPivot('points');
+    }
+
+    public function images(): BelongsToMany
+    {
+        return $this->belongsToMany(Image::class, 'image_post', 'post_id', 'image_id');
     }
 }

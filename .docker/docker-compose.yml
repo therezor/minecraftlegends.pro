@@ -19,15 +19,27 @@ services:
             PHP_IDE_CONFIG: "serverName=Docker"
 
     db:
-        image: postgres:14.1-alpine
-        hostname: postgres
+        image: mariadb:10.9
+        hostname: mysql
         environment:
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=postgres
+            - MYSQL_ROOT_PASSWORD=secret
+            - MYSQL_PASSWORD=secret
+            - MYSQL_USER=website
+            - MYSQL_DATABASE=website
         ports:
-            - '5432:5432'
+            - '3306:3306'
         volumes:
-            - db:/var/lib/postgresql/data
+            - db:/var/lib/mysql/data
+
+
+    redis:
+        image: redis:alpine
+        hostname: redis
+        command: redis-server --appendonly yes
+        volumes:
+            - ./data/redis:/data
+        ports:
+            - '6379:6379'
 
 volumes:
     db:

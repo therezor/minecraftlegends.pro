@@ -67,6 +67,7 @@ export default class Template {
             'one-year-copy',
             'one-ripple',
             'image-upload',
+            'submit-links',
         ]);
 
         // Page Loader (hide it)
