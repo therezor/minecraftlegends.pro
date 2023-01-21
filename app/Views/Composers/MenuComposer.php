@@ -6,7 +6,7 @@ use App\Eloquent\Repositories\CategoryRepository;
 use App\Eloquent\Repositories\Criteria\OrderByCriteria;
 use Illuminate\View\View;
 
-class HeaderComposer
+class MenuComposer
 {
     protected CategoryRepository $categoryRepository;
 

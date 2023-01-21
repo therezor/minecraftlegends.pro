@@ -22,7 +22,6 @@ class PostController extends Controller
         /** @var Post $post */
         $post = $this->postRepository->findByOrFail('slug', $slug);
 
-        $blocks = $this->paginateBlocks($post);
         $votePoints = (int) $post->votes()->sum('post_votes.points');
         $vote = auth()->id()
             ? $post->votes()->where('user_id', auth()->id())->first()?->getRelationValue('pivot')
@@ -51,7 +50,6 @@ class PostController extends Controller
 
         return view('posts.show', [
             'post' => $post,
-            'blocks' => $blocks,
             'vote' => $vote,
             'votePoints' => $votePoints,
         ]);
@@ -67,17 +65,5 @@ class PostController extends Controller
         $this->postRepository->vote($post, auth()->user(), $points);
 
         return redirect()->back();
-    }
-
-    protected function paginateBlocks(Post $post): Collection | LengthAwarePaginator
-    {
-        if ($post->per_page) {
-            $blocks = $post->blocks()->paginate($post->per_page);
-            abort_if($blocks->currentPage() < 1 || $blocks->currentPage() > $blocks->lastPage(), 404);
-
-            return $blocks;
-        }
-
-        return $post->blocks;
     }
 }

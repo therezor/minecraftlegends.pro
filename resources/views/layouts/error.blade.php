@@ -28,8 +28,6 @@
                         </div>
                     </div>
                     <div class="content content-full text-muted fs-sm fw-medium">
-                        <a class="link-fx" href="javascript:location.reload();">{{ __('Refresh') }}</a>
-                            {{ __('or') }}
                         <a class="link-fx" href="{{ route('index') }}">{{ __('Back to Homepage') }}</a>
                     </div>
                 </div>

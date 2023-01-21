@@ -50,7 +50,7 @@ class HomeController extends Controller
 
         $posts = $this->postRepository->pushCriteria(new SearchCriteria($term))
             ->pushCriteria(new OrderByCriteria('id'))
-            ->paginate(20);
+            ->paginate(15);
 
         $this->seo()->setTitle(__('Search'));
         $this->setRobots('none');

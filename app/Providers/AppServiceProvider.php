@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Views\Composers\HeaderComposer;
+use App\Views\Composers\MenuComposer;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -28,6 +28,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrapFive();
 
-        View::composer('sections.header', HeaderComposer::class);
+        View::composer('sections.menu', MenuComposer::class);
     }
 }

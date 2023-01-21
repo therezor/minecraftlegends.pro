@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "93a326bf06faaf3e56762aeab0a69507",
+    "content-hash": "ac07bf6d401d6e84356f76da6c0fed3d",
     "packages": [
         {
             "name": "akaunting/laravel-setting",
@@ -199,6 +199,51 @@
                 }
             ],
             "time": "2022-08-10T22:54:19+00:00"
+        },
+        {
+            "name": "codex-team/editor.js",
+            "version": "v2.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/editor-js/editorjs-php.git",
+                "reference": "b2c6586c948ed30683718184f0156b0b1fd9593f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/editor-js/editorjs-php/zipball/b2c6586c948ed30683718184f0156b0b1fd9593f",
+                "reference": "b2c6586c948ed30683718184f0156b0b1fd9593f",
+                "shasum": ""
+            },
+            "require": {
+                "ezyang/htmlpurifier": "^4.8",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.13",
+                "phpunit/phpunit": "5.4.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EditorJS\\": "EditorJS"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "CodeX Team",
+                    "email": "team@ifmo.su"
+                }
+            ],
+            "description": "PHP backend implementation for the Editor.js",
+            "support": {
+                "issues": "https://github.com/editor-js/editorjs-php/issues",
+                "source": "https://github.com/editor-js/editorjs-php/tree/v2.0.7"
+            },
+            "time": "2020-06-12T09:55:49+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -3121,88 +3166,6 @@
                 }
             ],
             "time": "2022-07-30T15:51:26+00:00"
-        },
-        {
-            "name": "protonemedia/laravel-form-components",
-            "version": "3.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/protonemedia/laravel-form-components.git",
-                "reference": "932386934b41919a07ea25ca64bd9d42ae4757b7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/protonemedia/laravel-form-components/zipball/932386934b41919a07ea25ca64bd9d42ae4757b7",
-                "reference": "932386934b41919a07ea25ca64bd9d42ae4757b7",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "^8.67 || ^9.0",
-                "php": "^7.4 || ^8.0 || ^8.1",
-                "symfony/http-foundation": "^5.1.2 || ^6.0"
-            },
-            "require-dev": {
-                "livewire/livewire": "^2.0",
-                "mockery/mockery": "^1.3.3",
-                "orchestra/testbench-browser-kit": "^6.23 || ^7.0",
-                "phpunit/phpunit": "^9.5",
-                "spatie/laravel-translatable": "^4.4 || ^5.0",
-                "symfony/dom-crawler": "^5.1.14 || ^6.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "ProtoneMedia\\LaravelFormComponents\\Support\\ServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "ProtoneMedia\\LaravelFormComponents\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Pascal Baljet",
-                    "email": "pascal@protone.media",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Blade components to rapidly build forms with Tailwind CSS Custom Forms and Bootstrap 4.",
-            "homepage": "https://github.com/protonemedia/laravel-form-components",
-            "keywords": [
-                "Forms",
-                "bootstrap",
-                "bootstrap-4",
-                "bootstrap-5",
-                "bootstrap4",
-                "bootstrap5",
-                "form",
-                "form-builder",
-                "form-components",
-                "laravel",
-                "laravel-form-builder",
-                "laravel-form-components",
-                "protonemedia",
-                "tailwind",
-                "tailwindcss"
-            ],
-            "support": {
-                "issues": "https://github.com/protonemedia/laravel-form-components/issues",
-                "source": "https://github.com/protonemedia/laravel-form-components/tree/3.6.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/pascalbaljet",
-                    "type": "github"
-                }
-            ],
-            "time": "2022-02-04T10:24:09+00:00"
         },
         {
             "name": "psr/container",

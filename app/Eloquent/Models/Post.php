@@ -2,6 +2,7 @@
 
 namespace App\Eloquent\Models;
 
+use App\Eloquent\Casts\ContentCast;
 use App\Eloquent\Models\Contracts\HasTranslation;
 use App\Eloquent\Models\Contracts\HasValidation;
 use App\Enums\Post\Featured;
@@ -102,6 +103,7 @@ class Post extends Model implements HasTranslation, HasValidation
     protected $casts = [
         'featured' => Featured::class,
         'status' => Status::class,
+        'content' => ContentCast::class,
     ];
 
     protected $attributes = [
@@ -189,11 +191,6 @@ class Post extends Model implements HasTranslation, HasValidation
     public function ogImage(): BelongsTo
     {
         return $this->belongsTo(Image::class, 'og_image_id', 'id');
-    }
-
-    public function blocks(): HasMany
-    {
-        return $this->hasMany(Block::class, 'post_id', 'id')->orderBy('display_order', 'asc');
     }
 
     public function votes(): BelongsToMany

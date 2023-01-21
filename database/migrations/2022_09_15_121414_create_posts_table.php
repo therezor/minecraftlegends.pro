@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('og_title')->nullable();
             $table->string('og_description')->nullable();
 
-            $table->longText('content');
+            $table->json('content');
 
             $table->timestamps();
             $table->softDeletes();

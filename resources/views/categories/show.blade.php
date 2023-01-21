@@ -1,6 +1,8 @@
 @extends('layouts.public')
 
 @section('container')
+    @include('sections.menu')
+
     <div class="bg-body-light">
         <div class="content content-full">
             <div class="py-3 text-center">

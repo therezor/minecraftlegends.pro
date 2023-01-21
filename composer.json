@@ -8,6 +8,7 @@
         "php": "^8.1.0",
         "akaunting/laravel-setting": "^1.2",
         "artesaos/seotools": "^1.0",
+        "codex-team/editor.js": "^2.0",
         "diglactic/laravel-breadcrumbs": "^8.0",
         "embed/embed": "^4.4",
         "guzzlehttp/guzzle": "^7.2",

@@ -1,6 +1,8 @@
 @extends('layouts.public')
 
 @section('container')
+    @include('sections.menu')
+
     @if($posts->currentPage() === 1)
         <div class="bg-body-extra-light">
             <div class="content content-full">

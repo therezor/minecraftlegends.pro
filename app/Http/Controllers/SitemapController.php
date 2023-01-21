@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Eloquent\Repositories\Criteria\Posts\PublishedCriteria;
 use App\Eloquent\Repositories\PageRepository;
 use App\Eloquent\Repositories\PostRepository;
-use App\Enums\Block\Type;
 use Watson\Sitemap\Sitemap;
 
 class SitemapController extends Controller
@@ -34,12 +33,6 @@ class SitemapController extends Controller
 
             if ($post->image_id) {
                 $tag->addImage(imageUrl($post->image_id), $post->title);
-            }
-
-            foreach ($post->blocks()->where('type', Type::IMAGE->value)->cursor() as $block) {
-                if ($block->image_id) {
-                    $tag->addImage(imageUrl($block->image_id), $block->data['alt'] ?? $block->title ?? $post->title);
-                }
             }
         }
         foreach ($pages as $page) {

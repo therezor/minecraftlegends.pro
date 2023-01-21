@@ -2,6 +2,7 @@
 
 namespace App\Http\Crud\Panel;
 
+use App\Eloquent\Repositories\ImageRepository;
 use App\Eloquent\Repositories\PostRepository;
 use App\Enums\Crud\Method;
 use App\Forms\Panel\Post\{Form, FilterForm};
@@ -13,9 +14,12 @@ class PostCrud extends BaseCrud
 {
     use RedirectToShow;
 
-    public function __construct(PostRepository $repository)
+    protected ImageRepository $imageRepository;
+
+    public function __construct(PostRepository $repository, ImageRepository $imageRepository)
     {
         $this->repository = $repository;
+        $this->imageRepository = $imageRepository;
     }
 
     public function title(): string
@@ -66,5 +70,15 @@ class PostCrud extends BaseCrud
     public function beforeStore($entity, &$fieldValues)
     {
         $fieldValues['user_id'] = auth()->id();
+        if (!empty($fieldValues['image'])) {
+            $fieldValues['image_id'] = $this->imageRepository->upload($fieldValues['image'], auth()->user())->id;
+        }
+    }
+
+    public function beforeUpdate($entity, &$fieldValues)
+    {
+        if (!empty($fieldValues['image'])) {
+            $fieldValues['image_id'] = $this->imageRepository->upload($fieldValues['image'], auth()->user())->id;
+        }
     }
 }

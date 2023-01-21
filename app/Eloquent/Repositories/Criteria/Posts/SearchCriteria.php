@@ -24,10 +24,7 @@ class SearchCriteria implements Criteria
         return $builder->where(function (Builder $q) {
             $q->whereFullText('title', $this->term)
                 ->orWhereFullText('description', $this->term)
-                ->orWhereHas('blocks', function (Builder $q) {
-                    $q->whereFullText('title', $this->term)
-                        ->orWhereFullText('description', $this->term);
-                });
+                ->orWhereFullText('content', $this->term);
         });
     }
 }
