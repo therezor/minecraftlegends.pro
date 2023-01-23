@@ -10,7 +10,8 @@ use App\Eloquent\Repositories\Contracts\Repository;
 
 abstract class BaseCrud
 {
-    use Sortable, Hookable;
+    use Sortable;
+    use Hookable;
 
     protected $repository;
 
