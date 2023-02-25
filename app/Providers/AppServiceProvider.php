@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Views\Composers\MenuComposer;
+use App\Views\Composers\SideOverlayComposer;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -29,5 +30,6 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
         View::composer('sections.menu', MenuComposer::class);
+        View::composer('sites.sections.side-overlay', SideOverlayComposer::class);
     }
 }

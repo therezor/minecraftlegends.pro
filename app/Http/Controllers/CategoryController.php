@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Eloquent\Models\Category;
+use App\Eloquent\Models\PostCategory;
 use App\Eloquent\Repositories\CategoryRepository;
 use App\Eloquent\Repositories\Criteria\OrderByCriteria;
 use App\Eloquent\Repositories\Criteria\Posts\InCategoryCriteria;
@@ -22,7 +22,7 @@ class CategoryController extends Controller
 
     public function show($slug)
     {
-        /** @var Category $category */
+        /** @var PostCategory $category */
         $category = $this->categoryRepository->findByOrFail('slug', $slug);
         $posts = $this->postRepository->pushCriteria(new PublishedCriteria())
             ->pushCriteria(new InCategoryCriteria($category))
@@ -30,7 +30,7 @@ class CategoryController extends Controller
             ->paginate(20);
 
         $this->seo()->setTitle($category->name);
-        $this->seo()->setDescription(__('Category') . ' ' . $category->name);
+        $this->seo()->setDescription(__('PostCategory') . ' ' . $category->name);
         $this->seo()->setCanonical(route('categories.show', $slug));
 
         return view('categories.show', ['category' => $category, 'posts' => $posts]);

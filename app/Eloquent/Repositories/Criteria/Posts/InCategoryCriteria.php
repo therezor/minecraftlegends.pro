@@ -2,16 +2,16 @@
 
 namespace App\Eloquent\Repositories\Criteria\Posts;
 
-use App\Eloquent\Models\Category;
+use App\Eloquent\Models\PostCategory;
 use App\Eloquent\Repositories\Contracts\Criteria;
 use Illuminate\Database\Eloquent\Builder;
 use App\Eloquent\Repositories\Contracts\Repository;
 
 class InCategoryCriteria implements Criteria
 {
-    protected Category $category;
+    protected PostCategory $category;
 
-    public function __construct(Category $category)
+    public function __construct(PostCategory $category)
     {
         $this->category = $category;
     }

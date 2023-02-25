@@ -10,10 +10,10 @@ class CategoryController extends BaseCrudController
 {
     public function __construct(CategoryCrud $crud)
     {
-        $this->middleware('can:' . Permission::CATEGORIES_LIST->value, ['only' => ['index', 'show']]);
-        $this->middleware('can:' . Permission::CATEGORIES_CREATE->value, ['only' => ['create', 'store']]);
-        $this->middleware('can:' . Permission::CATEGORIES_EDIT->value, ['only' => ['edit', 'update']]);
-        $this->middleware('can:' . Permission::CATEGORIES_DELETE->value, ['only' => 'destroy']);
+        $this->middleware('can:' . Permission::PANEL_POST_CATEGORIES_LIST->value, ['only' => ['index', 'show']]);
+        $this->middleware('can:' . Permission::PANEL_POST_CATEGORIES_CREATE->value, ['only' => ['create', 'store']]);
+        $this->middleware('can:' . Permission::PANEL_POST_CATEGORIES_EDIT->value, ['only' => ['edit', 'update']]);
+        $this->middleware('can:' . Permission::PANEL_POST_CATEGORIES_DELETE->value, ['only' => 'destroy']);
 
         $this->crud = $crud;
     }

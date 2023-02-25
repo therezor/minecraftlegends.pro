@@ -1,4 +1,4 @@
-@extends('layouts.panel')
+@extends($crud->layout())
 
 @section('header', $crud->title())
 

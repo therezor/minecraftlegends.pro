@@ -2,29 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use App\Eloquent\Models\Page;
-use App\Eloquent\Repositories\PageRepository;
+use Illuminate\Support\HtmlString;
 
 class PageController extends Controller
 {
-    protected PageRepository $pageRepository;
-
-    public function __construct(PageRepository $pageRepository)
+    public function terms()
     {
-        $this->pageRepository = $pageRepository;
+        $title = trans('pages.terms.title');
+        $description = trans('pages.terms.description', ['app_name' => config('app.name')]);
+        $content = new HtmlString(
+            trans('pages.terms.content', [
+                'app_name' => config('app.name'),
+                'privacy_url' => route('pages.privacy'),
+            ])
+        );
+
+        $this->seo()->setTitle($title);
+        $this->seo()->setDescription($description);
+
+        return view('page', ['title' => $title, 'content' => $content]);
     }
 
-    public function show($slug)
+    public function privacy()
     {
-        /** @var Page $page */
-        $page = $this->pageRepository->findByOrFail('slug', $slug);
+        $title = trans('pages.privacy.title');
+        $description = trans('pages.privacy.description');
+        $content = new HtmlString(trans('pages.privacy.content', ['app_name' => config('app.name')]));
 
-        $this->seo()->setTitle($page->title, false);
-        $this->seo()->setDescription($page->description);
-        $this->seo()->opengraph()->setTitle($page->og_title);
-        $this->seo()->opengraph()->setDescription($page->og_description);
-        $this->seo()->setCanonical(route('pages.show', $slug));
+        $this->seo()->setTitle($title);
+        $this->seo()->setDescription($description);
 
-        return view('pages.show', ['page' => $page]);
+        return view('page', ['title' => $title, 'content' => $content]);
+    }
+
+    public function cookies()
+    {
+        $title = trans('pages.cookies.title');
+        $description = trans('pages.cookies.description');
+        $content = new HtmlString(trans('pages.cookies.content', ['app_name' => config('app.name')]));
+
+        $this->seo()->setTitle($title);
+        $this->seo()->setDescription($description);
+
+        return view('page', ['title' => $title, 'content' => $content]);
     }
 }

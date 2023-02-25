@@ -2,13 +2,13 @@
 
 namespace App\Eloquent\Repositories;
 
-use App\Eloquent\Models\Category;
+use App\Eloquent\Models\PostCategory;
 
 class CategoryRepository extends BaseRepository
 {
     public function modelClass(): string
     {
-        return Category::class;
+        return PostCategory::class;
     }
 
     public function select()

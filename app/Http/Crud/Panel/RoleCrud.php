@@ -31,6 +31,11 @@ class RoleCrud extends BaseCrud
         return 'panel.roles';
     }
 
+    public function layout(): string
+    {
+        return 'layouts.panel';
+    }
+
     public function getListFields(): array
     {
         return [

@@ -1,4 +1,4 @@
-@extends('layouts.panel')
+@extends($crud->layout())
 
 @section('header', $crud->title())
 
@@ -30,7 +30,7 @@
             @if(method_exists($entities, 'links'))
                 <div class="row align-items-center">
                     <div class="col-md-4 text-muted text-sm">
-                       {{ trans('crud.total') }}: {{ $entities->total() }}
+                        {{ trans('crud.total') }}: {{ $entities->total() }}
                     </div>
                     <div class="col-md-8">
                         {{ $entities->appends(request()->all())->links() }}

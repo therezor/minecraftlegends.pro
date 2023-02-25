@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'permissions' => Permission::cases(),
         ]);
 
-        $userRepository->create([
+        $user = $userRepository->create([
             'name' => 'Super admin',
             'email' => 'admin@admin.com',
             'email_verified_at' => now(),

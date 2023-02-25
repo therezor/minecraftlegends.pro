@@ -51,6 +51,8 @@ abstract class BaseCrud
      */
     abstract public function getRouteName(): string;
 
+    abstract public function layout(): string;
+
     public function getRepository(): Repository
     {
         return $this->repository;

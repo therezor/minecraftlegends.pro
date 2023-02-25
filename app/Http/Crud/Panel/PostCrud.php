@@ -32,6 +32,11 @@ class PostCrud extends BaseCrud
         return 'panel.posts';
     }
 
+    public function layout(): string
+    {
+        return 'layouts.panel';
+    }
+
     public function getListFields(): array
     {
         return [

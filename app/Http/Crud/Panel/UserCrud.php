@@ -28,6 +28,11 @@ class UserCrud extends BaseCrud
         return 'panel.users';
     }
 
+    public function layout(): string
+    {
+        return 'layouts.panel';
+    }
+
     public function getListFields(): array
     {
         return [

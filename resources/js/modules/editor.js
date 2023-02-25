@@ -11,7 +11,7 @@ document.querySelectorAll('.content-editor').forEach(el => {
     let dataInput = el.parentNode.querySelector(el.dataset.target);
     let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    const editor = new EditorJS({
+    let editor = new EditorJS({
         holder: el,
         logLevel: 'ERROR',
         data: dataInput.value ? JSON.parse(dataInput.value) : {},
@@ -60,7 +60,5 @@ document.querySelectorAll('.content-editor').forEach(el => {
             }
         }
     });
-
-    window.editor1 = editor;
 });
 

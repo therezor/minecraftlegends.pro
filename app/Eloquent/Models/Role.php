@@ -52,6 +52,7 @@ class Role extends Model implements HasTranslation, HasValidation
     protected $fillable = [
         'name',
         'permissions',
+        'is_default',
     ];
 
     /**
@@ -60,7 +61,12 @@ class Role extends Model implements HasTranslation, HasValidation
      * @var array<string, string>
      */
     protected $casts = [
+        'is_default' => 'bool',
         'permissions' => 'array',
+    ];
+
+    protected $attributes = [
+        'is_default' => false,
     ];
 
     public function getTranslationPrefix(): string

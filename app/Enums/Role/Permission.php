@@ -2,36 +2,48 @@
 
 namespace App\Enums\Role;
 
-use App\Enums\Selectable;
+use Illuminate\Support\Str;
 
 enum Permission: string
 {
-    use Selectable;
+    case PANEL_DASHBOARD_VIEW = 'PANEL_DASHBOARD_VIEW';
 
-    case DASHBOARD_VIEW = 'DASHBOARD_VIEW';
+    case PANEL_POST_CATEGORIES_LIST = 'PANEL_POST_CATEGORIES_LIST';
+    case PANEL_POST_CATEGORIES_CREATE = 'PANEL_POST_CATEGORIES_CREATE';
+    case PANEL_POST_CATEGORIES_EDIT = 'PANEL_POST_CATEGORIES_EDIT';
+    case PANEL_POST_CATEGORIES_DELETE = 'PANEL_POST_CATEGORIES_DELETE';
 
-    case CATEGORIES_LIST = 'CATEGORIES_LIST';
-    case CATEGORIES_CREATE = 'CATEGORIES_CREATE';
-    case CATEGORIES_EDIT = 'CATEGORIES_EDIT';
-    case CATEGORIES_DELETE = 'CATEGORIES_DELETE';
+    case PANEL_ROLES_LIST = 'PANEL_ROLES_LIST';
+    case PANEL_ROLES_CREATE = 'PANEL_ROLES_CREATE';
+    case PANEL_ROLES_EDIT = 'PANEL_ROLES_EDIT';
+    case PANEL_ROLES_DELETE = 'PANEL_ROLES_DELETE';
 
-    case ROLES_LIST = 'ROLES_LIST';
-    case ROLES_CREATE = 'ROLES_CREATE';
-    case ROLES_EDIT = 'ROLES_EDIT';
-    case ROLES_DELETE = 'ROLES_DELETE';
+    case PANEL_USERS_LIST = 'PANEL_USERS_LIST';
+    case PANEL_USERS_CREATE = 'PANEL_USERS_CREATE';
+    case PANEL_USERS_EDIT = 'PANEL_USERS_EDIT';
+    case PANEL_USERS_DELETE = 'PANEL_USERS_DELETE';
 
-    case USERS_LIST = 'USERS_LIST';
-    case USERS_CREATE = 'USERS_CREATE';
-    case USERS_EDIT = 'USERS_EDIT';
-    case USERS_DELETE = 'USERS_DELETE';
+    case PANEL_POSTS_LIST = 'PANEL_POSTS_LIST';
+    case PANEL_POSTS_CREATE = 'PANEL_POSTS_CREATE';
+    case PANEL_POSTS_EDIT = 'PANEL_POSTS_EDIT';
+    case PANEL_POSTS_DELETE = 'PANEL_POSTS_DELETE';
 
-    case POSTS_LIST = 'POSTS_LIST';
-    case POSTS_CREATE = 'POSTS_CREATE';
-    case POSTS_EDIT = 'POSTS_EDIT';
-    case POSTS_DELETE = 'POSTS_DELETE';
+    case PANEL_SITES_LIST = 'PANEL_SITES_LIST';
+    case PANEL_SITES_CREATE = 'PANEL_SITES_CREATE';
+    case PANEL_SITES_EDIT = 'PANEL_SITES_EDIT';
+    case PANEL_SITES_DELETE = 'PANEL_SITES_DELETE';
 
-    case PAGES_LIST = 'PAGES_LIST';
-    case PAGES_CREATE = 'PAGES_CREATE';
-    case PAGES_EDIT = 'PAGES_EDIT';
-    case PAGES_DELETE = 'PAGES_DELETE';
+    public static function select()
+    {
+        $select = [];
+        foreach (self::cases() as $case) {
+            $title = Str::title($case->name);
+            $title = Str::replaceFirst('_', ' -> ', $title);
+            $title = Str::replaceLast('_', ' -> ', $title);
+            $title = Str::replaceFirst('_', ' ', $title);
+            $select[$case->value] = $title;
+        }
+
+        return $select;
+    }
 }

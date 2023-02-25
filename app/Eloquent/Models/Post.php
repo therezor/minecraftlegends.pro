@@ -29,19 +29,19 @@ use Illuminate\Validation\Rules\Enum;
  * @property string $title
  * @property string $slug
  * @property string|null $description
- * @property string|null $og_image_id
- * @property string|null $og_title
- * @property string|null $og_description
+ * @property string|null $meta_image_id
+ * @property string|null $meta_title
+ * @property string|null $meta_description
  * @property \App\Eloquent\Casts\Dto\Content|null $content
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Eloquent\Models\User $author
- * @property-read \App\Eloquent\Models\Category|null $category
+ * @property-read \App\Eloquent\Models\PostCategory|null $category
  * @property-read \App\Eloquent\Models\Image|null $image
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Eloquent\Models\Image[] $images
  * @property-read int|null $images_count
- * @property-read \App\Eloquent\Models\Image|null $ogImage
+ * @property-read \App\Eloquent\Models\Image|null $metaImage
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Eloquent\Models\User[] $votes
  * @property-read int|null $votes_count
  * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
@@ -82,6 +82,7 @@ class Post extends Model implements HasTranslation, HasValidation
      * @var array<int, string>
      */
     protected $fillable = [
+        'space_id',
         'user_id',
         'category_id',
         'featured',
@@ -91,9 +92,9 @@ class Post extends Model implements HasTranslation, HasValidation
         'title',
         'slug',
         'description',
-        'og_image_id',
-        'og_title',
-        'og_description',
+        'meta_image_id',
+        'meta_title',
+        'meta_description',
         'content',
     ];
 
@@ -121,13 +122,17 @@ class Post extends Model implements HasTranslation, HasValidation
     public function getValidationRules(): array
     {
         return [
+            'space_id' => [
+                'required',
+                Rule::exists(Space::class, 'id'),
+            ],
             'user_id' => [
                 'required',
                 Rule::exists(User::class, 'id'),
             ],
             'category_id' => [
                 'required',
-                Rule::exists(Category::class, 'id'),
+                Rule::exists(PostCategory::class, 'id'),
             ],
             'featured' => [
                 'required',
@@ -158,16 +163,16 @@ class Post extends Model implements HasTranslation, HasValidation
                 'string',
                 'max:500',
             ],
-            'og_image_id' => [
+            'meta_image_id' => [
                 'nullable',
                 Rule::exists(Image::class, 'id'),
             ],
-            'og_title' => [
+            'meta_title' => [
                 'nullable',
                 'string',
                 'max:255',
             ],
-            'og_description' => [
+            'meta_description' => [
                 'nullable',
                 'string',
                 'max:255',
@@ -180,9 +185,14 @@ class Post extends Model implements HasTranslation, HasValidation
         ];
     }
 
+    public function space(): BelongsTo
+    {
+        return $this->belongsTo(Space::class, 'space_id', 'id');
+    }
+
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
+        return $this->belongsTo(PostCategory::class, 'category_id', 'id');
     }
 
     public function author(): BelongsTo
@@ -195,9 +205,9 @@ class Post extends Model implements HasTranslation, HasValidation
         return $this->belongsTo(Image::class, 'image_id', 'id');
     }
 
-    public function ogImage(): BelongsTo
+    public function metaImage(): BelongsTo
     {
-        return $this->belongsTo(Image::class, 'og_image_id', 'id');
+        return $this->belongsTo(Image::class, 'meta_image_id', 'id');
     }
 
     public function votes(): BelongsToMany

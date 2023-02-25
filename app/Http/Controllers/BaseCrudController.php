@@ -8,6 +8,7 @@ use App\Fields\Collections\FieldCollection;
 use App\Forms\BaseFilterForm;
 use App\Http\Crud\BaseCrud;
 use Kris\LaravelFormBuilder\Facades\FormBuilder;
+use Kris\LaravelFormBuilder\Form;
 
 abstract class BaseCrudController extends Controller
 {
@@ -38,12 +39,13 @@ abstract class BaseCrudController extends Controller
 
         $entities = $this->crud->getRepository()->paginate($this->crud->perPage);
 
-        return view($this->crud->getViewByMethod(Method::INDEX))
-            ->with('crud', $this->crud)
-            ->with('fields', $fields)
-            ->with('emptyEntity', $emptyEntity)
-            ->with('filterForm', $filterForm)
-            ->with('entities', $entities);
+        return view($this->crud->getViewByMethod(Method::INDEX), [
+            'crud' => $this->crud,
+            'fields' => $fields,
+            'emptyEntity' => $emptyEntity,
+            'filterForm' => $filterForm,
+            'entities' => $entities,
+        ]);
     }
 
     public function create()
@@ -52,33 +54,37 @@ abstract class BaseCrudController extends Controller
 
         $entity = $this->crud->getRepository()->newModel();
 
-        $form = $this->crud->getCreateFormClass();
+        $formClass = $this->crud->getCreateFormClass();
+        $form = null;
 
-        if ($form) {
-            $form = FormBuilder::create($form, [
+        if ($formClass) {
+            /** @var Form $form */
+            $form = FormBuilder::create($formClass, [
                 'method' => 'post',
-                'model'  => $entity,
-                'route'  => $this->crud->getRouteByMethod(Method::STORE),
+                'model' => $entity,
+                'route' => $this->crud->getRouteByMethod(Method::STORE),
             ]);
         }
 
-        return view($this->crud->getViewByMethod(Method::CREATE))
-            ->with('entity', $entity)
-            ->with('form', $form)
-            ->with('crud', $this->crud);
+        return view($this->crud->getViewByMethod(Method::CREATE), [
+            'crud' => $this->crud,
+            'form' => $form,
+            'entity' => $entity,
+        ]);
     }
 
     public function store()
     {
         $entity = $this->crud->getRepository()->newModel();
 
-        $form = $this->crud->getCreateFormClass();
+        $formClass = $this->crud->getCreateFormClass();
 
-        if ($form) {
-            $form = FormBuilder::create($form, [
+        if ($formClass) {
+            /** @var Form $form */
+            $form = FormBuilder::create($formClass, [
                 'method' => 'post',
-                'model'  => $entity,
-                'route'  => $this->crud->getRouteByMethod(Method::STORE),
+                'model' => $entity,
+                'route' => $this->crud->getRouteByMethod(Method::STORE),
             ]);
 
             $form->redirectIfNotValid();
@@ -104,10 +110,11 @@ abstract class BaseCrudController extends Controller
 
         $fields = $this->crud->getShowFields();
 
-        return view($this->crud->getViewByMethod(Method::SHOW))
-            ->with('entity', $entity)
-            ->with('fields', $fields)
-            ->with('crud', $this->crud);
+        return view($this->crud->getViewByMethod(Method::SHOW), [
+            'crud' => $this->crud,
+            'fields' => $fields,
+            'entity' => $entity,
+        ]);
     }
 
     public function edit($id)
@@ -116,33 +123,37 @@ abstract class BaseCrudController extends Controller
 
         $entity = $this->crud->getRepository()->findOrFail($id);
 
-        $form = $this->crud->getEditFormClass();
+        $formClass = $this->crud->getEditFormClass();
+        $form = null;
 
-        if ($form) {
-            $form = FormBuilder::create($form, [
+        if ($formClass) {
+            /** @var Form $form */
+            $form = FormBuilder::create($formClass, [
                 'method' => 'patch',
-                'model'  => $entity,
-                'route'  => [$this->crud->getRouteByMethod(Method::UPDATE), $id],
+                'model' => $entity,
+                'route' => [$this->crud->getRouteByMethod(Method::UPDATE), $id],
             ]);
         }
 
-        return view($this->crud->getViewByMethod(Method::EDIT))
-            ->with('entity', $entity)
-            ->with('form', $form)
-            ->with('crud', $this->crud);
+        return view($this->crud->getViewByMethod(Method::EDIT), [
+            'crud' => $this->crud,
+            'form' => $form,
+            'entity' => $entity,
+        ]);
     }
 
     public function update($id)
     {
         $entity = $this->crud->getRepository()->findOrFail($id);
 
-        $form = $this->crud->getEditFormClass();
+        $formClass = $this->crud->getEditFormClass();
 
-        if ($form) {
-            $form = FormBuilder::create($form, [
+        if ($formClass) {
+            /** @var Form $form */
+            $form = FormBuilder::create($formClass, [
                 'method' => 'patch',
-                'model'  => $entity,
-                'route'  => $this->crud->getRouteByMethod(Method::UPDATE),
+                'model' => $entity,
+                'route' => $this->crud->getRouteByMethod(Method::UPDATE),
             ]);
 
             $form->redirectIfNotValid();

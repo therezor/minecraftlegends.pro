@@ -28,6 +28,11 @@ class CategoryCrud extends BaseCrud
         return 'panel.categories';
     }
 
+    public function layout(): string
+    {
+        return 'layouts.panel';
+    }
+
     public function getListFields(): array
     {
         return [

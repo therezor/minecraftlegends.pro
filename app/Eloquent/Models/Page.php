@@ -5,8 +5,7 @@ namespace App\Eloquent\Models;
 use App\Eloquent\Casts\ContentCast;
 use App\Eloquent\Models\Contracts\HasTranslation;
 use App\Eloquent\Models\Contracts\HasValidation;
-use App\Enums\Post\Featured;
-use App\Enums\Post\Status;
+use App\Eloquent\Models\Site\Site;
 use App\Rules\ContentRule;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
@@ -24,8 +23,8 @@ use Illuminate\Validation\Rule;
  * @property string $slug
  * @property \App\Eloquent\Casts\Dto\Content|null $content
  * @property string|null $description
- * @property string|null $og_title
- * @property string|null $og_description
+ * @property string|null $meta_title
+ * @property string|null $meta_description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -59,13 +58,14 @@ class Page extends Model implements HasTranslation, HasValidation
     protected $table = 'pages';
 
     protected $fillable = [
+        'space_id',
         'user_id',
         'title',
         'slug',
         'content',
         'description',
-        'og_title',
-        'og_description',
+        'meta_title',
+        'meta_description',
         'content',
     ];
 
@@ -81,6 +81,10 @@ class Page extends Model implements HasTranslation, HasValidation
     public function getValidationRules(): array
     {
         return [
+            'space_id' => [
+                'required',
+                Rule::exists(Site::class, 'id'),
+            ],
             'title' => [
                 'required',
                 'string',
@@ -97,12 +101,12 @@ class Page extends Model implements HasTranslation, HasValidation
                 'string',
                 'max:500',
             ],
-            'og_title' => [
+            'meta_title' => [
                 'nullable',
                 'string',
                 'max:255',
             ],
-            'og_description' => [
+            'meta_description' => [
                 'nullable',
                 'string',
                 'max:255',
@@ -115,7 +119,12 @@ class Page extends Model implements HasTranslation, HasValidation
         ];
     }
 
-    public function author(): BelongsTo
+    public function space(): BelongsTo
+    {
+        return $this->belongsTo(Site::class, 'space_id', 'id');
+    }
+
+    public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

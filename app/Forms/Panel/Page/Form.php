@@ -14,8 +14,8 @@ class Form extends BaseForm
             ],
         ]);
         $this->add('slug', 'text');
-        $this->add('og_title', 'text');
-        $this->add('og_description', 'text');
+        $this->add('meta_title', 'text');
+        $this->add('meta_description', 'text');
         $this->add('description', 'textarea', [
             'attr' => ['rows' => 3],
         ]);
