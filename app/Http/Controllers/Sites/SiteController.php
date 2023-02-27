@@ -2,21 +2,26 @@
 
 namespace App\Http\Controllers\Sites;
 
+use App\Eloquent\Models\Site\Site;
 use App\Eloquent\Models\User;
 use App\Eloquent\Repositories\Criteria\OrderByCriteria;
 use App\Eloquent\Repositories\Criteria\OwnedByUserCriteria;
 use App\Eloquent\Repositories\Site\SiteRepository;
-use App\Enums\Crud\Method;
 use App\Forms\Sites\Site\CreateForm;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Kris\LaravelFormBuilder\Facades\FormBuilder;
 use Kris\LaravelFormBuilder\Form;
 
 class SiteController extends Controller
 {
+    protected SiteRepository $repository;
+
     public function __construct(SiteRepository $repository)
     {
         $this->repository = $repository;
+
+        $this->middleware('site')->only(['show', 'edit', 'update', 'destroy']);
     }
 
     public function index()
@@ -73,11 +78,10 @@ class SiteController extends Controller
             ->with('status', trans('crud.created'));
     }
 
-    public function show($subDomain)
+    public function show(string $subDomain, Request $request)
     {
-        /** @var User $user */
-        $user = auth()->user();
-        $site = $this->repository->pushCriteria(new OwnedByUserCriteria($user))->findByOrFail('sub_domain', $subDomain);
+        /** @var Site $site */
+        $site = $request->get('current_site');
 
         $this->seo()->setTitle($site->name);
 
@@ -88,69 +92,21 @@ class SiteController extends Controller
 
     public function edit($id)
     {
-        $this->seo()->setTitle($this->crud->title());
-
-        $entity = $this->crud->getRepository()->findOrFail($id);
-
-        $formClass = $this->crud->getEditFormClass();
-        $form = null;
-
-        if ($formClass) {
-            /** @var Form $form */
-            $form = FormBuilder::create($formClass, [
-                'method' => 'patch',
-                'model' => $entity,
-                'route' => [$this->crud->getRouteByMethod(Method::UPDATE), $id],
-            ]);
-        }
-
-        return view($this->crud->getViewByMethod(Method::EDIT), [
-            'crud' => $this->crud,
-            'form' => $form,
-            'entity' => $entity,
-        ]);
     }
 
     public function update($id)
     {
-        $entity = $this->crud->getRepository()->findOrFail($id);
-
-        $formClass = $this->crud->getEditFormClass();
-
-        if ($formClass) {
-            /** @var Form $form */
-            $form = FormBuilder::create($formClass, [
-                'method' => 'patch',
-                'model' => $entity,
-                'route' => $this->crud->getRouteByMethod(Method::UPDATE),
-            ]);
-
-            $form->redirectIfNotValid();
-
-            $fieldValues = $form->getFieldValues(true);
-
-            $this->crud->beforeUpdate($entity, $fieldValues);
-
-            $entity = $this->crud->getRepository()->update($id, $fieldValues);
-
-            $this->crud->afterUpdate($entity, $fieldValues);
-        }
-
-        return redirect()->route($this->crud->getRouteByMethod(Method::INDEX))
-            ->with('status', trans('crud.updated'));
     }
 
-    public function destroy($id)
+    public function destroy(string $subDomain)
     {
-        $entity = $this->crud->getRepository()->findOrFail($id);
+        /** @var User $user */
+        $user = auth()->user();
+        $site = $this->repository->pushCriteria(new OwnedByUserCriteria($user))->findByOrFail('sub_domain', $subDomain);
 
-        $this->crud->beforeDestroy($entity);
+        $this->repository->delete($site);
 
-        $this->crud->getRepository()->delete($id);
-
-        $this->crud->afterDestroy($entity);
-
-        return redirect()->route($this->crud->getRouteByMethod(Method::INDEX))
+        return redirect()->route('sites.index')
             ->with('status', trans('crud.deleted'));
     }
 }

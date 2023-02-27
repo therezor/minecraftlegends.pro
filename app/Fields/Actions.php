@@ -2,11 +2,13 @@
 
 namespace App\Fields;
 
+use Illuminate\Routing\Route;
+
 class Actions extends BaseField
 {
-    protected $template = 'fields.actions';
+    protected ?string $template = 'fields.actions';
 
-    protected $routePrefix;
+    protected string $routePrefix;
 
     protected $actions = [
         'show',
@@ -30,9 +32,23 @@ class Actions extends BaseField
         return new self($name, $routePrefix);
     }
 
-    public function getRoutePrefix()
+    public function hasUrl(string $action): bool
     {
-        return $this->routePrefix;
+        $routeName = $this->routePrefix . '.' . $action;
+
+        return $this->hasAction($action) && \Route::has($routeName);
+    }
+
+    public function url(string $action, $value): string
+    {
+        $routeName = $this->routePrefix . '.' . $action;
+
+        return route($routeName, $this->getRouteParameters() + [$value]);
+    }
+
+    protected function getRouteParameters(): array
+    {
+        return app(Route::class)->parameters();
     }
 
     public function hasAction($name): bool

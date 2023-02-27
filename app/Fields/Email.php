@@ -4,7 +4,7 @@ namespace App\Fields;
 
 class Email extends BaseField
 {
-    protected $template = 'fields.email';
+    protected ?string $template = 'fields.email';
 
     public static function make(string $name): self
     {

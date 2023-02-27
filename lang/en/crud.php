@@ -25,6 +25,8 @@ return [
     'update'  => 'Update',
     'destroy' => 'Delete',
 
+    'back_to_list' => 'Back to list',
+
     'cancel' => 'Cancel',
 
 

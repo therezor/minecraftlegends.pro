@@ -4,7 +4,7 @@
 
 @push('actions')
     @if($crud->getRouteByMethod(\App\Enums\Crud\Method::CREATE))
-        <a href="{{ route($crud->getRouteByMethod(\App\Enums\Crud\Method::CREATE)) }}" class="btn btn-alt-success">
+        <a href="{{ route($crud->getRouteByMethod(\App\Enums\Crud\Method::CREATE), $params) }}" class="btn btn-alt-success">
             <i class="fa fa-fw fa-plus"></i>
             {{ trans('crud.create') }}
         </a>

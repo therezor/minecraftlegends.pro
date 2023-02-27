@@ -25,7 +25,7 @@ abstract class BaseField implements Field
 
     protected $labelCallback;
 
-    protected $template;
+    protected ?string $template = null;
 
     public function __construct(string $name)
     {

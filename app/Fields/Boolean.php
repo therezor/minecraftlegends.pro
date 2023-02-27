@@ -4,7 +4,7 @@ namespace App\Fields;
 
 class Boolean extends BaseField
 {
-    protected $template = 'fields.boolean';
+    protected ?string $template = 'fields.boolean';
 
     public static function make(string $name): self
     {

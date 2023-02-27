@@ -18,15 +18,23 @@ return [
     ],
 
     'sidebar' => [
-        'dashboard' => 'Dashboard',
-        'content' => 'Content',
+        'home' => 'Home',
         'pages' => 'Pages',
+        'design' => 'Design',
         'blog' => 'Blog',
         'posts' => 'Posts',
         'categories' => 'Categories',
         'settings' => 'Settings',
-        'customizations' => 'Customizations',
         'domain_name' => 'Domain name',
         'advanced' => 'Advanced',
+    ],
+
+    'blog' => [
+        'posts' => [
+            'title' => 'Blog posts',
+        ],
+        'categories' => [
+            'title' => 'Blog categories',
+        ],
     ],
 ];

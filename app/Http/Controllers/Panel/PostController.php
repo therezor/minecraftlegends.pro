@@ -19,8 +19,9 @@ class PostController extends BaseCrudController
         $this->crud = $crud;
     }
 
-    public function show($id)
+    public function show(...$params)
     {
+        $id = end($params);
         /** @var Post $entity */
         $entity = $this->crud->getRepository()->findOrFail($id);
 

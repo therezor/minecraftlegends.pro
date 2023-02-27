@@ -9,7 +9,7 @@
 @endif
 
 @if ($showField)
-    <div class="content-editor form-control" data-target="{{ "[name='$name']" }}" data-upload-url="{{ route('panel.images.upload') }}" data-fetch-url="{{ route('panel.images.fetch') }}"></div>
+    <div class="content-editor form-control" data-target="{{ "[name='$name']" }}" data-upload-url="{{ route('images.upload') }}" data-fetch-url="{{ route('images.fetch') }}"></div>
 
     {!! Form::hidden($name, $options['value'], $options['attr']) !!}
 

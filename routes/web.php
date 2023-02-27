@@ -3,12 +3,12 @@
 use App\Enums\Role\Permission;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\Panel;
-use App\Http\Controllers\Sites;
-use App\Http\Controllers\Panel\ImageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\Sites;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,9 +24,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['prefix' => 'panel', 'as' => 'panel.', 'middleware' => ['auth']], function () {
-    Route::post('images/upload', [ImageController::class, 'upload'])->name('images.upload');
-    Route::post('images/fetch', [ImageController::class, 'fetch'])->name('images.fetch');
-
     Route::get('/', [Panel\DashboardController::class, 'index'])
         ->middleware('can:' . Permission::PANEL_DASHBOARD_VIEW->value)
         ->name('index');
@@ -42,13 +39,18 @@ Route::group(['prefix' => 'panel', 'as' => 'panel.', 'middleware' => ['auth']], 
     Route::resource('posts', Panel\PostController::class);
 });
 
-Route::group(['prefix' => 'sites', 'as' => 'sites.', 'middleware' => ['auth']], function () {
-});
-
 require __DIR__.'/auth.php';
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('sites', Sites\SiteController::class);
+
+    Route::group(['middleware' => ['site']], function () {
+        Route::resource('sites.blog-categories', Sites\Blog\CategoryController::class);
+        Route::resource('sites.blog-posts', Sites\Blog\PostController::class);
+    });
+
+    Route::post('images/upload', [ImageController::class, 'upload'])->name('images.upload');
+    Route::post('images/fetch', [ImageController::class, 'fetch'])->name('images.fetch');
 
     Route::post('vote/{id}', [PostController::class, 'vote'])
         ->name('posts.vote');

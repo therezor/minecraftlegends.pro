@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Panel;
+namespace App\Http\Controllers;
 
 use App\Eloquent\Repositories\ImageRepository;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\ImageFetchRequest;
 use App\Http\Requests\ImageUploadRequest;
 use App\Http\Resources\ImageResource;

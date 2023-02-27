@@ -3,6 +3,8 @@
 namespace App\Http\Crud;
 
 use App\Enums\Crud\Method;
+use App\Http\Crud\Traits\HasCriteria;
+use App\Http\Crud\Traits\HasEntitiy;
 use Illuminate\Support\Str;
 use App\Http\Crud\Traits\Hookable;
 use App\Http\Crud\Traits\Sortable;
@@ -12,6 +14,8 @@ abstract class BaseCrud
 {
     use Sortable;
     use Hookable;
+    use HasEntitiy;
+    use HasCriteria;
 
     protected $repository;
 
@@ -91,6 +95,7 @@ abstract class BaseCrud
     public function getEntityActions(): array
     {
         return [
+            $this->getViewPrefix() . '.actions.list',
             $this->getViewPrefix() . '.actions.show',
             $this->getViewPrefix() . '.actions.edit',
             $this->getViewPrefix() . '.actions.destroy',
@@ -102,7 +107,7 @@ abstract class BaseCrud
         return 'crud';
     }
 
-    public function getRouteByMethod(Method $method)
+    public function getRouteByMethod(Method $method): ?string
     {
         if (!in_array($method, $this->methods)) {
             return null;

@@ -97,6 +97,7 @@
       background-color: $body-bg-light;
     }
 
+    &.active,
     &:active {
       background-color: $body-bg;
     }

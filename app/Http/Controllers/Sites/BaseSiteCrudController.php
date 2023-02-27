@@ -1,48 +1,46 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Sites;
 
 use App\Enums\Crud\Method;
 use App\Fields\Collections\FieldCollection;
 use App\Forms\BaseFilterForm;
+use App\Http\Controllers\Controller;
 use App\Http\Crud\BaseCrud;
 use Illuminate\Http\Request;
 use Kris\LaravelFormBuilder\Facades\FormBuilder;
 use Kris\LaravelFormBuilder\Form;
 
-abstract class BaseCrudController extends Controller
+abstract class BaseSiteCrudController extends Controller
 {
     protected BaseCrud $crud;
 
-    public function index(Request $request, ...$params)
+    public function index(string $subDomain, Request $request)
     {
-        $this->crud->applyDefaultCriteria(Method::INDEX);
-
         $this->seo()->setTitle($this->crud->title());
 
         $fields = $this->crud->getListFields();
 
         $sortFields = (new FieldCollection($fields))->onlySortable();
-        $this->crud->applySortCriteria($sortFields, $request);
 
-        $emptyEntity = $this->crud->emptyEntity();
+        $this->crud->getRepository()->pushCriteria($this->crud->getSortCriteria($sortFields, $request));
 
-        $filterFormClass = $this->crud->getFilterFormClass();
-        $filterForm = null;
+        $emptyEntity = $this->crud->getRepository()->newModel();
 
-        if ($filterFormClass) {
+        $filterForm = $this->crud->getFilterFormClass();
+
+        if ($filterForm) {
             /** @var BaseFilterForm $filterForm */
-            $filterForm = FormBuilder::create($filterFormClass, [
+            $filterForm = FormBuilder::create($filterForm, [
                 'model' => $emptyEntity,
             ]);
 
-            $this->crud->applyCriteria($filterForm->getFilterCriteria());
+            $this->crud->getRepository()->pushCriteria($filterForm->getFilterCriteria());
         }
 
-        $entities = $this->crud->listEntities();
+        $entities = $this->crud->getRepository()->paginate($this->crud->perPage);
 
         return view($this->crud->getViewByMethod(Method::INDEX), [
-            'params' => $params,
             'crud' => $this->crud,
             'fields' => $fields,
             'emptyEntity' => $emptyEntity,
@@ -51,13 +49,11 @@ abstract class BaseCrudController extends Controller
         ]);
     }
 
-    public function create(...$params)
+    public function create(string $subDomain)
     {
-        $this->crud->applyDefaultCriteria(Method::CREATE);
-
         $this->seo()->setTitle($this->crud->title());
 
-        $entity = $this->crud->emptyEntity();
+        $entity = $this->crud->getRepository()->newModel();
 
         $formClass = $this->crud->getCreateFormClass();
         $form = null;
@@ -67,23 +63,20 @@ abstract class BaseCrudController extends Controller
             $form = FormBuilder::create($formClass, [
                 'method' => 'post',
                 'model' => $entity,
-                'route' => [$this->crud->getRouteByMethod(Method::STORE), $params],
+                'route' => $this->crud->getRouteByMethod(Method::STORE),
             ]);
         }
 
         return view($this->crud->getViewByMethod(Method::CREATE), [
-            'params' => $params,
             'crud' => $this->crud,
             'form' => $form,
             'entity' => $entity,
         ]);
     }
 
-    public function store(...$params)
+    public function store(string $subDomain)
     {
-        $this->crud->applyDefaultCriteria(Method::STORE);
-
-        $entity = $this->crud->emptyEntity();
+        $entity = $this->crud->getRepository()->newModel();
 
         $formClass = $this->crud->getCreateFormClass();
 
@@ -92,7 +85,7 @@ abstract class BaseCrudController extends Controller
             $form = FormBuilder::create($formClass, [
                 'method' => 'post',
                 'model' => $entity,
-                'route' => [$this->crud->getRouteByMethod(Method::STORE), $params],
+                'route' => $this->crud->getRouteByMethod(Method::STORE),
             ]);
 
             $form->redirectIfNotValid();
@@ -101,40 +94,35 @@ abstract class BaseCrudController extends Controller
 
             $this->crud->beforeStore($entity, $fieldValues);
 
-            $entity = $this->crud->createEntity($fieldValues);
+            $entity = $this->crud->getRepository()->create($fieldValues);
 
             $this->crud->afterStore($entity, $fieldValues);
         }
 
-        return redirect()->route($this->crud->getRouteByMethod(Method::INDEX), $params)
+        return redirect()->route($this->crud->getRouteByMethod(Method::INDEX))
             ->with('status', trans('crud.created'));
     }
 
-    public function show(...$params)
+    public function show(string $subDomain, string $id)
     {
-        $this->crud->applyDefaultCriteria(Method::SHOW);
-
         $this->seo()->setTitle($this->crud->title());
 
-        $entity = $this->crud->findEntity($params);
+        $entity = $this->crud->getRepository()->findOrFail($id);
 
         $fields = $this->crud->getShowFields();
 
         return view($this->crud->getViewByMethod(Method::SHOW), [
-            'params' => $params,
             'crud' => $this->crud,
             'fields' => $fields,
             'entity' => $entity,
         ]);
     }
 
-    public function edit(...$params)
+    public function edit(string $subDomain, string $id)
     {
-        $this->crud->applyDefaultCriteria(Method::EDIT);
-
         $this->seo()->setTitle($this->crud->title());
 
-        $entity = $this->crud->findEntity($params);
+        $entity = $this->crud->getRepository()->findOrFail($id);
 
         $formClass = $this->crud->getEditFormClass();
         $form = null;
@@ -144,23 +132,20 @@ abstract class BaseCrudController extends Controller
             $form = FormBuilder::create($formClass, [
                 'method' => 'patch',
                 'model' => $entity,
-                'route' => [$this->crud->getRouteByMethod(Method::UPDATE), $params],
+                'route' => [$this->crud->getRouteByMethod(Method::UPDATE), $id],
             ]);
         }
 
         return view($this->crud->getViewByMethod(Method::EDIT), [
-            'params' => $params,
             'crud' => $this->crud,
             'form' => $form,
             'entity' => $entity,
         ]);
     }
 
-    public function update(...$params)
+    public function update(string $subDomain, string $id)
     {
-        $this->crud->applyDefaultCriteria(Method::UPDATE);
-
-        $entity = $this->crud->findEntity($params);
+        $entity = $this->crud->getRepository()->findOrFail($id);
 
         $formClass = $this->crud->getEditFormClass();
 
@@ -169,7 +154,7 @@ abstract class BaseCrudController extends Controller
             $form = FormBuilder::create($formClass, [
                 'method' => 'patch',
                 'model' => $entity,
-                'route' => [$this->crud->getRouteByMethod(Method::UPDATE), $params],
+                'route' => $this->crud->getRouteByMethod(Method::UPDATE),
             ]);
 
             $form->redirectIfNotValid();
@@ -178,28 +163,26 @@ abstract class BaseCrudController extends Controller
 
             $this->crud->beforeUpdate($entity, $fieldValues);
 
-            $entity = $this->crud->updateEntity($entity, $fieldValues);
+            $entity = $this->crud->getRepository()->update($id, $fieldValues);
 
             $this->crud->afterUpdate($entity, $fieldValues);
         }
 
-        return redirect()->route($this->crud->getRouteByMethod(Method::INDEX), $params)
+        return redirect()->route($this->crud->getRouteByMethod(Method::INDEX))
             ->with('status', trans('crud.updated'));
     }
 
-    public function destroy(...$params)
+    public function destroy(string $subDomain, string $id)
     {
-        $this->crud->applyDefaultCriteria(Method::DESTROY);
-
-        $entity = $this->crud->findEntity($params);
+        $entity = $this->crud->getRepository()->findOrFail($id);
 
         $this->crud->beforeDestroy($entity);
 
-        $this->crud->deleteEntity($entity);
+        $this->crud->getRepository()->delete($id);
 
         $this->crud->afterDestroy($entity);
 
-        return redirect()->route($this->crud->getRouteByMethod(Method::INDEX), $params)
+        return redirect()->route($this->crud->getRouteByMethod(Method::INDEX))
             ->with('status', trans('crud.deleted'));
     }
 }
