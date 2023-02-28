@@ -14,9 +14,7 @@
                                 @yield('header')
                             </h1>
                         </div>
-                        <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3">
-                            @stack('actions')
-                        </nav>
+                        <nav class="flex-shrink-0 mt-3 mt-sm-0 ms-sm-3">@stack('actions')</nav>
                     </div>
                 </div>
             </div>

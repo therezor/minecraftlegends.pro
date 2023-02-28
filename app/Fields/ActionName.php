@@ -3,6 +3,7 @@
 namespace App\Fields;
 
 use Illuminate\Routing\Route;
+use Illuminate\Support\Str;
 
 class ActionName extends BaseField
 {
@@ -33,6 +34,13 @@ class ActionName extends BaseField
         $routeName = $this->routePrefix . ($this->isShow ? '.show' : '.edit');
 
         return route($routeName, $this->getRouteParameters() + [$entity]);
+    }
+
+    public function limit(int $limit)
+    {
+        $this->valueCallback = (fn($value) => Str::limit($value, $limit));
+
+        return $this;
     }
 
     protected function getRouteParameters(): array

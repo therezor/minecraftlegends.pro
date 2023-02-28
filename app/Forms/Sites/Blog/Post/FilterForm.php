@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Forms\Panel\Post;
+namespace App\Forms\Sites\Blog\Post;
 
 use App\Eloquent\Repositories\RoleRepository;
 use App\Eloquent\Repositories\Criteria\FilterCriteria;

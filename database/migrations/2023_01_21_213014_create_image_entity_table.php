@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('image_post', function (Blueprint $table) {
+        Schema::create('image_entity', function (Blueprint $table) {
             $table->uuid('image_id')->index();
-            $table->uuid('post_id')->index();
-
-
-            $table->unique(['image_id', 'post_id']);
+            $table->uuidMorphs('entity');
 
             $table->foreign('image_id')->references('id')->on('images')->onDelete('cascade');
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
         });
     }
 
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('image_post');
+        Schema::dropIfExists('image_entity');
     }
 };

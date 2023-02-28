@@ -4,7 +4,6 @@ namespace App\Eloquent\Models\Site\Blog;
 
 use App\Eloquent\Models\Contracts\HasTranslation;
 use App\Eloquent\Models\Contracts\HasValidation;
-use App\Eloquent\Models\Site\Post;
 use App\Eloquent\Models\Site\Site;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
@@ -47,7 +46,10 @@ class Category extends Model implements HasTranslation, HasValidation
                 'required',
                 'string',
                 'max:255',
-                Rule::unique(Category::class, 'name')->ignore($this->id)->withoutTrashed(),
+                Rule::unique(Category::class, 'name')
+                    ->where('site_id', $this->site_id)
+                    ->ignore($this->id)
+                    ->withoutTrashed(),
             ],
         ];
     }

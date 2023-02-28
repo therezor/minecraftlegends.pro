@@ -9,15 +9,15 @@ use App\Eloquent\Repositories\Contracts\Repository;
 
 class BelongsToSiteCriteria implements Criteria
 {
-    protected Site $site;
+    protected string $siteId;
 
-    public function __construct(Site $site)
+    public function __construct(string|Site $site)
     {
-        $this->site = $site;
+        $this->siteId = ($site instanceof Site) ? $site->id : $site;
     }
 
     public function apply(Builder $builder, Repository $repository): Builder
     {
-        return $builder->where('site_id', $this->site->id);
+        return $builder->where('site_id', $this->siteId);
     }
 }

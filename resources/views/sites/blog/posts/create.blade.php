@@ -1,4 +1,4 @@
-@extends('layouts.panel')
+@extends('layouts.sites')
 
 @section('header', $crud->title())
 
@@ -11,19 +11,10 @@
         <div class="block-content">
             <div class="row">
                 <div class="col-md-6">
-                    {!! form_rows($form, ['title', 'slug', 'status', 'category']) !!}
+                    {!! form_rows($form, ['title', 'status', 'category_id', 'featured']) !!}
                 </div>
                 <div class="col-md-6">
                     {!! form_rows($form, ['image']) !!}
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    {!! form_rows($form, ['category_id']) !!}
-                </div>
-                <div class="col-md-6">
-                    {!! form_rows($form, ['featured']) !!}
                 </div>
             </div>
 

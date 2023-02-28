@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Forms\Panel\Post;
+namespace App\Forms\Sites\Blog\Post;
 
-use App\Eloquent\Models\Image;
-use App\Eloquent\Repositories\CategoryRepository;
+use App\Eloquent\Repositories\Criteria\BelongsToSiteCriteria;
+use App\Eloquent\Repositories\Site\Blog\CategoryRepository;
 use App\Enums\Post\Featured;
 use App\Enums\Post\Status;
 use App\Forms\BaseForm;
-use Illuminate\Validation\Rule;
 
 class Form extends BaseForm
 {
@@ -20,12 +19,7 @@ class Form extends BaseForm
 
     public function buildForm()
     {
-        $this->add('title', 'text', [
-            'attr' => [
-                'data-slug-input' => "#slug",
-            ],
-        ]);
-        $this->add('slug', 'text');
+        $this->add('title', 'text');
         $this->add('description', 'textarea', [
             'attr' => ['rows' => 3],
         ]);
@@ -38,7 +32,8 @@ class Form extends BaseForm
             ],
         ]);
         $this->add('category_id', 'choice', [
-            'choices' => $this->categoryRepository->select(),
+            'choices' => $this->categoryRepository->pushOnceCriteria(new BelongsToSiteCriteria($this->getModel()->site_id))
+                ->select(),
             'empty_value' => ' ',
         ]);
         $this->add('status', 'choice', [

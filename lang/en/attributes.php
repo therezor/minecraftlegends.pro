@@ -22,7 +22,7 @@ return [
     'status' => 'Status',
     'image_id' => 'Image',
     'meta_image_id' => 'OG Image',
-    'category_id' => 'PostCategory',
+    'category_id' => 'Category',
     'alt' => 'Alt',
     'caption' => 'Caption',
     'per_page' => 'Blocks per page',

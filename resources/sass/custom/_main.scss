@@ -14,3 +14,7 @@
 a[data-method] {
     pointer-events: none;
 }
+
+.hide-empty:empty {
+    display: none;
+}
