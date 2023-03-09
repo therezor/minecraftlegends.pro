@@ -5,7 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\Panel;
+use App\Http\Controllers\Admin;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\Sites;
@@ -23,20 +23,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::group(['prefix' => 'panel', 'as' => 'panel.', 'middleware' => ['auth']], function () {
-    Route::get('/', [Panel\DashboardController::class, 'index'])
-        ->middleware('can:' . Permission::PANEL_DASHBOARD_VIEW->value)
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
+    Route::get('/', [Admin\DashboardController::class, 'index'])
+        ->middleware('can:' . Permission::ADMIN_DASHBOARD_VIEW->value)
         ->name('index');
 
-    Route::resource('roles', Panel\RoleController::class);
+    Route::resource('roles', Admin\RoleController::class);
 
-    Route::resource('users', Panel\UserController::class);
+    Route::resource('users', Admin\UserController::class);
 
-    Route::resource('categories', Panel\CategoryController::class);
+    Route::resource('categories', Admin\CategoryController::class);
 
-    Route::resource('sites', Panel\SiteController::class);
+    Route::resource('sites', Admin\SiteController::class);
 
-    Route::resource('posts', Panel\PostController::class);
+    Route::resource('posts', Admin\PostController::class);
 });
 
 require __DIR__.'/auth.php';
@@ -44,7 +44,7 @@ require __DIR__.'/auth.php';
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('sites', Sites\SiteController::class);
 
-    Route::group(['middleware' => ['site']], function () {
+    Route::group(['middleware' => ['auth.tenant']], function () {
         Route::resource('sites.blog-categories', Sites\Blog\CategoryController::class);
         Route::resource('sites.blog-posts', Sites\Blog\PostController::class);
     });

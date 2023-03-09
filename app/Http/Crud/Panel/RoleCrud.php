@@ -28,12 +28,12 @@ class RoleCrud extends BaseCrud
 
     public function getRouteName(): string
     {
-        return 'panel.roles';
+        return 'admin.roles';
     }
 
     public function layout(): string
     {
-        return 'layouts.panel';
+        return 'layouts.admin';
     }
 
     public function getListFields(): array

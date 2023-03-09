@@ -25,12 +25,12 @@ class UserCrud extends BaseCrud
 
     public function getRouteName(): string
     {
-        return 'panel.users';
+        return 'admin.users';
     }
 
     public function layout(): string
     {
-        return 'layouts.panel';
+        return 'layouts.admin';
     }
 
     public function getListFields(): array

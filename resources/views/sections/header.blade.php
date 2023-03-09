@@ -43,9 +43,9 @@
                             <p class="mt-2 mb-0 fw-medium">{{ auth()->user()->name }}</p>
                             <p class="mb-0 text-muted fs-sm fw-medium">{{ auth()->user()->role->name }}</p>
                         </div>
-                        @can(\App\Enums\Role\Permission::PANEL_DASHBOARD_VIEW->value)
+                        @can(\App\Enums\Role\Permission::ADMIN_DASHBOARD_VIEW->value)
                             <div class="p-2">
-                                <a class="dropdown-item fs-sm fw-medium" href="{{ route('panel.index') }}">
+                                <a class="dropdown-item fs-sm fw-medium" href="{{ route('admin.index') }}">
                                     <i class="fa fas fa-fw fa-table-columns"></i> {{ __('Dashboard') }}
                                 </a>
                             </div>

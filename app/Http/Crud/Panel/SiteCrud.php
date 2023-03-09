@@ -21,12 +21,12 @@ class SiteCrud extends BaseCrud
 
     public function getRouteName(): string
     {
-        return 'panel.sites';
+        return 'admin.sites';
     }
 
     public function layout(): string
     {
-        return 'layouts.panel';
+        return 'layouts.admin';
     }
 
     public function getListFields(): array

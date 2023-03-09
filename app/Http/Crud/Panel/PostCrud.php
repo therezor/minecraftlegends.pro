@@ -29,12 +29,12 @@ class PostCrud extends BaseCrud
 
     public function getRouteName(): string
     {
-        return 'panel.posts';
+        return 'admin.posts';
     }
 
     public function layout(): string
     {
-        return 'layouts.panel';
+        return 'layouts.admin';
     }
 
     public function getListFields(): array
@@ -62,11 +62,11 @@ class PostCrud extends BaseCrud
     public function getViewByMethod(Method $method): string
     {
         if (Method::CREATE === $method) {
-            return 'panel.posts.create';
+            return 'admin.posts.create';
         }
 
         if (Method::EDIT === $method) {
-            return 'panel.posts.edit';
+            return 'admin.posts.edit';
         }
 
         return parent::getViewByMethod($method);

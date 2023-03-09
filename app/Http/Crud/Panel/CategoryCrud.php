@@ -25,12 +25,12 @@ class CategoryCrud extends BaseCrud
 
     public function getRouteName(): string
     {
-        return 'panel.categories';
+        return 'admin.categories';
     }
 
     public function layout(): string
     {
-        return 'layouts.panel';
+        return 'layouts.admin';
     }
 
     public function getListFields(): array
