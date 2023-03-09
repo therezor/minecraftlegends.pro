@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Eloquent\Models\Post;
 use App\Enums\Role\Permission;
 use App\Http\Controllers\BaseCrudController;
-use App\Http\Crud\Panel\PostCrud;
+use App\Http\Crud\Admin\PostCrud;
 
 class PostController extends BaseCrudController
 {

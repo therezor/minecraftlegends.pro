@@ -20,7 +20,8 @@ class AddSiteToRequest
     {
         /** @var User $user */
         $user = auth()->user();
-        $subDomain = $request->route('site');
+        $subDomain = $request->route('panel');
+
         $site = $this->repository->pushCriteria(new OwnedByUserCriteria($user))
             ->findByOrFail('sub_domain', $subDomain);
         $request->merge(['current_site' => $site]);

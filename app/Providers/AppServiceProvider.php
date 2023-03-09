@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Views\Composers\MenuComposer;
-use App\Views\Composers\SiteLayoutComposer;
+use App\Views\Composers\PanelLayoutComposer;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -30,6 +30,6 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
         View::composer('sections.menu', MenuComposer::class);
-        View::composer('layouts.sites', SiteLayoutComposer::class);
+        View::composer('layouts.panel', PanelLayoutComposer::class);
     }
 }

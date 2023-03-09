@@ -52,9 +52,9 @@
                             <div role="separator" class="dropdown-divider m-0"></div>
                         @endif
                         <div class="p-2">
-                            <a class="dropdown-item fs-sm fw-medium @if(Route::is('sites.*')) active @endif"
-                               href="{{ route('sites.index') }}">
-                                <i class="fa fas fa-fw fa-window-maximize"></i> {{ trans('sites.title') }}
+                            <a class="dropdown-item fs-sm fw-medium @if(Route::is('panel.*')) active @endif"
+                               href="{{ route('panel.index') }}">
+                                <i class="fa fas fa-fw fa-window-maximize"></i> {{ trans('panel.title') }}
                             </a>
                         </div>
                         <div role="separator" class="dropdown-divider m-0"></div>

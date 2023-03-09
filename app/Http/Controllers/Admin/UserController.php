@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\Role\Permission;
 use App\Http\Controllers\BaseCrudController;
-use App\Http\Crud\Panel\UserCrud;
+use App\Http\Crud\Admin\UserCrud;
 
 class UserController extends BaseCrudController
 {

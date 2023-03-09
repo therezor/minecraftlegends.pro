@@ -8,7 +8,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SitemapController;
-use App\Http\Controllers\Sites;
+use App\Http\Controllers\Panel;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,11 +42,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 require __DIR__.'/auth.php';
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('sites', Sites\SiteController::class);
+    Route::resource('panel', Panel\SiteController::class);
 
     Route::group(['middleware' => ['auth.tenant']], function () {
-        Route::resource('sites.blog-categories', Sites\Blog\CategoryController::class);
-        Route::resource('sites.blog-posts', Sites\Blog\PostController::class);
+        Route::resource('panel.blog-categories', Panel\Blog\CategoryController::class);
+        Route::resource('panel.blog-posts', Panel\Blog\PostController::class);
     });
 
     Route::post('images/upload', [ImageController::class, 'upload'])->name('images.upload');

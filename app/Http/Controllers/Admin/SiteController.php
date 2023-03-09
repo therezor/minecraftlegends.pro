@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Eloquent\Models\Page;
 use App\Enums\Role\Permission;
 use App\Http\Controllers\BaseCrudController;
-use App\Http\Crud\Panel\SiteCrud;
+use App\Http\Crud\Admin\SiteCrud;
 
 class SiteController extends BaseCrudController
 {

@@ -51,6 +51,6 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('sites.index');
+        return redirect()->route('panel.index');
     }
 }

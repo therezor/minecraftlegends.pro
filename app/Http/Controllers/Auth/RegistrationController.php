@@ -45,6 +45,6 @@ class RegistrationController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('sites.index');
+        return redirect()->route('panel.index');
     }
 }
