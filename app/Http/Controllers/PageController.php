@@ -46,4 +46,14 @@ class PageController extends Controller
 
         return view('page', ['title' => $title, 'content' => $content]);
     }
+
+    public function test()
+    {
+        return view('test');
+    }
+
+    public function testPost()
+    {
+        return view('test-post');
+    }
 }

@@ -13,6 +13,7 @@ require('laravel-mix-purgecss');
 
 mix.setPublicPath('public/')
     .sass('resources/sass/main.scss', 'css/app.css')
+    .sass('resources/sass/site/site.scss', 'css/site.css')
     .js('resources/js/app.js', 'js/app.js')
     .js('resources/js/modules/editor.js', 'js/editor.js')
     .version('public/js/html-editor.js')

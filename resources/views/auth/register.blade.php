@@ -28,7 +28,7 @@
                         </label>
                     </div>
                     <div class="py-2">
-                        <a href="{{ route('pages.show', 'terms') }}" target="_blank" class="fs-sm fw-medium">{{ __('View') }}</a>
+                        <a href="{{ route('pages.terms') }}" target="_blank" class="fs-sm fw-medium">{{ __('View') }}</a>
                     </div>
                 </div>
             </div>

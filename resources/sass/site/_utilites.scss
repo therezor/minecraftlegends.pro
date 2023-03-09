@@ -1,0 +1,22 @@
+//
+// Custom utilities
+//
+.text-center {
+    text-align: center;
+}
+.text-right {
+    text-align: right;
+}
+.text-left {
+    text-align: left;
+}
+
+.grid-2 {
+    @extend .grid;
+
+    @if map-get($breakpoints, "lg") {
+        @media (min-width: map-get($breakpoints, "lg")) {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+}

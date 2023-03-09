@@ -2,7 +2,7 @@
     <div class="content-header">
         <div class="d-flex align-items-center">
             <a href="{{ route('index') }}">
-                <img src="{{ asset('img/logo.png') }}" width="203" height="40" alt="...">
+                <img src="{{ asset('img/logo.png') }}" height="40" alt="...">
             </a>
         </div>
 

@@ -56,6 +56,10 @@ Route::group(['middleware' => ['auth']], function () {
         ->name('posts.vote');
 });
 
+// TODO: delete
+Route::get('test', [PageController::class, 'test'])->name('pages.test');
+Route::get('test-post', [PageController::class, 'testPost']);
+
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('terms', [PageController::class, 'terms'])->name('pages.terms');
 Route::get('privacy', [PageController::class, 'privacy'])->name('pages.privacy');

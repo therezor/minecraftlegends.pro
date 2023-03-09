@@ -1,0 +1,26 @@
+//
+// Custom Variables
+//
+// Here you can add your own variables overrides
+//
+// The file is included before any other variable file,
+// so you can override them because they all use !default
+// --------------------------------------------------
+
+// Breakpoints
+$breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: null,
+);
+
+// Viewports
+$viewports: (
+    // 'null' disable the viewport on a breakpoint
+    sm: 510px,
+    md: 700px,
+    lg: 920px,
+    xl: null
+);

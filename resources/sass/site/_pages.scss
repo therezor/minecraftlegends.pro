@@ -1,0 +1,61 @@
+//
+// Custom page styles
+//
+
+// Main menu
+nav[role=menubar] {
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 0 var(--spacing);
+    background-color: var(--background-color);
+    box-shadow: 0 1px 0 var(--muted-border-color);
+
+    li {
+        padding: var(--nav-element-spacing-horizontal);
+    }
+
+    ul:first-of-type, ul:last-of-type {
+        width: 3rem;
+    }
+
+    strong[role=heading] {
+        font-weight: bold;
+        color: var(--h1-color);
+    }
+
+    a[role=icon] {
+        color: var(--secondary);
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+    svg[role=img] {
+        height: 2rem;
+        width: 2rem;
+        display: block;
+    }
+
+    + main {
+        padding-top: calc(var(--spacing) * 5);
+    }
+}
+
+// Post
+article[role=article]{
+    header {
+        img {
+            border-radius: var(--border-radius);
+            object-fit: cover;
+            aspect-ratio: 2/1;
+        }
+    }
+}
+// Footer
+#footer {
+    padding-top: 0;
+    text-align: center;
+}

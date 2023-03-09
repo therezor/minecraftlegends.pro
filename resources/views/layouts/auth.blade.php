@@ -8,7 +8,7 @@
 
                     <div class="fs-sm text-center text-muted py-3">
                         <a href="{{ route('index') }}">
-                            <img src="{{ asset('img/logo.png') }}" alt="..." width="254" height="50">
+                            <img src="{{ asset('img/logo.png') }}" alt="..." height="50">
                         </a>
                     </div>
 
