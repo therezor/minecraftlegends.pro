@@ -27,6 +27,7 @@
         "sass-loader": "^10.2.1"
     },
     "dependencies": {
+        "@ctfdio/picocss-themes": "^0.0.3",
         "@dashboardcode/bsmultiselect": "^1.1.18",
         "@editorjs/editorjs": "^2.26.4",
         "@editorjs/embed": "^2.5.3",
@@ -43,7 +44,9 @@
         "codex-notifier": "^1.1.2",
         "editorjs-alert": "^1.0.3",
         "editorjs-inline-tool": "^0.4.0",
+        "node-sass": "^8.0.0",
         "simplebar": "^5.3.9",
+        "sortablejs": "^1.15.0",
         "tinymce": "^6.3.1"
     }
 }

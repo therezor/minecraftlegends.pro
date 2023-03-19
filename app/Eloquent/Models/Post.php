@@ -121,6 +121,7 @@ class Post extends Model implements HasTranslation, HasValidation
 
     public function getValidationRules(): array
     {
+        now()->toW3cString()
         return [
             'space_id' => [
                 'required',

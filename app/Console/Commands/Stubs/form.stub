@@ -1,0 +1,13 @@
+<?php
+
+namespace @NAMESPACE;
+
+use App\Forms\BaseForm;
+
+class @CLASS_NAME extends BaseForm
+{
+    public function buildForm()
+    {
+        $this->add('name', 'text');
+    }
+}

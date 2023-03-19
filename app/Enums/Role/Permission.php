@@ -33,6 +33,8 @@ enum Permission: string
     case ADMIN_SITES_EDIT = 'ADMIN_SITES_EDIT';
     case ADMIN_SITES_DELETE = 'ADMIN_SITES_DELETE';
 
+    // Placeholder for auto insertion
+
     public static function select()
     {
         $select = [];

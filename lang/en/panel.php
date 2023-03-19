@@ -29,6 +29,13 @@ return [
         'advanced' => 'Advanced',
     ],
 
+    'pages' => [
+        'title' => 'Pages',
+        'create' => 'Create new page',
+        'blocks' => 'Blocks',
+        'settings' => 'Settings',
+    ],
+
     'blog' => [
         'posts' => [
             'title' => 'Blog posts',

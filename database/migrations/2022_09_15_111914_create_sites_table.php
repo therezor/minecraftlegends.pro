@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->uuid('image_id')->index()->nullable();
             $table->string('name')->fullText();
-            $table->string('sub_domain')->index();
+            $table->string('hostname')->index();
             $table->string('domain')->nullable()->index();
 
             $table->uuid('meta_image_id')->index()->nullable();

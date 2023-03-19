@@ -18,3 +18,12 @@ a[data-method] {
 .hide-empty:empty {
     display: none;
 }
+
+.drag {
+    color: $text-muted;
+    cursor: grab;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}

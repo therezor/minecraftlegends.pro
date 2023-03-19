@@ -19,15 +19,19 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
-        $this->routes(function () {
+        $host = parse_url($this->app['config']->get('app.url'), PHP_URL_HOST);
+
+        $this->routes(function () use ($host) {
             Route::middleware('api')
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
 
             Route::middleware('web')
+                ->domain($host)
                 ->group(base_path('routes/web.php'));
 
             Route::middleware('site')
+                ->as('site.')
                 ->group(base_path('routes/site.php'));
         });
     }

@@ -16,6 +16,7 @@ mix.setPublicPath('public/')
     .sass('resources/sass/site/site.scss', 'css/site.css')
     .js('resources/js/app.js', 'js/app.js')
     .js('resources/js/modules/editor.js', 'js/editor.js')
+    .js('resources/js/modules/page.js', 'js/page.js')
     .version('public/js/html-editor.js')
     .purgeCss({
         safelist: {

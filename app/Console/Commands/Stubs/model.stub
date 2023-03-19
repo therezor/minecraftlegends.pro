@@ -1,0 +1,43 @@
+<?php
+
+namespace @NAMESPACE;
+
+use App\Eloquent\Models\Contracts\HasTranslation;
+use App\Eloquent\Models\Contracts\HasValidation;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class @CLASS_NAME extends Model implements HasTranslation, HasValidation
+{
+    use HasUuids;
+    use SoftDeletes;
+
+    protected $table = '@TABLE_NAME';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+    ];
+
+    public function getTranslationPrefix(): string
+    {
+        return 'attributes';
+    }
+
+    public function getValidationRules(): array
+    {
+        return [
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+        ];
+    }
+}
+

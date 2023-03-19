@@ -13,7 +13,7 @@ class CreateForm extends BaseForm
             'label' => trans('panel.create.name'),
             'attr' => ['placeholder' => trans('panel.create.name')],
         ]);
-        $this->add('sub_domain', 'text', [
+        $this->add('hostname', 'text', [
             'label' => trans('panel.create.domain'),
             'attr' => ['placeholder' => trans('panel.create.domain')],
         ]);

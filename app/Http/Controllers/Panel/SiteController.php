@@ -6,6 +6,7 @@ use App\Eloquent\Models\Site\Site;
 use App\Eloquent\Models\User;
 use App\Eloquent\Repositories\Criteria\OrderByCriteria;
 use App\Eloquent\Repositories\Criteria\OwnedByUserCriteria;
+use App\Eloquent\Repositories\Site\PageRepository;
 use App\Eloquent\Repositories\Site\SiteRepository;
 use App\Forms\Panel\Site\CreateForm;
 use App\Http\Controllers\Controller;
@@ -15,11 +16,13 @@ use Kris\LaravelFormBuilder\Form;
 
 class SiteController extends Controller
 {
-    protected SiteRepository $repository;
+    protected SiteRepository $siteRepository;
+    protected PageRepository $pageRepository;
 
-    public function __construct(SiteRepository $repository)
+    public function __construct(SiteRepository $siteRepository, PageRepository $pageRepository)
     {
-        $this->repository = $repository;
+        $this->siteRepository = $siteRepository;
+        $this->pageRepository = $pageRepository;
 
         $this->middleware('auth.tenant')->only(['show', 'edit', 'update', 'destroy']);
     }
@@ -28,12 +31,12 @@ class SiteController extends Controller
     {
         /** @var User $user */
         $user = auth()->user();
-        $site = $this->repository->pushCriteria(new OwnedByUserCriteria($user))
+        $site = $this->siteRepository->pushCriteria(new OwnedByUserCriteria($user))
             ->pushCriteria(new OrderByCriteria('id', 'asc'))
             ->first();
 
         if ($site) {
-            return redirect()->route('panel.show', $site->sub_domain);
+            return redirect()->route('panel.show', $site->hostname);
         }
 
         return redirect()->route('panel.create');
@@ -44,7 +47,7 @@ class SiteController extends Controller
         $title = trans('panel.create.title');
         $this->seo()->setTitle($title);
 
-        $site = $this->repository->newModel();
+        $site = $this->siteRepository->newModel();
 
         /** @var Form $form */
         $form = FormBuilder::create(CreateForm::class, [
@@ -58,7 +61,7 @@ class SiteController extends Controller
 
     public function store()
     {
-        $site = $this->repository->newModel();
+        $site = $this->siteRepository->newModel();
 
         /** @var Form $form */
         $form = FormBuilder::create(CreateForm::class, [
@@ -71,14 +74,21 @@ class SiteController extends Controller
 
         $fieldValues = $form->getFieldValues(true);
         $fieldValues['user_id'] = auth()->id();
+        $fieldValues['domain'] = $fieldValues['hostname'] . '.' . config('sites.domains.0');
 
-        $site = $this->repository->create($fieldValues);
+        $site = $this->siteRepository->create($fieldValues);
+        $page = $this->pageRepository->create([
+            'site_id' => $site->id,
+            'name' => $site->name,
+            'slug' => '/',
+            'content' => [],
+        ]);
 
-        return redirect()->route('panel.show', $site->sub_domain)
+        return redirect()->route('panel.show', $site->hostname)
             ->with('status', trans('crud.created'));
     }
 
-    public function show(string $subDomain, Request $request)
+    public function show(string $hostname, Request $request)
     {
         /** @var Site $site */
         $site = $request->get('current_site');
@@ -98,13 +108,13 @@ class SiteController extends Controller
     {
     }
 
-    public function destroy(string $subDomain)
+    public function destroy(string $hostname)
     {
         /** @var User $user */
         $user = auth()->user();
-        $site = $this->repository->pushCriteria(new OwnedByUserCriteria($user))->findByOrFail('sub_domain', $subDomain);
+        $site = $this->siteRepository->pushCriteria(new OwnedByUserCriteria($user))->findByOrFail('hostname', $hostname);
 
-        $this->repository->delete($site);
+        $this->siteRepository->delete($site);
 
         return redirect()->route('panel.index')
             ->with('status', trans('crud.deleted'));

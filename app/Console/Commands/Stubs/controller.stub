@@ -1,0 +1,20 @@
+<?php
+
+namespace @NAMESPACE;
+
+use App\Enums\Role\Permission;
+use App\Http\Controllers\BaseCrudController;
+use @CRUD_FQN;
+
+class @CLASS_NAME extends BaseCrudController
+{
+    public function __construct(@CRUD_NAME $crud)
+    {
+        $this->middleware('can:' . Permission::@PERMISSION_NAME_LIST->value, ['only' => ['index', 'show']]);
+        $this->middleware('can:' . Permission::@PERMISSION_NAME_CREATE->value, ['only' => ['create', 'store']]);
+        $this->middleware('can:' . Permission::@PERMISSION_NAME_EDIT->value, ['only' => ['edit', 'update']]);
+        $this->middleware('can:' . Permission::@PERMISSION_NAME_DELETE->value, ['only' => 'destroy']);
+
+        $this->crud = $crud;
+    }
+}

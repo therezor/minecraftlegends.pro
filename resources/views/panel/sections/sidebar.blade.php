@@ -22,14 +22,14 @@
             <ul class="nav-main">
                 <li class="nav-main-item">
                     <a class="nav-main-link @if(Route::is('panel.show')) active @endif"
-                       href="{{ route('panel.show', $site->sub_domain) }}">
+                       href="{{ route('panel.show', $site->hostname) }}">
                         <i class="nav-main-link-icon fa fa-house"></i>
                         <span class="nav-main-link-name">{{ trans('panel.sidebar.home') }}</span>
                     </a>
                 </li>
                 <li class="nav-main-item">
                     <a class="nav-main-link @if(Route::is('panel.pages.*')) active @endif"
-                       href="#">
+                       href="{{ route('panel.pages.index', $site->hostname) }}">
                         <i class="nav-main-link-icon fa fa-file"></i>
                         <span class="nav-main-link-name">{{ trans('panel.sidebar.pages') }}</span>
                     </a>
@@ -48,12 +48,12 @@
                     </a>
                     <ul class="nav-main-submenu">
                         <li class="nav-main-item @if(Route::is('panel.blog-posts.*')) active @endif">
-                            <a class="nav-main-link" href="{{ route('panel.blog-posts.index', $site->sub_domain) }}">
+                            <a class="nav-main-link" href="{{ route('panel.blog-posts.index', $site->hostname) }}">
                                 <span class="nav-main-link-name">{{ trans('panel.sidebar.posts') }}</span>
                             </a>
                         </li>
                         <li class="nav-main-item @if(Route::is('panel.blog-categories.*')) active @endif">
-                            <a class="nav-main-link" href="{{ route('panel.blog-categories.index', $site->sub_domain) }}">
+                            <a class="nav-main-link" href="{{ route('panel.blog-categories.index', $site->hostname) }}">
                                 <span class="nav-main-link-name">{{ trans('panel.sidebar.categories') }}</span>
                             </a>
                         </li>

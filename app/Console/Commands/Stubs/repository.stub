@@ -1,0 +1,14 @@
+<?php
+
+namespace @NAMESPACE;
+
+use App\Eloquent\Repositories\BaseRepository;
+use @MODEL_FQN;
+
+class @CLASS_NAME extends BaseRepository
+{
+    public function modelClass(): string
+    {
+        return @MODEL_NAME::class;
+    }
+}

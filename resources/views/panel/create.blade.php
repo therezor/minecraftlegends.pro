@@ -24,12 +24,12 @@
                             <div class="form-floating mb-4">
                                 <div class="input-group">
                                     <div class="form-floating">
-                                        {!! form_widget($form->sub_domain) !!}
-                                        {!! form_label($form->sub_domain) !!}
+                                        {!! form_widget($form->hostname) !!}
+                                        {!! form_label($form->hostname) !!}
                                     </div>
                                     <span class="input-group-text">.{{ config('sites.domains.0') }}</span>
                                 </div>
-                                {!! form_errors($form->sub_domain, ['errors' => ['class' => 'invalid-feedback d-block']]) !!}
+                                {!! form_errors($form->hostname, ['errors' => ['class' => 'invalid-feedback d-block']]) !!}
                                 <p class="form-text">{{ trans('panel.create.domain_notice') }}</p>
                             </div>
 

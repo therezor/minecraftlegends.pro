@@ -31,13 +31,13 @@
                     </li>
                     @foreach($sites as $entity)
                         <li>
-                            <a class="text-dark d-flex py-2 @if($entity->id === $site->id) active @endif" href="{{ route('panel.show', $entity->sub_domain) }}">
+                            <a class="text-dark d-flex py-2 @if($entity->id === $site->id) active @endif" href="{{ route('panel.show', $entity->hostname) }}">
                                 <div class="flex-shrink-0 me-3 ms-2">
                                     <i class="fa fa-fw fa-globe text-info"></i>
                                 </div>
                                 <div class="flex-grow-1 fs-sm">
                                     <div class="fw-semibold">{{ $entity->name }}</div>
-                                    <small class="text-muted">{{ $entity->sub_domain }}</small>
+                                    <small class="text-muted">{{ $entity->hostname }}</small>
                                 </div>
                             </a>
                         </li>

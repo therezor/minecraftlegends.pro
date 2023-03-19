@@ -1,0 +1,62 @@
+<?php
+
+namespace @NAMESPACE;
+
+use @FORM_NAMESPACE;
+use @REPOSITORY_FQN;
+use App\Http\Crud\Traits\RedirectToShow;
+use App\Fields\{Actions, Field, ActionName};
+use App\Http\Crud\BaseCrud;
+
+class @CLASS_NAME extends BaseCrud
+{
+    use RedirectToShow;
+
+    public function __construct(@REPOSITORY_NAME $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function title(): string
+    {
+        return trans('@PREFIX.@ROUTE_NAME.title');
+    }
+
+    public function getRouteName(): string
+    {
+        return '@PREFIX.ROUTE_NAME';
+    }
+
+    public function layout(): string
+    {
+        return 'layouts.@PREFIX';
+    }
+
+    public function getListFields(): array
+    {
+        return [
+            ActionName::make('name', $this->getRouteName())->sortable()->limit(45),
+            Actions::make('id', $this->getRouteName()),
+        ];
+    }
+
+    public function getShowFields(): array
+    {
+        return [
+            Field::make('id'),
+            Field::make('name'),
+            Field::make('created_at'),
+            Field::make('updated_at'),
+        ];
+    }
+
+    public function getCreateFormClass(): ?string
+    {
+        return Form::class;
+    }
+
+    public function getFilterFormClass(): ?string
+    {
+        return FilterForm::class;
+    }
+}

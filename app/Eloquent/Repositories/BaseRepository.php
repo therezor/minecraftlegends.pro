@@ -5,6 +5,7 @@ namespace App\Eloquent\Repositories;
 use App\Eloquent\Repositories\Contracts\Criteria;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -59,6 +60,11 @@ abstract class BaseRepository implements RepositoryContract
     public function paginate(int $perPage = 50, array $columns = ['*'], string $pageName = 'page', int $page = null): LengthAwarePaginator
     {
         return $this->newQuery()->paginate($perPage, $columns, $pageName, $page);
+    }
+
+    public function simplePaginate(int $perPage = 50, array $columns = ['*'], string $pageName = 'page', int $page = null): Paginator
+    {
+        return $this->newQuery()->simplePaginate($perPage, $columns, $pageName, $page);
     }
 
     /**

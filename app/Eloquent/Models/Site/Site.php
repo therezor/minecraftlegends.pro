@@ -23,7 +23,7 @@ class Site extends Model implements HasTranslation, HasValidation
         'user_id',
         'image_id',
         'name',
-        'sub_domain',
+        'hostname',
         'domain',
         'meta_image_id',
         'meta_title',
@@ -47,12 +47,12 @@ class Site extends Model implements HasTranslation, HasValidation
                 'string',
                 'max:255',
             ],
-            'sub_domain' => [
+            'hostname' => [
                 'required',
                 'string',
                 'alpha_dash:ascii',
                 'max:255',
-                Rule::unique(static::class, 'sub_domain')->withoutTrashed()->ignore($this->id),
+                Rule::unique(static::class, 'hostname')->withoutTrashed()->ignore($this->id),
             ],
             'domain' => [
                 'nullable',

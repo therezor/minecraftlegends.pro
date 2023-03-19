@@ -1,10 +1,3 @@
+Sitemap: http://litex.test/sitemap.xml
 User-agent: *
-Disallow: /panel
-Disallow: /login
-Disallow: /register
-Disallow: /forgot-password
-Disallow: /reset-password
-Disallow: /livewire
-Disallow: /search
-
-Sitemap: https://minecraftlegends.pro/sitemap.xml
+Disallow:

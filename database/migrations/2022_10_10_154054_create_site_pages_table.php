@@ -15,19 +15,21 @@ return new class extends Migration
     {
         Schema::create('site_pages', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('user_id')->index();
-            $table->string('title');
+            $table->uuid('site_id')->index();
+            $table->string('name');
             $table->string('slug')->index();
-            $table->longText('content');
-            $table->string('description')->nullable();
+            $table->tinyInteger('type')->unsigned()->index()->default(0)->nullable();
+            $table->json('content');
 
+            $table->uuid('meta_image_id')->index()->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('site_id')->references('id')->on('sites')->onDelete('cascade');
+            $table->foreign('meta_image_id')->references('id')->on('images')->onDelete('set null');
         });
     }
 
