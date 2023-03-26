@@ -5,6 +5,7 @@ namespace App\Eloquent\Models;
 use App\Eloquent\Casts\ContentCast;
 use App\Eloquent\Models\Contracts\HasTranslation;
 use App\Eloquent\Models\Contracts\HasValidation;
+use App\Eloquent\Models\Site\Site;
 use App\Enums\Post\Featured;
 use App\Enums\Post\Status;
 use App\Rules\ContentRule;
@@ -121,11 +122,10 @@ class Post extends Model implements HasTranslation, HasValidation
 
     public function getValidationRules(): array
     {
-        now()->toW3cString()
         return [
             'space_id' => [
                 'required',
-                Rule::exists(Space::class, 'id'),
+                Rule::exists(Site::class, 'id'),
             ],
             'user_id' => [
                 'required',

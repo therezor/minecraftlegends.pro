@@ -2,7 +2,7 @@
 
 namespace App\Enums\Page;
 
-enum Type: int
+enum Block: int
 {
     case PAGE = 0;
     case MAIN = 1;

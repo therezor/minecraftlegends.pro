@@ -12,9 +12,12 @@
     <link rel="manifest" href="/site.webmanifest">
 
     <link media="all" type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
+    @stack('styles')
 </head>
 <body>
     @yield('body')
+
+    @stack('modals')
 
     <script defer src="{{ mix('js/app.js') }}"></script>
     @stack('scripts')

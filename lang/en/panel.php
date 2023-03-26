@@ -21,6 +21,7 @@ return [
         'home' => 'Home',
         'pages' => 'Pages',
         'design' => 'Design',
+        'analytics' => 'Analytics',
         'blog' => 'Blog',
         'posts' => 'Posts',
         'categories' => 'Categories',

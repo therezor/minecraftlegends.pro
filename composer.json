@@ -17,6 +17,7 @@
         "laravel/framework": "^9.19",
         "laravel/tinker": "^2.7",
         "league/glide": "^2.2",
+        "livewire/livewire": "^2.12",
         "mews/purifier": "^3.3",
         "watson/sitemap": "^5.0"
     },

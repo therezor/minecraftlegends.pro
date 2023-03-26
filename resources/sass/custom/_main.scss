@@ -27,3 +27,16 @@ a[data-method] {
         opacity: 0.8;
     }
 }
+
+#page-preview iframe {
+    min-height: 600px;
+    height: calc(100vh - 8rem);
+    border:0;
+    width: 100%;
+}
+@include media-breakpoint-down(lg) {
+    #page-preview {
+        max-width: 100% !important;
+    }
+}
+

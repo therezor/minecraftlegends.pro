@@ -41,6 +41,13 @@
                         <span class="nav-main-link-name">{{ trans('panel.sidebar.design') }}</span>
                     </a>
                 </li>
+                <li class="nav-main-item">
+                    <a class="nav-main-link @if(Route::is('panel.analytics')) active @endif"
+                       href="#">
+                        <i class="nav-main-link-icon fa fa-chart-line"></i>
+                        <span class="nav-main-link-name">{{ trans('panel.sidebar.analytics') }}</span>
+                    </a>
+                </li>
                 <li class="nav-main-item @if(Route::is('panel.blog-*')) open @endif">
                     <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false" href="#">
                         <i class="nav-main-link-icon fa fa-file-lines"></i>

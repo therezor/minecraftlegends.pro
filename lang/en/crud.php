@@ -19,10 +19,11 @@ return [
     'more' => 'More...',
     'all'  => 'All',
 
-    'show'    => 'View',
-    'create'  => 'Create',
-    'edit'    => 'Edit',
-    'update'  => 'Update',
+    'show' => 'View',
+    'create' => 'Create',
+    'edit' => 'Edit',
+    'duplicate' => 'Duplicate',
+    'update' => 'Update',
     'destroy' => 'Delete',
 
     'back_to_list' => 'Back to list',
