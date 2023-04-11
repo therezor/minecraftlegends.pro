@@ -8,7 +8,7 @@ use App\Eloquent\Repositories\Criteria\Posts\FeaturedCriteria;
 use App\Eloquent\Repositories\Criteria\Posts\PublishedCriteria;
 use App\Eloquent\Repositories\Criteria\Posts\SearchCriteria;
 use App\Eloquent\Repositories\PostRepository;
-use App\Enums\Post\Featured;
+use App\Enums\Blog\Post\Featured;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller

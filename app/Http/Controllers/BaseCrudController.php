@@ -93,7 +93,7 @@ abstract class BaseCrudController extends Controller
         }
 
         return redirect()->route($this->crud->getRouteByMethod(Method::INDEX))
-            ->with('status', trans('crud.created'));
+            ->with('status', __('crud.created'));
     }
 
     public function show($id)
@@ -157,7 +157,7 @@ abstract class BaseCrudController extends Controller
         }
 
         return redirect()->route($this->crud->getRouteByMethod(Method::INDEX))
-            ->with('status', trans('crud.updated'));
+            ->with('status', __('crud.updated'));
     }
 
     public function destroy($id)
@@ -171,6 +171,6 @@ abstract class BaseCrudController extends Controller
         $this->crud->afterDestroy($entity);
 
         return redirect()->route($this->crud->getRouteByMethod(Method::INDEX))
-            ->with('status', trans('crud.deleted'));
+            ->with('status', __('crud.deleted'));
     }
 }

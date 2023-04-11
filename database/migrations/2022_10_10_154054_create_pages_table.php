@@ -21,8 +21,8 @@ return new class extends Migration
             $table->longText('content');
             $table->string('description')->nullable();
 
-            $table->string('og_title')->nullable();
-            $table->string('og_description')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

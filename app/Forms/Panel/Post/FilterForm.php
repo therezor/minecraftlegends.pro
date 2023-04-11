@@ -2,10 +2,9 @@
 
 namespace App\Forms\Panel\Post;
 
-use App\Eloquent\Repositories\RoleRepository;
 use App\Eloquent\Repositories\Criteria\FilterCriteria;
-use App\Enums\Post\Featured;
-use App\Enums\Post\Status;
+use App\Enums\Blog\Post\Featured;
+use App\Enums\Blog\Post\Status;
 use App\Forms\BaseFilterForm;
 
 class FilterForm extends BaseFilterForm

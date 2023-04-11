@@ -22,24 +22,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::group(['prefix' => 'panel', 'as' => 'panel.', 'middleware' => ['auth']], function () {
-    Route::post('images/upload', [ImageController::class, 'upload'])->name('images.upload');
-    Route::post('images/fetch', [ImageController::class, 'fetch'])->name('images.fetch');
-
-    Route::get('/', [Panel\DashboardController::class, 'index'])
-        ->middleware('can:' . Permission::DASHBOARD_VIEW->value)
-        ->name('index');
-
-    Route::resource('roles', Panel\RoleController::class);
-
-    Route::resource('users', Panel\UserController::class);
-
-    Route::resource('categories', Panel\CategoryController::class);
-
-    Route::resource('pages', Panel\PageController::class);
-
-    Route::resource('posts', Panel\PostController::class);
-});
+//Route::group(['prefix' => 'panel', 'as' => 'panel.', 'middleware' => ['auth']], function () {
+//    Route::post('images/upload', [ImageController::class, 'upload'])->name('images.upload');
+//    Route::post('images/fetch', [ImageController::class, 'fetch'])->name('images.fetch');
+//
+//    Route::get('/', [Panel\DashboardController::class, 'index'])
+//        ->middleware('can:' . Permission::DASHBOARD_VIEW->value)
+//        ->name('index');
+//
+//    Route::resource('roles', Panel\RoleController::class);
+//
+//    Route::resource('users', Panel\UserController::class);
+//
+//    Route::resource('categories', Panel\CategoryController::class);
+//
+//    Route::resource('pages', Panel\PageController::class);
+//
+//    Route::resource('posts', Panel\PostController::class);
+//});
 
 require __DIR__.'/auth.php';
 

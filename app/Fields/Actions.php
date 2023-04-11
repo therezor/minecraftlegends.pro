@@ -20,7 +20,7 @@ class Actions extends BaseField
 
         $this->meta('text-end', 'list.class');
 
-        $this->label = trans('crud.actions');
+        $this->label = __('crud.actions');
 
         parent::__construct($name);
     }

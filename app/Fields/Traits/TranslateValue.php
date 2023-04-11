@@ -20,13 +20,13 @@ trait TranslateValue
                 $translated = [];
 
                 foreach ($value as $k => $v) {
-                    $translated[$k] = trans($prefix . $v);
+                    $translated[$k] = __($prefix . $v);
                 }
 
                 return $translated;
             }
 
-            return trans($prefix . $value);
+            return __($prefix . $value);
         };
 
         return $this;

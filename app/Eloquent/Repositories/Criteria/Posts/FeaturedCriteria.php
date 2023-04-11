@@ -3,9 +3,9 @@
 namespace App\Eloquent\Repositories\Criteria\Posts;
 
 use App\Eloquent\Repositories\Contracts\Criteria;
-use App\Enums\Post\Featured;
-use Illuminate\Database\Eloquent\Builder;
 use App\Eloquent\Repositories\Contracts\Repository;
+use App\Enums\Blog\Post\Featured;
+use Illuminate\Database\Eloquent\Builder;
 
 class FeaturedCriteria implements Criteria
 {

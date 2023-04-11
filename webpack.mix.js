@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const tailwindcss = require('tailwindcss');
 require('laravel-mix-purgecss');
 /*
  |--------------------------------------------------------------------------
@@ -39,6 +40,11 @@ mix.setPublicPath('public/')
         enabled: mix.inProduction()
     })
     .sourceMaps();
+
+mix.sass('resources/sass/panel.scss', 'public/css')
+    .options({
+        postCss: [ tailwindcss('./tailwind.config.js') ],
+    })
 
 if (mix.inProduction()) {
     mix.sourceMaps(false);

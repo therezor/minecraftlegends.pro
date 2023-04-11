@@ -5,8 +5,6 @@ namespace App\Eloquent\Models;
 use App\Eloquent\Casts\ContentCast;
 use App\Eloquent\Models\Contracts\HasTranslation;
 use App\Eloquent\Models\Contracts\HasValidation;
-use App\Enums\Post\Featured;
-use App\Enums\Post\Status;
 use App\Rules\ContentRule;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;

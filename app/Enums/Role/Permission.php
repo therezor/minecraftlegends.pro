@@ -2,11 +2,11 @@
 
 namespace App\Enums\Role;
 
-use App\Enums\Selectable;
+use App\Enums\Translatable;
 
 enum Permission: string
 {
-    use Selectable;
+    use Translatable;
 
     case DASHBOARD_VIEW = 'DASHBOARD_VIEW';
 

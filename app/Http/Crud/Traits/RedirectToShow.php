@@ -21,7 +21,7 @@ trait RedirectToShow
     {
         if (auth()->user()->can($this->getRouteByMethod(Method::SHOW))) {
             throw new HttpResponseException(redirect()->route($this->getRouteByMethod(Method::SHOW), $entity)
-                ->with('flash_success', trans('crud.updated')));
+                ->with('flash_success', __('crud.updated')));
         }
     }
 }

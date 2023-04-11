@@ -1,0 +1,13 @@
+{
+    "name": {
+        "en": "Default"
+    },
+    "description": {
+        "en": "Default theme"
+    },
+    "keywords": [],
+    "aliases": "default",
+    "files": [],
+    "requires": [],
+    "image": "placeholder.webp"
+}

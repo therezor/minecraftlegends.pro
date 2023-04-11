@@ -88,7 +88,7 @@ abstract class BaseField implements Field
         $label = $this->label ?: $this->name;
 
         if (null === $this->label && $entity instanceof HasTranslation) {
-            $label = trans($entity->getTranslationPrefix() . '.' . $this->name);
+            $label = __($entity->getTranslationPrefix() . '.' . $this->name);
         }
 
         if (is_callable($this->labelCallback)) {

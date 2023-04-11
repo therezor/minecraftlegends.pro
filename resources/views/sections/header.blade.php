@@ -50,7 +50,7 @@
                         </div>
                         @can(\App\Enums\Role\Permission::DASHBOARD_VIEW->value)
                             <div class="p-2">
-                                <a class="dropdown-item fs-sm fw-medium" href="{{ route('panel.index') }}">
+                                <a class="dropdown-item fs-sm fw-medium" href="{{ route('filament.pages.dashboard') }}">
                                     <i class="fa fas fa-fw fa-table-columns"></i> {{ __('Dashboard') }}
                                 </a>
                             </div>

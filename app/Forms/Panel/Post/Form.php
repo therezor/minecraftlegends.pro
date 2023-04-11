@@ -2,12 +2,10 @@
 
 namespace App\Forms\Panel\Post;
 
-use App\Eloquent\Models\Image;
 use App\Eloquent\Repositories\CategoryRepository;
-use App\Enums\Post\Featured;
-use App\Enums\Post\Status;
+use App\Enums\Blog\Post\Featured;
+use App\Enums\Blog\Post\Status;
 use App\Forms\BaseForm;
-use Illuminate\Validation\Rule;
 
 class Form extends BaseForm
 {
