@@ -2,14 +2,15 @@
 
 namespace App\Models\Access;
 
+use App\Enums\Access\Role\Permission;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
-use Spatie\Permission\Traits\HasRoles;
 
 /**
  * App\Eloquent\Models\User
@@ -45,12 +46,11 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
  * @mixin \Eloquent
  */
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, FilamentUser
 {
     use HasUuids;
     use Notifiable;
     use SoftDeletes;
-    use HasRoles;
 
     protected $table = 'users';
 
@@ -63,6 +63,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'role_id',
         'profile_image',
     ];
 
@@ -85,10 +86,20 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
+
     public function setPasswordAttribute(?string $password): void
     {
         if ($password) {
             $this->attributes['password'] = Hash::make($password);
         }
+    }
+
+    public function canAccessFilament(): bool
+    {
+        return $this->can(Permission::PANEL->value);
     }
 }

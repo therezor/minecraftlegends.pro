@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->index();
             $table->longText('content');
-            $table->string('description')->nullable();
 
+            $table->string('meta_image')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
 

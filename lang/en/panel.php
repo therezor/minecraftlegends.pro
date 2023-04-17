@@ -11,6 +11,10 @@ return [
         'title' => 'Access',
     ],
 
+    'content' => [
+        'title' => 'Content',
+    ],
+
     'blog' => [
         'title' => 'Blog',
 

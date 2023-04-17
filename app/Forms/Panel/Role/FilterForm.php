@@ -3,7 +3,7 @@
 namespace App\Forms\Panel\Role;
 
 use App\Eloquent\Repositories\Criteria\FilterCriteria;
-use App\Enums\Role\Permission;
+use App\Enums\Access\Role\Permission;
 use App\Forms\BaseFilterForm;
 use Illuminate\Database\Eloquent\Builder;
 

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Eloquent\Models\Post;
-use App\Enums\Role\Permission;
+use App\Enums\Access\Role\Permission;
 use App\Http\Controllers\BaseCrudController;
 use App\Http\Crud\Panel\PostCrud;
 

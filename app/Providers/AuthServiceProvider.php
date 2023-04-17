@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Eloquent\Models\User;
-use App\Enums\Role\Permission;
-use Illuminate\Support\Facades\Gate;
+use App\Models\Access\User;
+use App\Enums\Access\Role\Permission;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         foreach (Permission::cases() as $permission) {
             Gate::define(
                 $permission->value,
-                fn(User $user) => in_array($permission->value, $user->role->permissions, true)
+                fn(User $user) => in_array($permission->value, $user->role->permissions ?? [], true)
             );
         }
     }

@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Eloquent\Repositories\RoleRepository;
-use App\Eloquent\Repositories\UserRepository;
-use App\Enums\Role\Permission;
+use App\Enums\Access\Role\Permission;
+use App\Models\Access\Role;
+use App\Models\Access\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -14,19 +14,24 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run(UserRepository $userRepository, RoleRepository $roleRepository)
+    public function run()
     {
-        $permission = $roleRepository->create([
+        $role = Role::updateOrCreate([
             'name' => 'Super admin',
+        ], [
             'permissions' => Permission::cases(),
         ]);
 
-        $userRepository->create([
-            'name' => 'Super admin',
+        User::updateOrCreate([
+            'name' => 'Super Admin',
             'email' => 'admin@admin.com',
             'email_verified_at' => now(),
             'password' => '12345678',
-            'role_id' => $permission->id,
+            'role_id' => $role->id,
+        ], [
+            'email_verified_at' => now(),
+            'password' => '12345678',
+            'role_id' => $role->id,
         ]);
     }
 }

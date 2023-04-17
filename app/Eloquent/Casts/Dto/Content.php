@@ -14,21 +14,9 @@ class Content implements Jsonable, Stringable
     protected array $blocks = [];
     protected BlockHandler $handler;
 
-    public function __construct(string $json)
+    public function __construct(array $data)
     {
         $this->handler = new BlockHandler(json_encode(config('content')));
-
-        /**
-         * Check if json string is empty
-         */
-        if (empty($json)) {
-            throw new EditorJSException('JSON is empty');
-        }
-
-        /**
-         * Check input data
-         */
-        $data = json_decode($json, true);
 
         /**
          * Handle decoding JSON error

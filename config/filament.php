@@ -155,8 +155,8 @@ return [
     */
 
     'livewire' => [
-        'namespace' => 'App\\Panel',
-        'path' => app_path('Panel'),
+        'namespace' => 'App\\Filament',
+        'path' => app_path('Filament'),
     ],
 
     /*
@@ -275,7 +275,7 @@ return [
     |
     */
 
-    'default_avatar_provider' => \Filament\AvatarProviders\UiAvatarsProvider::class,
+    'default_avatar_provider' => \App\Services\AvatarService::class,
 
     /*
     |--------------------------------------------------------------------------

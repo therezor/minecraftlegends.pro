@@ -2,7 +2,7 @@
 
 namespace App\Forms\Panel\Role;
 
-use App\Enums\Role\Permission;
+use App\Enums\Access\Role\Permission;
 use App\Forms\BaseForm;
 
 class Form extends BaseForm

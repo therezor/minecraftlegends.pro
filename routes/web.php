@@ -1,11 +1,8 @@
 <?php
 
-use App\Enums\Role\Permission;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\Panel;
-use App\Http\Controllers\Panel\ImageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;

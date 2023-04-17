@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\Blog;
 
+use App\Enums\Access\Role\Permission;
 use App\Enums\Blog\Post\Status;
 use App\Filament\Resources\Blog\PostResource\Pages;
 use App\Filament\Resources\Blog\PostResource\RelationManagers;
+use App\Filament\Resources\Traits\HasPermission;
 use App\Filament\Resources\Traits\HasSeo;
 use App\Models\Blog\Category;
 use App\Models\Blog\Post;
@@ -20,6 +22,7 @@ use Wiebenieuwenhuis\FilamentCharCounter\TextInput;
 class PostResource extends Resource
 {
     use HasSeo;
+    use HasPermission;
 
     protected static ?string $model = Post::class;
     protected static ?string $slug = 'blog/posts';
@@ -30,6 +33,11 @@ class PostResource extends Resource
     protected static function getNavigationGroup(): ?string
     {
         return __('panel.blog.title');
+    }
+
+    protected static function getPermission(): Permission
+    {
+        return Permission::PANEL_BLOG_POSTS;
     }
 
     public static function form(Form $form): Form
@@ -78,6 +86,7 @@ class PostResource extends Resource
                         Forms\Components\Select::make('category_id')
                             ->relationship('category', 'name')
                             ->searchable()
+                            ->preload()
                             ->required()
                             ->createOptionForm([
                                 TextInput::make('name')
@@ -144,15 +153,14 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image')
+                    ->label(__('attributes.image'))
+                    ->width(50),
                 Tables\Columns\TextColumn::make('title')
                     ->label(__('attributes.title'))
                     ->limit()
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('description')
-                    ->label(__('attributes.description'))
-                    ->limit()
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('published_at')
                     ->label(__('attributes.published_at'))
                     ->dateTime(),

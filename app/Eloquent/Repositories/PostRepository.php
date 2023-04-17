@@ -2,8 +2,8 @@
 
 namespace App\Eloquent\Repositories;
 
-use App\Eloquent\Models\Post;
-use App\Eloquent\Models\User;
+use App\Models\Blog\Post;
+use App\Models\Access\User;
 use App\Enums\Content\Type;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;

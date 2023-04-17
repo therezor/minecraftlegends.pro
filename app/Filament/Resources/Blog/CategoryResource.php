@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources\Blog;
 
+use App\Enums\Access\Role\Permission;
 use App\Filament\Resources\Blog\CategoryResource\Pages;
 use App\Filament\Resources\Blog\CategoryResource\RelationManagers;
+use App\Filament\Resources\Traits\HasPermission;
 use App\Filament\Resources\Traits\HasSeo;
 use App\Models\Blog\Category;
 use Filament\Forms;
@@ -17,6 +19,7 @@ use Wiebenieuwenhuis\FilamentCharCounter\TextInput;
 class CategoryResource extends Resource
 {
     use HasSeo;
+    use HasPermission;
 
     protected static ?string $model = Category::class;
     protected static ?string $slug = 'blog/categories';
@@ -27,6 +30,11 @@ class CategoryResource extends Resource
     protected static function getNavigationGroup(): ?string
     {
         return __('panel.blog.title');
+    }
+
+    protected static function getPermission(): Permission
+    {
+        return Permission::PANEL_BlOG_CATEGORIES;
     }
 
     public static function getGloballySearchableAttributes(): array

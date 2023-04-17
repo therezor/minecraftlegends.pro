@@ -2,8 +2,8 @@
 
 namespace App\Eloquent\Policies;
 
-use App\Eloquent\Models\Page;
 use App\Models\Access\User;
+use App\Eloquent\Models\Page;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PagePolicy

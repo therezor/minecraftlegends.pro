@@ -4,7 +4,7 @@ namespace App\Eloquent\Models;
 
 use App\Eloquent\Models\Contracts\HasTranslation;
 use App\Eloquent\Models\Contracts\HasValidation;
-use App\Enums\Role\Permission;
+use App\Enums\Access\Role\Permission;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;

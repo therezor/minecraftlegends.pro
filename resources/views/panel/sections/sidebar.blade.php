@@ -10,7 +10,8 @@
         </a>
 
         <div>
-            <button class="d-lg-none btn btn-sm btn-alt-secondary ms-1" data-toggle="layout" data-action="sidebar_close">
+            <button class="d-lg-none btn btn-sm btn-alt-secondary ms-1" data-toggle="layout"
+                    data-action="sidebar_close">
                 <i class="fa fa-fw fa-times"></i>
             </button>
         </div>
@@ -19,20 +20,21 @@
     <div class="js-sidebar-scroll">
         <div class="content-side">
             <ul class="nav-main">
-                @can(\App\Enums\Role\Permission::DASHBOARD_VIEW->value)
+                @can(\App\Enums\Access\Role\Permission::DASHBOARD_VIEW->value)
                     <li class="nav-main-item">
-                        <a class="nav-main-link @if(Route::is('panel.index')) active @endif" href="{{ route('panel.index') }}">
+                        <a class="nav-main-link @if(Route::is('panel.index')) active @endif"
+                           href="{{ route('panel.index') }}">
                             <i class="nav-main-link-icon fa fa-table-columns"></i>
                             <span class="nav-main-link-name">{{ __('Dashboard') }}</span>
                         </a>
                     </li>
                 @endcan
 
-                @canany([\App\Enums\Role\Permission::POSTS_LIST->value, \App\Enums\Role\Permission::CATEGORIES_LIST->value, \App\Enums\Role\Permission::PAGES_LIST->value])
+                @canany([\App\Enums\Access\Role\Permission::POSTS_LIST->value, \App\Enums\Access\Role\Permission::CATEGORIES_LIST->value, \App\Enums\Access\Role\Permission::PAGES_LIST->value])
                     <li class="nav-main-heading">{{ __('Content') }}</li>
                 @endcanany
 
-                @can(\App\Enums\Role\Permission::POSTS_LIST->value)
+                @can(\App\Enums\Access\Role\Permission::POSTS_LIST->value)
                     <li class="nav-main-item">
                         <a class="nav-main-link @if(Route::is('panel.posts.*')) active @endif"
                            href="{{ route('panel.posts.index') }}">
@@ -42,7 +44,7 @@
                     </li>
                 @endcan
 
-                @can(\App\Enums\Role\Permission::CATEGORIES_LIST->value)
+                @can(\App\Enums\Access\Role\Permission::CATEGORIES_LIST->value)
                     <li class="nav-main-item">
                         <a class="nav-main-link @if(Route::is('panel.categories.*')) active @endif"
                            href="{{ route('panel.categories.index') }}">
@@ -52,7 +54,7 @@
                     </li>
                 @endcan
 
-                @can(\App\Enums\Role\Permission::PAGES_LIST->value)
+                @can(\App\Enums\Access\Role\Permission::PAGES_LIST->value)
                     <li class="nav-main-item">
                         <a class="nav-main-link @if(Route::is('panel.pages.*')) active @endif"
                            href="{{ route('panel.pages.index') }}">
@@ -62,11 +64,11 @@
                     </li>
                 @endcan
 
-                @canany([\App\Enums\Role\Permission::USERS_LIST->value, \App\Enums\Role\Permission::ROLES_LIST->value])
+                @canany([\App\Enums\Access\Role\Permission::USERS_LIST->value, \App\Enums\Access\Role\Permission::ROLES_LIST->value])
                     <li class="nav-main-heading">{{ __('Access') }}</li>
                 @endcanany
 
-                @can(\App\Enums\Role\Permission::USERS_LIST->value)
+                @can(\App\Enums\Access\Role\Permission::USERS_LIST->value)
                     <li class="nav-main-item">
                         <a class="nav-main-link @if(Route::is('panel.users.*')) active @endif"
                            href="{{ route('panel.users.index') }}">
@@ -76,7 +78,7 @@
                     </li>
                 @endcan
 
-                @can(\App\Enums\Role\Permission::ROLES_LIST->value)
+                @can(\App\Enums\Access\Role\Permission::ROLES_LIST->value)
                     <li class="nav-main-item">
                         <a class="nav-main-link @if(Route::is('panel.roles.*')) active @endif"
                            href="{{ route('panel.roles.index') }}">

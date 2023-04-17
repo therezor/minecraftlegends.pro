@@ -2,7 +2,7 @@
 
 namespace App\Eloquent\Repositories;
 
-use App\Eloquent\Models\Category;
+use App\Models\Blog\Category;
 
 class CategoryRepository extends BaseRepository
 {
