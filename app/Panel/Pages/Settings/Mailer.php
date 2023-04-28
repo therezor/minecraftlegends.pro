@@ -2,6 +2,7 @@
 
 namespace App\Panel\Pages\Settings;
 
+use App\Enums\Access\Role\Permission;
 use Filament\Forms;
 
 class Mailer extends BasePage
@@ -22,6 +23,11 @@ class Mailer extends BasePage
     protected static function getNavigationLabel(): string
     {
         return __('panel.settings.mailer.title');
+    }
+
+    protected static function getPermission(): Permission
+    {
+        return Permission::PANEL_SETTINGS_MAILER;
     }
 
     protected function getFormSchema(): array

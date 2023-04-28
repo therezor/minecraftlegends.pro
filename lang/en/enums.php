@@ -21,6 +21,8 @@ return [
                 \App\Enums\Access\Role\Permission::PANEL_CONTENT_PAGES->value => 'Panel -> Content -> Pages',
                 \App\Enums\Access\Role\Permission::PANEL_ACCESS_USERS->value => 'Panel -> Access -> Users',
                 \App\Enums\Access\Role\Permission::PANEL_ACCESS_ROLES->value => 'Panel -> Access -> Roles',
+                \App\Enums\Access\Role\Permission::PANEL_SETTINGS_GENERAL->value => 'Panel -> Settings -> General',
+                \App\Enums\Access\Role\Permission::PANEL_SETTINGS_MAILER->value => 'Panel -> Settings -> Mailer',
             ],
         ],
     ],

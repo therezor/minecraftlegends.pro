@@ -2,6 +2,7 @@
 
 namespace App\Panel\Pages\Settings;
 
+use App\Enums\Access\Role\Permission;
 use Filament\Forms;
 use Filament\Notifications\Notification;
 use Filament\Pages\Actions\Action;
@@ -19,6 +20,8 @@ abstract class BasePage extends Page implements HasFormActions
     protected static array $envKeys = [
     ];
 
+    protected abstract static function getPermission(): Permission;
+
     protected static function getNavigationGroup(): ?string
     {
         return __('panel.settings.title');
@@ -34,10 +37,17 @@ abstract class BasePage extends Page implements HasFormActions
         return [];
     }
 
+    protected static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()->can(static::getPermission()->value);
+    }
+
     public $data;
 
     public function mount(): void
     {
+        abort_unless(auth()->user()->can(static::getPermission()->value), 403);
+
         $this->fillForm();
     }
 
@@ -127,7 +137,7 @@ abstract class BasePage extends Page implements HasFormActions
     protected function getBreadcrumbs(): array
     {
         return [
-            General::getUrl() => static::getNavigationGroup(),
+            static::getUrl() => static::getNavigationGroup(),
             static::getNavigationLabel(),
         ];
     }

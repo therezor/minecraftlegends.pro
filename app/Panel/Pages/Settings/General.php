@@ -2,6 +2,7 @@
 
 namespace App\Panel\Pages\Settings;
 
+use App\Enums\Access\Role\Permission;
 use Filament\Forms;
 
 class General extends BasePage
@@ -20,6 +21,11 @@ class General extends BasePage
     protected static function getNavigationLabel(): string
     {
         return __('panel.settings.general.title');
+    }
+
+    protected static function getPermission(): Permission
+    {
+        return Permission::PANEL_SETTINGS_GENERAL;
     }
 
     protected function getFormSchema(): array
