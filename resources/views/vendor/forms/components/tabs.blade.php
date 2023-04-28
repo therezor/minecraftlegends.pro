@@ -50,7 +50,7 @@
         {!! $getLabel() ? 'aria-label="' . $getLabel() . '"' : null !!}
         role="tablist"
         @class([
-            'filament-forms-tabs-component-header rounded-t-xl flex overflow-y-auto bg-gray-100',
+            'filament-forms-tabs-component-header rounded-t flex overflow-y-auto bg-gray-100',
             'dark:bg-gray-700' => config('forms.dark_mode'),
         ])
     >

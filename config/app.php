@@ -58,6 +58,10 @@ return [
 
     'asset_url' => env('ASSET_URL'),
 
+    'logo' => env('APP_LOGO'),
+
+    'favicon' => env('APP_FAVICON'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -82,7 +86,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCALE', 'en'),
 
     /*
     |--------------------------------------------------------------------------

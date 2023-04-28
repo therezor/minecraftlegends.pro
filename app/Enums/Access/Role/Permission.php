@@ -17,4 +17,6 @@ enum Permission: string
 
     case PANEL_ACCESS_ROLES = 'PANEL_ACCESS_ROLES';
     case PANEL_ACCESS_USERS = 'PANEL_ACCESS_USERS';
+
+    case PANEL_SETTINGS_SITE = 'PANEL_SETTINGS_SITE';
 }

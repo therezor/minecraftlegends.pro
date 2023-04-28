@@ -29,5 +29,21 @@ return [
 
             'create_category' => 'Create category',
         ],
-    ]
+    ],
+
+    'settings' => [
+        'title' => 'Settings',
+
+        'general' => [
+            'title' => 'General',
+
+            'locales' => [
+                'en' => 'English',
+            ]
+        ],
+
+        'mailer' => [
+            'title' => 'Mailer',
+        ],
+    ],
 ];

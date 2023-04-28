@@ -1,6 +1,5 @@
 const mix = require('laravel-mix');
 const tailwindcss = require('tailwindcss');
-require('laravel-mix-purgecss');
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -13,38 +12,23 @@ require('laravel-mix-purgecss');
  */
 
 mix.setPublicPath('public/')
-    .sass('resources/sass/main.scss', 'css/app.css')
+    // .sass('resources/sass/main.scss', 'css/app.css')
     .js('resources/js/app.js', 'js/app.js')
     .js('resources/js/modules/editor.js', 'js/editor.js')
     .version('public/js/html-editor.js')
-    .purgeCss({
-        safelist: {
-            greedy: [
-                /cdx/,
-                /simplebar/,
-                /* Bootstrap */
-                /popover/,
-                /tooltip/,
-                /modal/,
-                /fade/,
-                /show/,
-                /hide/,
-                /alert/,
-                /badge/,
-                /bg/,
-                /arrow/,
-                /collapse/,
-                /collapsing/
-            ]
-        },
-        enabled: mix.inProduction()
-    })
     .sourceMaps();
 
-mix.sass('resources/sass/panel.scss', 'public/css')
+mix.sass('resources/sass/panel.scss', 'public/css', {}, [
+    tailwindcss('./panel.config.js')
+])
     .options({
-        postCss: [ tailwindcss('./tailwind.config.js') ],
-    })
+        processCssUrls: false,
+    });
+
+// mix.sass('resources/sass/app.scss', 'public/css')
+//     .options({
+//         postCss: [ tailwindcss('./tailwind.config.js') ],
+//     })
 
 if (mix.inProduction()) {
     mix.sourceMaps(false);

@@ -6,18 +6,16 @@
     "license": "MIT",
     "require": {
         "php": "^8.1.0",
-        "akaunting/laravel-setting": "^1.2",
         "artesaos/seotools": "^1.0",
-        "awcodes/filament-tiptap-editor": "^2.2",
         "cms-multi/filament-clear-cache": "^1.0",
         "codex-team/editor.js": "^2.0",
         "diglactic/laravel-breadcrumbs": "^8.0",
         "embed/embed": "^4.4",
         "filament/filament": "^2.17",
-        "filament/spatie-laravel-settings-plugin": "^2.17",
         "guzzlehttp/guzzle": "^7.2",
         "hollyit/filament-static-assets": "^0.1.4",
         "intervention/image": "^2.7",
+        "jackiedo/dotenv-editor": "^2.1",
         "kris/laravel-form-builder": "^1.51",
         "laravel/framework": "^9.19",
         "laravel/tinker": "^2.7",
@@ -25,8 +23,10 @@
         "mews/purifier": "^3.3",
         "mohamedsabil83/filament-forms-tinyeditor": "^1.7",
         "rahmanramsi/filament-editorjs": "^1.0",
+        "ryangjchandler/filament-navigation": "^0.5.0",
         "watson/sitemap": "^5.0",
-        "wiebenieuwenhuis/filament-char-counter": "^1.0"
+        "wiebenieuwenhuis/filament-char-counter": "^1.0",
+        "z3d0x/filament-fabricator": "^1.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",

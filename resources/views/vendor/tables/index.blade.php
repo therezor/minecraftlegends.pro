@@ -302,11 +302,11 @@
                 'filament-tables-table-container overflow-x-auto relative',
                 'dark:border-gray-700' => config('tables.dark_mode'),
                 'overflow-x-auto' => $content || $hasColumnsLayout,
-                'rounded-t-xl' => ! $renderHeader,
+                'rounded-t' => ! $renderHeader,
                 'border-t' => $renderHeader,
             ])
             x-bind:class="{
-                'rounded-t-xl': ! hasHeader,
+                'rounded-t': ! hasHeader,
                 'border-t': hasHeader,
             }"
         >

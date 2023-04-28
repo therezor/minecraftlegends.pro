@@ -87,7 +87,7 @@ return [
     'auth' => [
         'guard' => env('FILAMENT_AUTH_GUARD', 'web'),
         'pages' => [
-            'login' => \Filament\Http\Livewire\Auth\Login::class,
+          //  'login' => \Filament\Http\Livewire\Auth\Login::class,
         ],
     ],
 
@@ -102,8 +102,8 @@ return [
     */
 
     'pages' => [
-        'namespace' => 'App\\Filament\\Pages',
-        'path' => app_path('Filament/Pages'),
+        'namespace' => 'App\\Panel\\Pages',
+        'path' => app_path('Panel/Pages'),
         'register' => [
             Pages\Dashboard::class,
         ],
@@ -120,8 +120,8 @@ return [
     */
 
     'resources' => [
-        'namespace' => 'App\\Filament\\Resources',
-        'path' => app_path('Filament/Resources'),
+        'namespace' => 'App\\Panel\\Resources',
+        'path' => app_path('Panel/Resources'),
         'register' => [],
     ],
 
@@ -136,8 +136,8 @@ return [
     */
 
     'widgets' => [
-        'namespace' => 'App\\Filament\\Widgets',
-        'path' => app_path('Filament/Widgets'),
+        'namespace' => 'App\\Panel\\Widgets',
+        'path' => app_path('Panel/Widgets'),
         'register' => [
             Widgets\AccountWidget::class,
             Widgets\FilamentInfoWidget::class,
@@ -155,8 +155,8 @@ return [
     */
 
     'livewire' => [
-        'namespace' => 'App\\Filament',
-        'path' => app_path('Filament'),
+        'namespace' => 'App\\Panel',
+        'path' => app_path('Panel'),
     ],
 
     /*

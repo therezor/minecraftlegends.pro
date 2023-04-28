@@ -29,6 +29,15 @@ return [
     'display_order' => 'Display order',
     'published_at' => 'Published at',
     'profile_image' => 'Profile Image',
-
+    'logo' => 'Logo',
+    'favicon' => 'Favicon',
+    'locale' => 'Locale',
+    'active' => 'Active',
+    'url' => 'Url',
+    'host' => 'Host',
+    'port' => 'Port',
+    'username' => 'Username',
+    'from_address' => 'From Address',
+    'from_name' => 'From Name',
     'role' => 'Role',
 ];

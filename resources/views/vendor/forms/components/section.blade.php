@@ -40,7 +40,7 @@
 >
     <div
         @class([
-            'filament-forms-section-header-wrapper flex rtl:space-x-reverse overflow-hidden rounded-t-xl',
+            'filament-forms-section-header-wrapper flex rtl:space-x-reverse overflow-hidden rounded-t',
             'min-h-[40px]' => $isCompact,
             'min-h-[56px]' => ! $isCompact,
             'pr-6 pb-4' => $isAside,
