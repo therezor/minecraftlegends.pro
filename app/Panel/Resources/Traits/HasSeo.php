@@ -3,24 +3,15 @@
 namespace App\Panel\Resources\Traits;
 
 use Filament\Forms;
-use App\Models\Blog\Category;
 use Wiebenieuwenhuis\FilamentCharCounter\Textarea;
 use Wiebenieuwenhuis\FilamentCharCounter\TextInput;
 
 trait HasSeo
 {
-    protected static function formSeoSection(): Forms\Components\Section
+    protected static function formSeoSection(): Forms\Components\Card
     {
-        return Forms\Components\Section::make(__('panel.section.seo'))
-            ->collapsible()
+        return Forms\Components\Card::make()
             ->schema([
-                Forms\Components\TextInput::make('slug')
-                    ->label(__('attributes.slug'))
-                    ->required()
-                    ->alphaDash()
-                    ->maxLength(255)
-                    ->unique(static::getModel(), 'slug', ignoreRecord: true),
-
                 Forms\Components\FileUpload::make('meta_image')
                     ->label(__('attributes.meta_image'))
                     ->disk('public')

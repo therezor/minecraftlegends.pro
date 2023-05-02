@@ -1,4 +1,4 @@
-FROM php:8.1-fpm
+FROM php:8.2-fpm
 
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash
 RUN apt-get update && apt-get install -y mc wget curl git libfreetype6-dev \

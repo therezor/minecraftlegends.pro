@@ -3,7 +3,6 @@
 namespace App\Panel\Pages\Settings;
 
 use App\Enums\Access\Role\Permission;
-use Filament\Forms;
 use Filament\Notifications\Notification;
 use Filament\Pages\Actions\Action;
 use Filament\Pages\Page;
@@ -17,8 +16,7 @@ abstract class BasePage extends Page implements HasFormActions
     use Concerns\HasFormActions;
 
     protected static string $view = 'panel.pages.settings';
-    protected static array $envKeys = [
-    ];
+    protected static array $envKeys = [];
 
     protected abstract static function getPermission(): Permission;
 

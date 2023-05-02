@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.1.0",
         "artesaos/seotools": "^1.0",
+        "camya/filament-title-with-slug": "^0.5.6",
         "cms-multi/filament-clear-cache": "^1.0",
         "codex-team/editor.js": "^2.0",
         "diglactic/laravel-breadcrumbs": "^8.0",
@@ -25,8 +26,7 @@
         "rahmanramsi/filament-editorjs": "^1.0",
         "ryangjchandler/filament-navigation": "^0.5.0",
         "watson/sitemap": "^5.0",
-        "wiebenieuwenhuis/filament-char-counter": "^1.0",
-        "z3d0x/filament-fabricator": "^1.1"
+        "wiebenieuwenhuis/filament-char-counter": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",

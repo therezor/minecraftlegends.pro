@@ -40,4 +40,7 @@ return [
     'from_address' => 'From Address',
     'from_name' => 'From Name',
     'role' => 'Role',
+    'has_header' => 'Header',
+    'has_footer' => 'Footer',
+    'type' => 'Type',
 ];

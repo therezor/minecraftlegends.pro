@@ -8,6 +8,7 @@ use App\Panel\Resources\Blog\CategoryResource\RelationManagers;
 use App\Panel\Resources\Traits\HasPermission;
 use App\Panel\Resources\Traits\HasSeo;
 use App\Models\Blog\Category;
+use Camya\Filament\Forms\Components\TitleWithSlugInput;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -50,17 +51,19 @@ class CategoryResource extends Resource
                 Forms\Components\Card::make()
                     ->columnSpan(['lg' => 2])
                     ->schema([
-                        TextInput::make('name')
-                            ->label(__('attributes.name'))
-                            ->required()
-                            ->maxLength(255)
-                            ->lazy()
-                            ->afterStateUpdated(
-                                fn(string $context, $state, callable $set) => $context === 'create' ? $set(
-                                    'slug',
-                                    Str::slug($state)
-                                ) : null
-                            ),
+                        TitleWithSlugInput::make(
+                            fieldTitle: 'name',
+                            fieldSlug: 'slug',
+                            titleLabel: __('attributes.name'),
+                            titlePlaceholder: '',
+                            titleRules: [
+                                'required',
+                                'string',
+                                'min:3',
+                                'max:255',
+                            ],
+                            slugLabel: false,
+                        )->columnSpan('full'),
 
                         Forms\Components\MarkdownEditor::make('description')
                             ->label(__('attributes.description'))

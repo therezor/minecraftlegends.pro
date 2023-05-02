@@ -44,20 +44,20 @@ class RoleResource extends Resource
         return $form
             ->columns(3)
             ->schema([
-                Forms\Components\Section::make(__('attributes.permissions'))
+                Forms\Components\Card::make()
                     ->columnSpan(['lg' => 2])
                     ->schema([
                         Forms\Components\CheckboxList::make('permissions')
-                            ->disableLabel()
+                            ->label(__('attributes.permissions'))
                             ->nullable()
                             ->nestedRecursiveRules([new Enum(Permission::class)])
                             ->options(Permission::select()),
                     ]),
-                Forms\Components\Section::make(__('attributes.name'))
+                Forms\Components\Card::make()
                     ->columnSpan(['lg' => 1])
                     ->schema([
                         TextInput::make('name')
-                            ->disableLabel()
+                            ->label(__('attributes.name'))
                             ->required()
                             ->maxLength(255),
                     ]),

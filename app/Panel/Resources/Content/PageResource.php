@@ -8,15 +8,19 @@ use App\Panel\Resources\Content\PageResource\Pages;
 use App\Panel\Resources\Content\PageResource\RelationManagers;
 use App\Panel\Resources\Traits\HasPermission;
 use App\Panel\Resources\Traits\HasSeo;
+use Camya\Filament\Forms\Components\TitleWithSlugInput;
+use Camya\Filament\Forms\Fields\SlugInput;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 use Wiebenieuwenhuis\FilamentCharCounter\TextInput;
-use Z3d0X\FilamentFabricator\Forms\Components\PageBuilder;
+use Filament\Forms\Components\Builder;
+use Closure;
 
 class PageResource extends Resource
 {
@@ -44,40 +48,93 @@ class PageResource extends Resource
         return $form
             ->columns(3)
             ->schema([
-                Forms\Components\Card::make()
+                Forms\Components\Grid::make()
                     ->columnSpan(['lg' => 2])
-                    ->columns(2)
                     ->schema([
-                        TextInput::make('title')
-                            ->label(__('attributes.title'))
-                            ->required()
-                            ->maxLength(255)
-                            ->lazy()
-                            ->afterStateUpdated(
-                                fn(string $context, $state, callable $set) => $context === 'create' ? $set(
-                                    'slug',
-                                    Str::slug($state)
-                                ) : null
-                            ),
+                        Forms\Components\Card::make()
+                            ->columns(2)
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label(__('attributes.name'))
+                                    ->required()
+                                    ->maxLength(255)
+                                    ->lazy()
+                                    ->afterStateUpdated(
+                                        fn(string $context, $state, callable $set) => $context === 'create' ? $set(
+                                            'slug',
+                                            Str::slug($state)
+                                        ) : null
+                                    )->columnSpan('full'),
 
-                        Forms\Components\Select::make('user_id')
-                            ->label(__('attributes.author'))
-                            ->relationship('author', 'name')
-                            ->searchable()
-                            ->default(auth()->id())
-                            ->required(),
+                                SlugInput::make('slug')
+                                    ->disableLabel()
+                                    ->slugInputRecordSlug(fn (?Model $record) => $record?->slug)
+                                    ->slugInputLabelPrefix(false)
+                                    ->slugInputBaseUrl(null),
 
-                        PageBuilder::make('blocks')
-                            ->label(__('filament-fabricator::page-resource.labels.blocks')),
 
-                        TinyEditor::make('content')::make('content')
+                                Forms\Components\Select::make('type')
+                                    ->label(__('attributes.type'))
+                                    ->options([
+                                        0 => 'Home',
+                                        1 => 'Blog post',
+                                    ])
+                                    ->reactive()
+                                    ->columnSpan('full'),
+
+                                Forms\Components\Toggle::make('has_header')
+                                    ->label(__('attributes.has_header')),
+                                Forms\Components\Toggle::make('has_footer')
+                                    ->label(__('attributes.has_footer')),
+                            ]),
+
+                        Builder::make('content')
+                            ->disableLabel()
                             ->label(__('attributes.content'))
-                            ->required()
-                            ->showMenuBar()
-                            ->columnSpan('full'),
+                            ->columnSpan(2)
+                            ->blocks([
+                                Builder\Block::make('heading')
+                                    ->schema([
+                                        TextInput::make('content')
+                                            ->label('Heading')
+                                            ->required(),
+                                        Forms\Components\Select::make('level')
+                                            ->options([
+                                                'h1' => 'Heading 1',
+                                                'h2' => 'Heading 2',
+                                                'h3' => 'Heading 3',
+                                                'h4' => 'Heading 4',
+                                                'h5' => 'Heading 5',
+                                                'h6' => 'Heading 6',
+                                            ])
+                                            ->required(),
+                                    ]),
+                                Builder\Block::make('paragraph')
+                                    ->schema([
+                                        Forms\Components\MarkdownEditor::make('content')
+                                            ->label('Paragraph')
+                                            ->required(),
+                                    ]),
+                                Builder\Block::make('image')
+                                    ->schema([
+                                        Forms\Components\FileUpload::make('url')
+                                            ->label('Image')
+                                            ->image()
+                                            ->required(),
+                                        TextInput::make('alt')
+                                            ->label('Alt text')
+                                            ->required(),
+                                    ]),
+                            ]),
                     ]),
 
-                static::formSeoSection()->columnSpan(['lg' => 1]),
+
+                Forms\Components\Grid::make()
+                    ->columnSpan(['lg' => 1])
+                    ->schema([
+                        static::formSeoSection()
+                            ->hidden(fn(Closure $get) => $get('type') === '1'),
+                    ]),
             ]);
     }
 

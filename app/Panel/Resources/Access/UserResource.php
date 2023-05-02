@@ -64,11 +64,11 @@ class UserResource extends Resource
                         ->preload()
                         ->label(__('attributes.role')),
                 ]),
-            Forms\Components\Section::make(__('attributes.profile_image'))
+            Forms\Components\Card::make()
                 ->columnSpan(['lg' => 1])
                 ->schema([
                     Forms\Components\FileUpload::make('profile_image')
-                        ->disableLabel()
+                        ->label(__('attributes.profile_image'))
                         ->disk('public')
                         ->image()
                         ->imageResizeMode('cover')

@@ -48,7 +48,7 @@
             'dark:bg-gray-900' => config('forms.dark_mode') && (! $isAside),
         ])
         @if ($isCollapsible)
-            x-bind:class="{ 'rounded-b-xl': isCollapsed }"
+            x-bind:class="{ 'rounded-b': isCollapsed }"
             x-on:click="isCollapsed = ! isCollapsed"
         @endif
     >

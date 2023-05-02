@@ -10,6 +10,7 @@ use App\Panel\Resources\Traits\HasPermission;
 use App\Panel\Resources\Traits\HasSeo;
 use App\Models\Blog\Category;
 use App\Models\Blog\Post;
+use Camya\Filament\Forms\Components\TitleWithSlugInput;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -49,18 +50,19 @@ class PostResource extends Resource
                     ->columnSpan(['lg' => 2])
                     ->columns(2)
                     ->schema([
-                        TextInput::make('title')
-                            ->label(__('attributes.title'))
-                            ->required()
-                            ->maxLength(255)
-                            ->lazy()
-                            ->afterStateUpdated(
-                                fn(string $context, $state, callable $set) => $context === 'create' ? $set(
-                                    'slug',
-                                    Str::slug($state)
-                                ) : null
-                            )
-                            ->columnSpan('full'),
+                        TitleWithSlugInput::make(
+                            fieldTitle: 'title',
+                            fieldSlug: 'slug',
+                            titleLabel: __('attributes.title'),
+                            titlePlaceholder: '',
+                            titleRules: [
+                                'required',
+                                'string',
+                                'min:3',
+                                'max:255',
+                            ],
+                            slugLabel: false,
+                        )->columnSpan('full'),
 
                         Forms\Components\FileUpload::make('image')
                             ->label(__('attributes.image'))
