@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Eloquent\Casts\Dto\Content;
+use App\Models\Casts\Dto\Content;
 use EditorJS\EditorJSException;
 use Illuminate\Contracts\Validation\Rule;
 

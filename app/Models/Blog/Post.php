@@ -2,18 +2,64 @@
 
 namespace App\Models\Blog;
 
-use App\Eloquent\Casts\ContentCast;
 use App\Enums\Blog\Post\Status;
 use App\Models\Access\User;
+use App\Models\Content\Layout;
+use App\Models\Traits\HasSlugAndMeta;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\Models\Blog\Post
+ *
+ * @property string $id
+ * @property string $user_id
+ * @property string|null $category_id
+ * @property string $layout_id
+ * @property bool $is_featured
+ * @property Status|null $status
+ * @property string|null $image
+ * @property string $title
+ * @property string|null $description
+ * @property array $content
+ * @property int|null $published_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read User $author
+ * @property-read \App\Models\Blog\Category|null $category
+ * @property-read Layout $layout
+ * @property-read \App\Models\MetaTag|null $meta
+ * @property-read \App\Models\Slug|null $slug
+ * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereIsFeatured($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereLayoutId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post wherePublishedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post withoutTrashed()
+ * @mixin \Eloquent
+ */
 class Post extends Model
 {
     use HasUuids;
     use SoftDeletes;
+    use HasSlugAndMeta;
 
     protected $table = 'blog_posts';
 
@@ -29,13 +75,10 @@ class Post extends Model
         'status',
         'image',
         'title',
-        'slug',
         'description',
-        'meta_image',
-        'meta_title',
-        'meta_description',
         'content',
         'published_at',
+        'layout_id',
     ];
 
     /**
@@ -46,7 +89,7 @@ class Post extends Model
     protected $casts = [
         'is_featured' => 'bool',
         'status' => Status::class,
-        'content' => ContentCast::class,
+        'content' => 'array',
         'published_at' => 'timestamp',
     ];
 
@@ -63,5 +106,10 @@ class Post extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function layout(): BelongsTo
+    {
+        return $this->belongsTo(Layout::class, 'layout_id', 'id');
     }
 }

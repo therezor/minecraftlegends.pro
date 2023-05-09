@@ -19,10 +19,21 @@ return [
                 \App\Enums\Access\Role\Permission::PANEL_BLOG_POSTS->value => 'Panel -> Blog -> Posts',
                 \App\Enums\Access\Role\Permission::PANEL_BlOG_CATEGORIES->value => 'Panel -> Blog -> Categories',
                 \App\Enums\Access\Role\Permission::PANEL_CONTENT_PAGES->value => 'Panel -> Content -> Pages',
+                \App\Enums\Access\Role\Permission::PANEL_CONTENT_LAYOUTS->value => 'Panel -> Content -> Layouts',
                 \App\Enums\Access\Role\Permission::PANEL_ACCESS_USERS->value => 'Panel -> Access -> Users',
                 \App\Enums\Access\Role\Permission::PANEL_ACCESS_ROLES->value => 'Panel -> Access -> Roles',
                 \App\Enums\Access\Role\Permission::PANEL_SETTINGS_GENERAL->value => 'Panel -> Settings -> General',
                 \App\Enums\Access\Role\Permission::PANEL_SETTINGS_MAILER->value => 'Panel -> Settings -> Mailer',
+            ],
+        ],
+    ],
+
+    'content' => [
+        'layout' => [
+            'type' => [
+                \App\Enums\Content\Layout\Type::PAGE->value => 'Page',
+                \App\Enums\Content\Layout\Type::BLOG_POST->value => 'Blog Post',
+                \App\Enums\Content\Layout\Type::BLOG_CATEGORY->value => 'Blog Category',
             ],
         ],
     ],

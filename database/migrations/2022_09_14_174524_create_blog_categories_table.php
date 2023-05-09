@@ -15,16 +15,16 @@ return new class extends Migration
     {
         Schema::create('blog_categories', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('layout_id')->index();
+
             $table->string('name');
-            $table->string('slug')->index();
             $table->unsignedSmallInteger('display_order')->default(0)->index();
             $table->text('description')->fullText()->nullable();
+
             $table->timestamps();
             $table->softDeletes();
 
-            $table->string('meta_image')->nullable();
-            $table->string('meta_title')->nullable();
-            $table->string('meta_description')->nullable();
+            $table->foreign('layout_id')->references('id')->on('layouts')->cascadeOnDelete();
         });
     }
 

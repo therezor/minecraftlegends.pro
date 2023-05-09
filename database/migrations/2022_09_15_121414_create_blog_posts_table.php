@@ -17,6 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('user_id')->index();
             $table->uuid('category_id')->nullable()->index();
+            $table->uuid('layout_id')->index();
 
             $table->boolean('is_featured')->default(false);
             $table->tinyInteger('status')->unsigned()->index()->default(0)->nullable();
@@ -24,12 +25,7 @@ return new class extends Migration
 
             $table->string('image')->nullable();
             $table->string('title')->fullText();
-            $table->string('slug')->index();
             $table->text('description')->fullText()->nullable();
-
-            $table->string('meta_image')->nullable();
-            $table->string('meta_title')->nullable();
-            $table->string('meta_description')->nullable();
 
             $table->json('content');
 
@@ -38,8 +34,9 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('category_id')->references('id')->on('blog_categories')->onDelete('set null');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('blog_categories')->nullOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('layout_id')->references('id')->on('layouts')->cascadeOnDelete();
         });
     }
 

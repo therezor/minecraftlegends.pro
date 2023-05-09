@@ -1,0 +1,97 @@
+<?php
+
+namespace App\Models\Casts\Dto;
+
+use EditorJS\BlockHandler;
+use EditorJS\EditorJSException;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Support\Collection;
+use Stringable;
+
+use function App\Eloquent\Casts\Dto\count;
+
+class Content implements Jsonable, Stringable
+{
+    protected array $data;
+    protected array $blocks = [];
+    protected BlockHandler $handler;
+
+    public function __construct(array $data)
+    {
+        $this->handler = new BlockHandler(json_encode(config('content')));
+
+        /**
+         * Handle decoding JSON error
+         */
+        if (json_last_error()) {
+            throw new EditorJSException('Wrong JSON format: ' . json_last_error_msg());
+        }
+
+        /**
+         * Check if data is null
+         */
+        if ($data === null) {
+            throw new EditorJSException('Input is null');
+        }
+
+        /**
+         * Count elements in data array
+         */
+        if (count($data) === 0) {
+            throw new EditorJSException('Input array is empty');
+        }
+
+        /**
+         * Check if blocks param is missing in data
+         */
+        if (!isset($data['blocks'])) {
+            throw new EditorJSException('Field `blocks` is missing');
+        }
+
+        if (!is_array($data['blocks'])) {
+            throw new EditorJSException('Blocks is not an array');
+        }
+
+        $this->data = $data;
+    }
+
+    public function data(): array
+    {
+        return $this->data;
+    }
+
+    public function blocks(): Collection
+    {
+        return collect($this->data['blocks']);
+    }
+
+    public function sanitize()
+    {
+        foreach ($this->data['blocks'] as $key => $block) {
+            $this->data['blocks'][$key] = $this->handler->sanitizeBlock($block['type'], $block['data']);
+        }
+
+        return $this;
+    }
+
+    public function validate(): bool
+    {
+        foreach ($this->data['blocks'] as $block) {
+            if (!$this->handler->validateBlock($block['type'], $block['data'])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function toJson($options = 0): string
+    {
+        return json_encode($this->data, $options);
+    }
+
+    public function __toString(): string
+    {
+        return $this->toJson();
+    }
+}

@@ -2,36 +2,31 @@
 
 namespace App\Panel\Resources\Content;
 
-use App\Models\Content\Page;
 use App\Enums\Access\Role\Permission;
-use App\Panel\Resources\Content\PageResource\Pages;
-use App\Panel\Resources\Content\PageResource\RelationManagers;
+use App\Enums\Content\Layout\Type;
+use App\Panel\Resources\Content\LayoutResource\Pages;
+use App\Panel\Resources\Content\LayoutResource\RelationManagers;
+use App\Models\Content\Layout;
 use App\Panel\Resources\Traits\HasPermission;
-use App\Panel\Resources\Traits\HasSeo;
-use Camya\Filament\Forms\Components\TitleWithSlugInput;
-use Camya\Filament\Forms\Fields\SlugInput;
 use Filament\Forms;
+use Filament\Forms\Components\Builder;
+use Filament\Forms\Components\Component;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 use Wiebenieuwenhuis\FilamentCharCounter\TextInput;
-use Filament\Forms\Components\Builder;
-use Closure;
 
-class PageResource extends Resource
+class LayoutResource extends Resource
 {
-    use HasSeo;
     use HasPermission;
 
-    protected static ?string $model = Page::class;
-    protected static ?string $slug = 'content/pages';
-    protected static ?string $recordTitleAttribute = 'title';
-    protected static ?string $navigationIcon = 'heroicon-o-document';
-    protected static ?int $navigationSort = 96;
+    protected static ?string $model = Layout::class;
+    protected static ?string $slug = 'content/layouts';
+    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $navigationIcon = 'heroicon-o-template';
+    protected static ?int $navigationSort = 97;
 
     protected static function getNavigationGroup(): ?string
     {
@@ -40,7 +35,7 @@ class PageResource extends Resource
 
     protected static function getPermission(): Permission
     {
-        return Permission::PANEL_CONTENT_PAGES;
+        return Permission::PANEL_CONTENT_LAYOUTS;
     }
 
     public static function form(Form $form): Form
@@ -51,50 +46,22 @@ class PageResource extends Resource
                 Forms\Components\Grid::make()
                     ->columnSpan(['lg' => 2])
                     ->schema([
-                        Forms\Components\Card::make()
-                            ->columns(2)
-                            ->schema([
-                                TextInput::make('name')
-                                    ->label(__('attributes.name'))
-                                    ->required()
-                                    ->maxLength(255)
-                                    ->lazy()
-                                    ->afterStateUpdated(
-                                        fn(string $context, $state, callable $set) => $context === 'create' ? $set(
-                                            'slug',
-                                            Str::slug($state)
-                                        ) : null
-                                    )->columnSpan('full'),
-
-                                SlugInput::make('slug')
-                                    ->disableLabel()
-                                    ->slugInputRecordSlug(fn (?Model $record) => $record?->slug)
-                                    ->slugInputLabelPrefix(false)
-                                    ->slugInputBaseUrl(null)
-                                    ->slugInputContext(fn ($context) => $context === 'create' ? 'create' : 'edit')
-                                    ->hidden(fn(Closure $get) => $get('type') === '1'),
-
-
-                                Forms\Components\Select::make('type')
-                                    ->label(__('attributes.type'))
-                                    ->options([
-                                        0 => 'Home',
-                                        1 => 'Blog post',
-                                    ])
-                                    ->reactive()
-                                    ->columnSpan('full'),
-
-                                Forms\Components\Toggle::make('has_header')
-                                    ->label(__('attributes.has_header')),
-                                Forms\Components\Toggle::make('has_footer')
-                                    ->label(__('attributes.has_footer')),
-                            ]),
-
-                        Builder::make('content')
-                            ->disableLabel()
+                        Builder::make('blocks')
                             ->label(__('attributes.content'))
-                            ->columnSpan(2)
+                            ->default([(string) Str::uuid() => ['type' => 'content']])
+                            ->view('panel.forms.content.layout.builder')
+                            ->disableLabel()
+                            ->reorderableWithButtons()
+                            ->columnSpan('full')
                             ->blocks([
+                                Builder\Block::make('content')
+                                    ->disabled()
+                                    ->schema([
+                                    Forms\Components\Placeholder::make('content')
+                                        ->disableLabel()
+                                        ->content(__('attributes.content')),
+                                ]),
+
                                 Builder\Block::make('heading')
                                     ->schema([
                                         TextInput::make('content')
@@ -130,13 +97,22 @@ class PageResource extends Resource
                             ]),
                     ]),
 
-
-                Forms\Components\Grid::make()
+                Forms\Components\Card::make()
                     ->columnSpan(['lg' => 1])
                     ->schema([
-                        static::formSeoSection()
-                            ->hidden(fn(Closure $get) => $get('type') === '1'),
+                        TextInput::make('name')
+                            ->label(__('attributes.name'))
+                            ->required()
+                            ->maxLength(255)
+                            ->columnSpan('full'),
+
+                        Forms\Components\Select::make('type')
+                            ->label(__('attributes.type'))
+                            ->required()
+                            ->options(Type::select())
+                            ->columnSpan('full'),
                     ]),
+
             ]);
     }
 
@@ -144,8 +120,8 @@ class PageResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
-                    ->label(__('attributes.title'))
+                Tables\Columns\TextColumn::make('name')
+                    ->label(__('attributes.name'))
                     ->searchable()
                     ->sortable(),
             ])
@@ -172,9 +148,9 @@ class PageResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPages::route('/'),
-            'create' => Pages\CreatePage::route('/create'),
-            'edit' => Pages\EditPage::route('/{record}/edit'),
+            'index' => Pages\ListLayouts::route('/'),
+            'create' => Pages\CreateLayout::route('/create'),
+            'edit' => Pages\EditLayout::route('/{record}/edit'),
         ];
     }
 }

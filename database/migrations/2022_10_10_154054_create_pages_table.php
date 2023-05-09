@@ -15,19 +15,13 @@ return new class extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('user_id')->index();
+            $table->uuid('layout_id')->index();
             $table->string('title');
-            $table->string('slug')->index();
-            $table->longText('content');
-
-            $table->string('meta_image')->nullable();
-            $table->string('meta_title')->nullable();
-            $table->string('meta_description')->nullable();
-
+            $table->json('content');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('layout_id')->references('id')->on('layouts')->cascadeOnDelete();
         });
     }
 
