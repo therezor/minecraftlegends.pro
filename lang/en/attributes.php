@@ -41,6 +41,5 @@ return [
     'from_name' => 'From Name',
     'role' => 'Role',
     'type' => 'Type',
-    'before_content' => 'Before Content',
-    'after_content' => 'After Content',
+    'template' => 'Template',
 ];

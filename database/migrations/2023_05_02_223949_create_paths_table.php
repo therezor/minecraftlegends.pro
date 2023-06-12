@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('slugs', function (Blueprint $table) {
+        Schema::create('paths', function (Blueprint $table) {
             $table->string('slug')->primary();
             $table->uuidMorphs('entity');
+            $table->string('meta_title')->nullable();
+            $table->string('meta_image')->nullable();
+            $table->string('meta_description')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

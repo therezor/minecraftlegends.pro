@@ -12,6 +12,14 @@ return [
         ],
     ],
 
+    'content' => [
+        'page' => [
+            'template' => [
+                \App\Enums\Content\Page\Template::DEFAULT->value => 'Default',
+            ],
+        ],
+    ],
+
     'access' => [
         'role' => [
             'permission' => [
@@ -24,16 +32,6 @@ return [
                 \App\Enums\Access\Role\Permission::PANEL_ACCESS_ROLES->value => 'Panel -> Access -> Roles',
                 \App\Enums\Access\Role\Permission::PANEL_SETTINGS_GENERAL->value => 'Panel -> Settings -> General',
                 \App\Enums\Access\Role\Permission::PANEL_SETTINGS_MAILER->value => 'Panel -> Settings -> Mailer',
-            ],
-        ],
-    ],
-
-    'content' => [
-        'layout' => [
-            'type' => [
-                \App\Enums\Content\Layout\Type::PAGE->value => 'Page',
-                \App\Enums\Content\Layout\Type::BLOG_POST->value => 'Blog Post',
-                \App\Enums\Content\Layout\Type::BLOG_CATEGORY->value => 'Blog Category',
             ],
         ],
     ],

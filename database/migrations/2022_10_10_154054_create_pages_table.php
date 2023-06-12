@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('layout_id')->index();
-            $table->string('title');
+            $table->tinyInteger('template')->unsigned()->index()->default(0)->nullable();
+            $table->string('name');
             $table->json('content');
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('layout_id')->references('id')->on('layouts')->cascadeOnDelete();
         });
     }
 

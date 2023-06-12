@@ -5,7 +5,7 @@ module.exports = {
         './resources/vendor/**/*.blade.php',
         './vendor/filament/**/*.blade.php',
     ],
-    darkMode: 'class',
+    darkMode: 'media',
     theme: {
         extend: {
             colors: {

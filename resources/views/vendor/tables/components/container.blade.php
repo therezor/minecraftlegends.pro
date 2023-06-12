@@ -1,6 +1,10 @@
-<div {{ $attributes->class([
-    'border border-gray-300 shadow-sm bg-white rounded filament-tables-container',
-    'dark:bg-gray-800 dark:border-gray-700' => config('tables.dark_mode'),
-]) }}>
+<div
+    {{
+        $attributes->class([
+            'filament-tables-container rounded border border-gray-300 bg-white shadow-sm',
+            'dark:border-gray-700 dark:bg-gray-800' => config('tables.dark_mode'),
+        ])
+    }}
+>
     {{ $slot }}
 </div>

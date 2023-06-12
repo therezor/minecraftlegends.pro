@@ -5,34 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
 
-    <link media="all" type="text/css" rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link media="all" type="text/css" rel="stylesheet" href="{{ Vite::asset('resources/sass/app.scss', 'front') }}">
 </head>
 <body>
-    <div id="page-container">
-        <main id="main-container">
-            <div class="hero">
-                <div class="hero-inner text-center">
-                    <div class="bg-body-extra-light">
-                        <div class="content content-full overflow-hidden">
-                            <div class="py-4">
-                                <h1 class="display-1 fw-bolder @yield('code-class', 'text-primary')">
-                                    @yield('code')
-                                </h1>
-                                <h2 class="h3 fw-normal mb-3">
-                                    @yield('title')
-                                </h2>
-                                <p class="h6 fw-normal text-muted mb-3">
-                                    @yield('message')
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="content content-full text-muted fs-sm fw-medium">
-                        <a class="link-fx" href="{{ route('index') }}">{{ __('Back to Homepage') }}</a>
-                    </div>
-                </div>
+    <section class="min-h-screen flex bg-white dark:bg-gray-900">
+        <div class="py-8 px-4 m-auto max-w-screen-xl lg:py-16 lg:px-6">
+            <div class="mx-auto max-w-screen-sm text-center">
+                <h1 class="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl text-primary-600 dark:text-primary-500">
+                    @yield('code')
+                </h1>
+                <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl dark:text-white">
+                    @yield('title')
+                </p>
+                <p class="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">
+                    @yield('message')
+                </p>
+                <a href="{{ route('index') }}" class="inline-flex text-white bg-primary-600 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900 my-4">
+                    {{ __('Back to Homepage') }}
+                </a>
             </div>
-        </main>
-    </div>
+        </div>
+    </section>
 </body>
 </html>

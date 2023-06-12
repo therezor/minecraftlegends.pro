@@ -7,7 +7,7 @@ use App\Enums\Blog\Post\Status;
 use App\Panel\Resources\Blog\PostResource\Pages;
 use App\Panel\Resources\Blog\PostResource\RelationManagers;
 use App\Panel\Resources\Traits\HasPermission;
-use App\Panel\Resources\Traits\HasSeo;
+use App\Panel\Resources\Traits\HasPath;
 use App\Models\Blog\Category;
 use App\Models\Blog\Post;
 use Camya\Filament\Forms\Components\TitleWithSlugInput;
@@ -22,7 +22,7 @@ use Wiebenieuwenhuis\FilamentCharCounter\TextInput;
 
 class PostResource extends Resource
 {
-    use HasSeo;
+    use HasPath;
     use HasPermission;
 
     protected static ?string $model = Post::class;
@@ -50,19 +50,17 @@ class PostResource extends Resource
                     ->columnSpan(['lg' => 2])
                     ->columns(2)
                     ->schema([
-                        TitleWithSlugInput::make(
-                            fieldTitle: 'title',
-                            fieldSlug: 'slug',
-                            titleLabel: __('attributes.title'),
-                            titlePlaceholder: '',
-                            titleRules: [
-                                'required',
-                                'string',
-                                'min:3',
-                                'max:255',
-                            ],
-                            slugLabel: false,
-                        )->columnSpan('full'),
+                        TextInput::make('title')
+                            ->label(__('attributes.title'))
+                            ->required()
+                            ->maxLength(255)
+                            ->lazy()
+                            ->afterStateUpdated(
+                                fn(string $context, $state, callable $set) => $context === 'create' ? $set(
+                                    'path.slug',
+                                    Str::slug($state)
+                                ) : null
+                            )->columnSpan('full'),
 
                         Forms\Components\FileUpload::make('image')
                             ->label(__('attributes.image'))
@@ -139,7 +137,7 @@ class PostResource extends Resource
                             ->default(now()),
                     ]),
 
-                static::formSeoSection()->columnSpan(['lg' => 1]),
+                static::formPathSection()->columnSpan(['lg' => 1]),
 
                 Forms\Components\Section::make(__('attributes.content'))
                     ->columnSpan('full')

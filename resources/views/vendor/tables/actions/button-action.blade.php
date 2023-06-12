@@ -3,7 +3,6 @@
     component="tables::button"
     :outlined="$isOutlined()"
     :icon-position="$getIconPosition()"
-    :label-sr-only="$isLabelHidden()"
     class="filament-tables-button-action"
 >
     {{ $getLabel() }}

@@ -6,7 +6,7 @@ use App\Enums\Access\Role\Permission;
 use App\Panel\Resources\Blog\CategoryResource\Pages;
 use App\Panel\Resources\Blog\CategoryResource\RelationManagers;
 use App\Panel\Resources\Traits\HasPermission;
-use App\Panel\Resources\Traits\HasSeo;
+use App\Panel\Resources\Traits\HasPath;
 use App\Models\Blog\Category;
 use Camya\Filament\Forms\Components\TitleWithSlugInput;
 use Filament\Forms;
@@ -19,7 +19,7 @@ use Wiebenieuwenhuis\FilamentCharCounter\TextInput;
 
 class CategoryResource extends Resource
 {
-    use HasSeo;
+    use HasPath;
     use HasPermission;
 
     protected static ?string $model = Category::class;
@@ -51,19 +51,17 @@ class CategoryResource extends Resource
                 Forms\Components\Card::make()
                     ->columnSpan(['lg' => 2])
                     ->schema([
-                        TitleWithSlugInput::make(
-                            fieldTitle: 'name',
-                            fieldSlug: 'slug',
-                            titleLabel: __('attributes.name'),
-                            titlePlaceholder: '',
-                            titleRules: [
-                                'required',
-                                'string',
-                                'min:3',
-                                'max:255',
-                            ],
-                            slugLabel: false,
-                        )->columnSpan('full'),
+                        TextInput::make('name')
+                            ->label(__('attributes.name'))
+                            ->required()
+                            ->maxLength(255)
+                            ->lazy()
+                            ->afterStateUpdated(
+                                fn(string $context, $state, callable $set) => $context === 'create' ? $set(
+                                    'path.slug',
+                                    Str::slug($state)
+                                ) : null
+                            )->columnSpan('full'),
 
                         Forms\Components\MarkdownEditor::make('description')
                             ->label(__('attributes.description'))
@@ -82,7 +80,7 @@ class CategoryResource extends Resource
                             ->default((int)Category::max('display_order') + 1),
                     ]),
 
-                static::formSeoSection()->columnSpan(['lg' => 1]),
+                static::formPathSection()->columnSpan(['lg' => 1]),
             ]);
     }
 

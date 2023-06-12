@@ -11,16 +11,16 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png}">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
 
-    <link media="all" type="text/css" rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <link media="all" type="text/css" rel="stylesheet" href="{{ Vite::asset('resources/sass/app.scss', 'front') }}">
 </head>
 <body>
     @yield('body')
 
-    <script defer src="{{ mix('js/app.js') }}"></script>
+    <script defer src="{{ Vite::asset('resources/js/app.js', 'front') }}"></script>
     @stack('scripts')
 </body>
 </html>

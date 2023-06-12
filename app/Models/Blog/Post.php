@@ -4,8 +4,7 @@ namespace App\Models\Blog;
 
 use App\Enums\Blog\Post\Status;
 use App\Models\Access\User;
-use App\Models\Content\Layout;
-use App\Models\Traits\HasSlugAndMeta;
+use App\Models\Traits\HasPath;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -32,7 +31,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read \App\Models\Blog\Category|null $category
  * @property-read Layout $layout
  * @property-read \App\Models\MetaTag|null $meta
- * @property-read \App\Models\Slug|null $slug
+ * @property-read \App\Models\Path|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Post newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Post onlyTrashed()
@@ -59,7 +58,7 @@ class Post extends Model
 {
     use HasUuids;
     use SoftDeletes;
-    use HasSlugAndMeta;
+    use HasPath;
 
     protected $table = 'blog_posts';
 
@@ -106,10 +105,5 @@ class Post extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function layout(): BelongsTo
-    {
-        return $this->belongsTo(Layout::class, 'layout_id', 'id');
     }
 }

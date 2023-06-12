@@ -51,7 +51,7 @@ class UserResource extends Resource
                     Forms\Components\TextInput::make('email')
                         ->required()
                         ->email()
-                        ->unique(table: static::$model, ignorable: fn ($record) => $record)
+                        ->unique(table: static::$model, ignoreRecord: true)
                         ->label(__('attributes.email')),
                     Forms\Components\TextInput::make('password')
                         ->password()

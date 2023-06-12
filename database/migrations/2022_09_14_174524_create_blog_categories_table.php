@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('blog_categories', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('layout_id')->index();
 
             $table->string('name');
             $table->unsignedSmallInteger('display_order')->default(0)->index();
@@ -23,8 +22,6 @@ return new class extends Migration
 
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('layout_id')->references('id')->on('layouts')->cascadeOnDelete();
         });
     }
 

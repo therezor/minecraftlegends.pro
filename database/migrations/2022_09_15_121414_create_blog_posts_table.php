@@ -17,7 +17,6 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('user_id')->index();
             $table->uuid('category_id')->nullable()->index();
-            $table->uuid('layout_id')->index();
 
             $table->boolean('is_featured')->default(false);
             $table->tinyInteger('status')->unsigned()->index()->default(0)->nullable();
@@ -36,7 +35,6 @@ return new class extends Migration
 
             $table->foreign('category_id')->references('id')->on('blog_categories')->nullOnDelete();
             $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->foreign('layout_id')->references('id')->on('layouts')->cascadeOnDelete();
         });
     }
 

@@ -2,16 +2,25 @@
 
 namespace App\Panel\Resources\Traits;
 
+use App\Models\Path;
 use Filament\Forms;
 use Wiebenieuwenhuis\FilamentCharCounter\Textarea;
 use Wiebenieuwenhuis\FilamentCharCounter\TextInput;
 
-trait HasSeo
+trait HasPath
 {
-    protected static function formSeoSection(): Forms\Components\Card
+    protected static function formPathSection(): Forms\Components\Card
     {
         return Forms\Components\Card::make()
+            ->relationship('path')
             ->schema([
+                Forms\Components\TextInput::make('slug')
+                    ->label(__('attributes.slug'))
+                    ->required()
+                    ->regex('/^[a-zA-Z0-9-]+(\/[a-zA-Z0-9-]+)*$/')
+                    ->maxLength(255)
+                    ->unique(Path::class, 'slug', ignoreRecord: true),
+
                 Forms\Components\FileUpload::make('meta_image')
                     ->label(__('attributes.meta_image'))
                     ->disk('public')

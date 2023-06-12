@@ -2,7 +2,7 @@
 
 namespace App\Enums\Menu;
 
-enum Type: string
+enum isType: string
 {
     case MAIN = 'MAIN';
     case MEGA = 'MEGA';

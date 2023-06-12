@@ -2,10 +2,10 @@
 
 namespace App\Models\Content;
 
-use App\Models\Traits\HasSlugAndMeta;
+use App\Enums\Content\Page\Template;
+use App\Models\Traits\HasPath;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Content\Layout $layout
  * @property-read \App\Models\MetaTag|null $meta
- * @property-read \App\Models\Slug|null $slug
+ * @property-read \App\Models\Path|null $slug
  * @method static \Illuminate\Database\Eloquent\Builder|Page newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Page newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Page onlyTrashed()
@@ -40,23 +40,19 @@ class Page extends Model
 {
     use HasUuids;
     use SoftDeletes;
-    use HasSlugAndMeta;
+    use HasPath;
 
     protected $table = 'pages';
 
     protected $fillable = [
-        'title',
+        'template',
+        'name',
         'content',
-        'layout_id',
     ];
 
     protected $casts = [
-        'title' => 'string',
+        'name' => 'string',
         'content' => 'array',
+        'template' => Template::class,
     ];
-
-    public function layout(): BelongsTo
-    {
-        return $this->belongsTo(Layout::class, 'layout_id', 'id');
-    }
 }

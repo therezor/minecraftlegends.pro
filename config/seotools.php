@@ -17,7 +17,7 @@ return [
             // set false to total remove
             'separator' => ' - ',
             'keywords' => [],
-            'canonical' => 'current',
+            'canonical' => 'full',
             // Set to null or 'full' to use Url::full(), set to 'current' to use Url::current(), set false to total remove
             'robots' => 'all',
             // Set to 'all', 'none' or any combination of index/noindex and follow/nofollow

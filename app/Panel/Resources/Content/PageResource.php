@@ -2,12 +2,13 @@
 
 namespace App\Panel\Resources\Content;
 
+use App\Enums\Content\Page\Template;
 use App\Models\Content\Page;
 use App\Enums\Access\Role\Permission;
 use App\Panel\Resources\Content\PageResource\Pages;
 use App\Panel\Resources\Content\PageResource\RelationManagers;
 use App\Panel\Resources\Traits\HasPermission;
-use App\Panel\Resources\Traits\HasSeo;
+use App\Panel\Resources\Traits\HasPath;
 use Camya\Filament\Forms\Components\TitleWithSlugInput;
 use Camya\Filament\Forms\Fields\SlugInput;
 use Filament\Forms;
@@ -24,7 +25,7 @@ use Closure;
 
 class PageResource extends Resource
 {
-    use HasSeo;
+    use HasPath;
     use HasPermission;
 
     protected static ?string $model = Page::class;
@@ -61,33 +62,17 @@ class PageResource extends Resource
                                     ->lazy()
                                     ->afterStateUpdated(
                                         fn(string $context, $state, callable $set) => $context === 'create' ? $set(
-                                            'slug',
+                                            'path.slug',
                                             Str::slug($state)
                                         ) : null
                                     )->columnSpan('full'),
 
-                                SlugInput::make('slug')
-                                    ->disableLabel()
-                                    ->slugInputRecordSlug(fn (?Model $record) => $record?->slug)
-                                    ->slugInputLabelPrefix(false)
-                                    ->slugInputBaseUrl(null)
-                                    ->slugInputContext(fn ($context) => $context === 'create' ? 'create' : 'edit')
-                                    ->hidden(fn(Closure $get) => $get('type') === '1'),
-
-
-                                Forms\Components\Select::make('type')
-                                    ->label(__('attributes.type'))
-                                    ->options([
-                                        0 => 'Home',
-                                        1 => 'Blog post',
-                                    ])
+                                Forms\Components\Select::make('template')
+                                    ->label(__('attributes.template'))
+                                    ->options(Template::select())
+                                    ->default(Template::DEFAULT)
                                     ->reactive()
                                     ->columnSpan('full'),
-
-                                Forms\Components\Toggle::make('has_header')
-                                    ->label(__('attributes.has_header')),
-                                Forms\Components\Toggle::make('has_footer')
-                                    ->label(__('attributes.has_footer')),
                             ]),
 
                         Builder::make('content')
@@ -134,8 +119,7 @@ class PageResource extends Resource
                 Forms\Components\Grid::make()
                     ->columnSpan(['lg' => 1])
                     ->schema([
-                        static::formSeoSection()
-                            ->hidden(fn(Closure $get) => $get('type') === '1'),
+                        static::formPathSection()
                     ]),
             ]);
     }
@@ -144,8 +128,8 @@ class PageResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
-                    ->label(__('attributes.title'))
+                Tables\Columns\TextColumn::make('name')
+                    ->label(__('attributes.name'))
                     ->searchable()
                     ->sortable(),
             ])
