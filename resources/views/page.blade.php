@@ -1,22 +1,24 @@
 @extends('layouts.public')
 
-@section('container')
-    <div class="bg-body-light">
-        <div class="content content-full">
-            <div class="py-3 text-center">
-                <h1 class="h3 fw-bold mb-2">
-                    {{ $page->name }}
-                </h1>
-            </div>
-        </div>
-    </div>
+@section('content')
+    @include('content.blocks.hero')
 
-    <div class="bg-body-extra-light">
-        <div class="content content-boxed">
-{{--            @foreach($page->content as $block)--}}
-{{--                {{ $block }}--}}
-{{--                @include('fields.blocks.' . $block['type'], ['data' => $block['data']])--}}
-{{--            @endforeach--}}
-        </div>
-    </div>
+    @include('content.blocks.logo-cloud')
+
+    @include('content.blocks.feature')
+
+    @include('content.blocks.content')
+
+    @include('content.blocks.testimonial')
+
+    @include('content.blocks.portfolio')
+
+    @include('content.blocks.blog')
+
+    @include('content.blocks.contact')
+
+    @include('content.blocks.faq')
+
+    @include('content.blocks.action')
+
 @endsection
