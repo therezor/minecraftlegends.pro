@@ -69,14 +69,8 @@ class PostResource extends Resource
                             ->imageResizeUpscale(false)
                             ->columnSpan('full'),
 
-                        Forms\Components\MarkdownEditor::make('description')
+                        Forms\Components\Textarea::make('description')
                             ->label(__('attributes.description'))
-                            ->toolbarButtons([
-                                'bold',
-                                'italic',
-                                'edit',
-                                'preview',
-                            ])
                             ->columnSpan('full'),
 
                         Forms\Components\Select::make('category_id')
@@ -138,9 +132,16 @@ class PostResource extends Resource
                 Forms\Components\Section::make(__('attributes.content'))
                     ->columnSpan('full')
                     ->schema([
-                        EditorJs::make('content')::make('content')
+                        EditorJs::make('content')
                             ->disableLabel()
-                            ->required(),
+                            ->required()
+                            ->tools([
+                                'header',
+                                'image',
+                                'list',
+                                'underline',
+                                'quote',
+                            ]),
                     ]),
             ]);
     }

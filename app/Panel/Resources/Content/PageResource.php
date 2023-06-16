@@ -90,7 +90,7 @@ class PageResource extends Resource
                                     ]),
                                 Builder\Block::make('paragraph')
                                     ->schema([
-                                        Forms\Components\MarkdownEditor::make('content')
+                                        Forms\Components\Textarea::make('content')
                                             ->label('Paragraph')
                                             ->required(),
                                     ]),

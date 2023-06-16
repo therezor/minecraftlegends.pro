@@ -1,7 +1,7 @@
 <article class="py-6 sm:flex group">
     <div class="flex-shrink-0 relative rounded-xl overflow-hidden w-full sm:w-56 h-44 sm:h-auto">
         <a href="{{ route('path', $post->path) }}">
-            <img class="group-hover:scale-105 transition-transform duration-500 ease-in-out w-full h-full absolute top-0 left-0 object-cover rounded-xl" src="https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80" alt="Image Description">
+            <img class="group-hover:scale-105 transition-transform duration-500 ease-in-out w-full h-full object-cover rounded-xl" src="https://images.unsplash.com/photo-1540575861501-7cf05a4b125a?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=2070&amp;q=80" alt="Image Description">
         </a>
     </div>
 

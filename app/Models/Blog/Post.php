@@ -112,4 +112,22 @@ class Post extends Model
     {
         $query->where('status', Status::PUBLISHED);
     }
+
+    public function scopePrev(Builder $query, Post $post): void
+    {
+        $query->where('status', Status::PUBLISHED)
+            ->where('id', '!=', $post->id)
+            ->where('id', '<', $post->id)
+            ->orderByRaw('category_id = ? desc', [$post->category_id])
+            ->orderBy('id', 'desc');
+    }
+
+    public function scopeNext(Builder $query, Post $post): void
+    {
+        $query->where('status', Status::PUBLISHED)
+            ->where('id', '!=', $post->id)
+            ->where('id', '>', $post->id)
+            ->orderByRaw('category_id = ? desc', [$post->category_id])
+            ->orderBy('id', 'asc');
+    }
 }
