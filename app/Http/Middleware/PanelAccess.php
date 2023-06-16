@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use Closure;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Http\Request;
-use Closure;
 
 class PanelAccess
 {

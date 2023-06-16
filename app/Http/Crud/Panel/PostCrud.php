@@ -5,10 +5,10 @@ namespace App\Http\Crud\Panel;
 use App\Eloquent\Repositories\ImageRepository;
 use App\Eloquent\Repositories\PostRepository;
 use App\Enums\Crud\Method;
-use App\Forms\Panel\Post\{Form, FilterForm};
-use App\Http\Crud\Traits\RedirectToShow;
 use App\Fields\{Actions, DateTime, Enum, Field};
+use App\Forms\Panel\Post\{FilterForm, Form};
 use App\Http\Crud\BaseCrud;
+use App\Http\Crud\Traits\RedirectToShow;
 
 class PostCrud extends BaseCrud
 {

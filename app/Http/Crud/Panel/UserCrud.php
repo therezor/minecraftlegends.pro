@@ -3,11 +3,11 @@
 namespace App\Http\Crud\Panel;
 
 use App\Eloquent\Repositories\UserRepository;
-use App\Forms\Panel\User\FilterForm;
-use App\Http\Crud\Traits\RedirectToShow;
-use App\Forms\Panel\User\Form;
 use App\Fields\{Actions, DateTime, Field};
+use App\Forms\Panel\User\FilterForm;
+use App\Forms\Panel\User\Form;
 use App\Http\Crud\BaseCrud;
+use App\Http\Crud\Traits\RedirectToShow;
 
 class UserCrud extends BaseCrud
 {

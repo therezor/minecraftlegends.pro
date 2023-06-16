@@ -2,8 +2,8 @@
 
 namespace App\Forms\Panel\User;
 
-use App\Eloquent\Repositories\RoleRepository;
 use App\Eloquent\Repositories\Criteria\FilterCriteria;
+use App\Eloquent\Repositories\RoleRepository;
 use App\Forms\BaseFilterForm;
 
 class FilterForm extends BaseFilterForm

@@ -5,6 +5,7 @@ namespace App\Models\Blog;
 use App\Enums\Blog\Post\Status;
 use App\Models\Access\User;
 use App\Models\Traits\HasPath;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -105,5 +106,10 @@ class Post extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function scopePublished(Builder $query): void
+    {
+        $query->where('status', Status::PUBLISHED);
     }
 }

@@ -1,77 +1,21 @@
-@extends('layouts.public')
+@extends('layouts.app')
 
-@section('container')
-    @include('sections.menu')
-
-    @if($posts->currentPage() === 1)
-        <div class="bg-body-extra-light">
-            <div class="content content-full">
-                <div class="row g-0 justify-content-center text-center">
-                    <div class="col-md-10 py-5">
-                        <h1 class="fs-2 fw-bold mb-3">
-                            {{ __('Minecraft legends Pro') }}
-                        </h1>
-                        <p class="fs-5 fw-medium text-muted mb-4 mx-xl-8">
-                            {{ __('Welcome to the MinecraftLegends fan club! Here, you will be able to track the latest news and modifications, download mods, share your experience with others, and offer helpful advice to new users.') }}
-                        </p>
-                    </div>
-                </div>
+@section('body')
+    <section class="min-h-screen flex bg-white dark:bg-gray-900">
+        <div class="py-8 px-4 m-auto max-w-screen-xl lg:py-16 lg:px-6">
+            <div class="mx-auto max-w-screen-sm text-center">
+                <h1 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    {{ __('You need to setup your homepage first!') }}
+                </h1>
+                <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
+                    {{ __('To set up your homepage, create a new page in admin panel with a slug of') }}
+                    <var class="inline-block px-3 py-1.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">&sol;</var>
+                </p>
+                <a href="{{ route('filament.resources.content.pages.create') }}" class="inline-flex items-center font-medium text-primary-600 dark:text-primary-500 hover:underline">
+                    {{ __('Setup homepage') }}
+                    <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </a>
             </div>
         </div>
-
-        @if($editorChoice->isNotEmpty())
-            <div class="bg-body-dark">
-                <div class="content content-boxed">
-
-                    <h2 class="content-heading">{{ __('Editor choice') }}</h2>
-
-                    <div class="row">
-                        @foreach($editorChoice as $post)
-                            @include('posts.sections.card')
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        @endif
-    @endif
-
-    <div class="content content-boxed">
-        @foreach($posts as $post)
-            <div class="block block-rounded">
-                <div class="block-content">
-                    <div class="row items-push">
-                        @if($post->image_id)
-                            <div class="col-md-4 col-lg-5">
-                                    <a class="img-link img-link-simple"  href="{{ route('posts.show', $post->slug) }}">
-                                        <img class="img-fluid rounded" loading="lazy" src="{{ imageUrl($post->image_id) }}" alt="{{ $post->title }}">
-                                    </a>
-                            </div>
-                        @endif
-                        <div @class(['d-md-flex align-items-center', 'col-md-8 col-lg-7' => $post->image_id])>
-                            <div>
-                                <h2 class="mb-1 h-4">
-                                    <a class="text-dark" href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a>
-                                </h2>
-                                <p class="fs-sm text-muted">
-                                    {{ $post->description }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-
-        {{ $posts->links() }}
-
-        @if($featured->isNotEmpty())
-            <h2 class="content-heading">{{ __('Featured') }}</h2>
-
-            <div class="row">
-                @foreach($featured as $post)
-                    @include('posts.sections.card')
-                @endforeach
-            </div>
-        @endif
-    </div>
+    </section>
 @endsection

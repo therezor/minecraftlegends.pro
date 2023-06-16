@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Access\User;
 use App\Enums\Access\Role\Permission;
+use App\Models\Access\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 

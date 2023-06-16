@@ -2,35 +2,27 @@
 
 namespace App\Panel\Resources\Content;
 
+use App\Enums\Access\Role\Permission;
 use App\Enums\Content\Page\Template;
 use App\Models\Content\Page;
-use App\Enums\Access\Role\Permission;
 use App\Panel\Resources\Content\PageResource\Pages;
-use App\Panel\Resources\Content\PageResource\RelationManagers;
-use App\Panel\Resources\Traits\HasPermission;
 use App\Panel\Resources\Traits\HasPath;
-use Camya\Filament\Forms\Components\TitleWithSlugInput;
-use Camya\Filament\Forms\Fields\SlugInput;
 use Filament\Forms;
+use Filament\Forms\Components\Builder;
 use Filament\Resources\Form;
-use Filament\Resources\Resource;
+use App\Panel\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use Mohamedsabil83\FilamentFormsTinyeditor\Components\TinyEditor;
 use Wiebenieuwenhuis\FilamentCharCounter\TextInput;
-use Filament\Forms\Components\Builder;
-use Closure;
 
 class PageResource extends Resource
 {
     use HasPath;
-    use HasPermission;
 
     protected static ?string $model = Page::class;
     protected static ?string $slug = 'content/pages';
-    protected static ?string $recordTitleAttribute = 'title';
+    protected static ?string $recordTitleAttribute = 'name';
     protected static ?string $navigationIcon = 'heroicon-o-document';
     protected static ?int $navigationSort = 96;
 
@@ -119,7 +111,7 @@ class PageResource extends Resource
                 Forms\Components\Grid::make()
                     ->columnSpan(['lg' => 1])
                     ->schema([
-                        static::formPathSection()
+                        static::formPathSection(false)
                     ]),
             ]);
     }
@@ -130,6 +122,10 @@ class PageResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label(__('attributes.name'))
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('path.slug')
+                    ->label(__('attributes.slug'))
                     ->searchable()
                     ->sortable(),
             ])

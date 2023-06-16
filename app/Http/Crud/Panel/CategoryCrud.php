@@ -4,10 +4,10 @@ namespace App\Http\Crud\Panel;
 
 use App\Eloquent\Repositories\CategoryRepository;
 use App\Eloquent\Repositories\Criteria\WithCountCriteria;
-use App\Forms\Panel\Category\{Form, FilterForm};
-use App\Http\Crud\Traits\RedirectToShow;
 use App\Fields\{Actions, Field};
+use App\Forms\Panel\Category\{FilterForm, Form};
 use App\Http\Crud\BaseCrud;
+use App\Http\Crud\Traits\RedirectToShow;
 
 class CategoryCrud extends BaseCrud
 {

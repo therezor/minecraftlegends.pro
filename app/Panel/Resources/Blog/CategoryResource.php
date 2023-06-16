@@ -3,15 +3,12 @@
 namespace App\Panel\Resources\Blog;
 
 use App\Enums\Access\Role\Permission;
-use App\Panel\Resources\Blog\CategoryResource\Pages;
-use App\Panel\Resources\Blog\CategoryResource\RelationManagers;
-use App\Panel\Resources\Traits\HasPermission;
-use App\Panel\Resources\Traits\HasPath;
 use App\Models\Blog\Category;
-use Camya\Filament\Forms\Components\TitleWithSlugInput;
+use App\Panel\Resources\Blog\CategoryResource\Pages;
+use App\Panel\Resources\Traits\HasPath;
 use Filament\Forms;
 use Filament\Resources\Form;
-use Filament\Resources\Resource;
+use App\Panel\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Support\Str;
@@ -20,7 +17,6 @@ use Wiebenieuwenhuis\FilamentCharCounter\TextInput;
 class CategoryResource extends Resource
 {
     use HasPath;
-    use HasPermission;
 
     protected static ?string $model = Category::class;
     protected static ?string $slug = 'blog/categories';
@@ -63,15 +59,8 @@ class CategoryResource extends Resource
                                 ) : null
                             )->columnSpan('full'),
 
-                        Forms\Components\MarkdownEditor::make('description')
-                            ->label(__('attributes.description'))
-                            ->toolbarButtons([
-                                'bold',
-                                'italic',
-                                'link',
-                                'edit',
-                                'preview',
-                            ]),
+                        Forms\Components\Textarea::make('description')
+                            ->label(__('attributes.description')),
 
                         Forms\Components\TextInput::make('display_order')
                             ->label(__('attributes.display_order'))

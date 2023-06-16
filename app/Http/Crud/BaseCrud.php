@@ -2,11 +2,11 @@
 
 namespace App\Http\Crud;
 
+use App\Eloquent\Repositories\Contracts\Repository;
 use App\Enums\Crud\Method;
-use Illuminate\Support\Str;
 use App\Http\Crud\Traits\Hookable;
 use App\Http\Crud\Traits\Sortable;
-use App\Eloquent\Repositories\Contracts\Repository;
+use Illuminate\Support\Str;
 
 abstract class BaseCrud
 {

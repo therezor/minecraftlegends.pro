@@ -4,16 +4,13 @@ namespace App\Panel\Resources\Blog;
 
 use App\Enums\Access\Role\Permission;
 use App\Enums\Blog\Post\Status;
-use App\Panel\Resources\Blog\PostResource\Pages;
-use App\Panel\Resources\Blog\PostResource\RelationManagers;
-use App\Panel\Resources\Traits\HasPermission;
-use App\Panel\Resources\Traits\HasPath;
 use App\Models\Blog\Category;
 use App\Models\Blog\Post;
-use Camya\Filament\Forms\Components\TitleWithSlugInput;
+use App\Panel\Resources\Blog\PostResource\Pages;
+use App\Panel\Resources\Traits\HasPath;
 use Filament\Forms;
 use Filament\Resources\Form;
-use Filament\Resources\Resource;
+use App\Panel\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use FilamentEditorJs\Forms\Components\EditorJs;
@@ -23,7 +20,6 @@ use Wiebenieuwenhuis\FilamentCharCounter\TextInput;
 class PostResource extends Resource
 {
     use HasPath;
-    use HasPermission;
 
     protected static ?string $model = Post::class;
     protected static ?string $slug = 'blog/posts';

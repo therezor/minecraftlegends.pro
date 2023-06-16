@@ -1,4 +1,5 @@
 <?php
+
 use App\Eloquent\Repositories\ImageRepository;
 
 if (!function_exists('imageUrl')) {

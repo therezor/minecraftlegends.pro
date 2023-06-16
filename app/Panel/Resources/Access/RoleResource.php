@@ -3,19 +3,15 @@
 namespace App\Panel\Resources\Access;
 
 use App\Enums\Access\Role\Permission;
+use App\Models\Access\Role;
 use App\Panel\Resources\Access\RoleResource\Pages;
 use App\Panel\Resources\Access\RoleResource\RelationManagers;
 use App\Panel\Resources\Traits\HasPermission;
-use App\Models\Access\Role;
-use App\Models\Access\User;
-use App\Services\AvatarService;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Validation\Rules\Enum;
 use Wiebenieuwenhuis\FilamentCharCounter\TextInput;
 

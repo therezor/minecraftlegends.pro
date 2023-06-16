@@ -17,7 +17,7 @@
 
     <link media="all" type="text/css" rel="stylesheet" href="{{ Vite::asset('resources/sass/app.scss', 'front') }}">
 </head>
-<body>
+<body class="min-h-screen bg-white dark:bg-gray-900">
     @yield('body')
 
     <script defer src="{{ Vite::asset('resources/js/app.js', 'front') }}"></script>

@@ -1,4 +1,4 @@
-@extends('layouts.public')
+@extends('layouts.default')
 
 @section('container')
     <div class="bg-image" @if($post->image_id) style="background-image: url('{{ imageUrl($post->image_id) }}');" @endif >

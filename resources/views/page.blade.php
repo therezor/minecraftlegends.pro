@@ -1,4 +1,4 @@
-@extends('layouts.public')
+@extends('layouts.default')
 
 @section('content')
     @include('content.blocks.hero')

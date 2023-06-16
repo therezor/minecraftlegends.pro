@@ -48,5 +48,5 @@ Route::group(['middleware' => ['auth']], function () {
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('search', [HomeController::class, 'search'])->name('search');
 Route::get('sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
-Route::get('{path}', PathController::class)->where('path', '[\w\s\-_\/]+')->name('path');
+Route::get('{path}', [PathController::class, 'show'])->where('path', '[\w\s\-_\/]+')->name('path');
 

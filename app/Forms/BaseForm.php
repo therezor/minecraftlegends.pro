@@ -2,10 +2,10 @@
 
 namespace App\Forms;
 
-use Kris\LaravelFormBuilder\Fields\FormField;
-use Kris\LaravelFormBuilder\Form;
 use App\Forms\Traits\DefaultModelRules;
 use App\Forms\Traits\TranslatableModel;
+use Kris\LaravelFormBuilder\Fields\FormField;
+use Kris\LaravelFormBuilder\Form;
 
 abstract class BaseForm extends Form
 {

@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class PathController extends Controller
 {
-    public function __invoke(Path $path, Request $request)
+    public function show(Path $path, Request $request)
     {
         $entityClass = get_class($path->entity);
         $controllerClass = Str::replace('App\\Models\\', 'App\\Http\\Controllers\\', $entityClass) . 'Controller';

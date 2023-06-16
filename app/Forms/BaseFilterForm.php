@@ -3,8 +3,8 @@
 namespace App\Forms;
 
 use App\Eloquent\Repositories\Criteria\FilterCriteria;
-use Kris\LaravelFormBuilder\Form;
 use App\Forms\Traits\TranslatableModel;
+use Kris\LaravelFormBuilder\Form;
 
 class BaseFilterForm extends Form
 {

@@ -2,8 +2,8 @@
 
 namespace App\Fields\Collections;
 
-use Illuminate\Support\Collection;
 use App\Fields\BaseField;
+use Illuminate\Support\Collection;
 
 class FieldCollection extends Collection
 {

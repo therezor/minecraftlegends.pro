@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Crud\Method;
-use Illuminate\Http\Request;
 use App\Fields\Collections\FieldCollection;
 use App\Forms\BaseFilterForm;
 use App\Http\Crud\BaseCrud;
+use Illuminate\Http\Request;
 use Kris\LaravelFormBuilder\Facades\FormBuilder;
 
 abstract class BaseCrudController extends Controller

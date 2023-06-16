@@ -11,6 +11,8 @@ class CategoryController extends Controller
     {
         $this->seo()->setTitle($category->name);
 
-        return view('page', ['page' => $category]);
+        $posts = $category->posts()->published()->latest()->simplePaginate(15);
+
+        return view('blog.categories.show', ['category' => $category, 'posts' => $posts]);
     }
 }

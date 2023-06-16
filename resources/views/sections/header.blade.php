@@ -1,86 +1,41 @@
-<header id="page-header">
-    <div class="content-header">
-        <div class="d-flex align-items-center">
-            <a href="{{ route('index') }}">
-                <img src="{{ asset('img/logo.png') }}" width="203" height="40" alt="...">
+<header>
+    <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+            <a href="https://flowbite.com" class="flex items-center">
+                <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
+                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
             </a>
-        </div>
-
-        <div class="d-flex align-items-center">
-            <button type="button" class="btn btn-sm btn-alt-secondary d-md-none" data-toggle="layout" data-action="header_search_on">
-                <i class="fa fa-fw fa-search"></i>
-            </button>
-
-            {{ Form::open(['method' => 'get', 'route' => 'search', 'class' => 'd-none d-md-inline-block']) }}
-                <div class="input-group input-group-sm">
-                    {{ Form::search('term', request()->get('term'), ['class' => 'form-control form-control-alt', 'placeholder' => __('Search...')]) }}
-                    <span class="input-group-text bg-body border-0">
-                        <i class="fa fa-fw fa-search"></i>
-                    </span>
-                </div>
-            {{ Form::close() }}
-
-            @guest
-                <div class="dropdown d-lg-none ms-2">
-                    <button type="button" class="btn btn-sm btn-alt-secondary d-lg-none" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-fw fa-user"></i>
-                    </button>
-
-                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown" style="">
-                        <div class="p-2">
-                            <a href="{{ route('register') }}" class="btn btn-sm btn-primary d-block mb-2">{{ __('Register') }}</a>
-                            <a class="btn btn-sm btn-outline-primary d-block" href="{{ route('login') }}">{{ __('Log in') }}</a>
-                        </div>
-                    </div>
-                </div>
-
-                <a class="btn btn-sm btn-outline-primary ms-2 d-none d-lg-inline-block" href="{{ route('login') }}">{{ __('Log in') }}</a>
-                <a href="{{ route('register') }}" class="btn btn-sm btn-primary ms-2 d-none d-lg-inline-block">{{ __('Register') }}</a>
-            @else
-                <div class="dropdown d-inline-block ms-2">
-                    <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-fw fa-user"></i>
-                        <span class="d-none d-sm-inline-block ms-2">{{ Str::limit(auth()->user()->name, 9) }}</span>
-                        <i class="fa fa-fw fa-angle-down d-none d-sm-inline-block opacity-50 ms-1"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0 border-0" aria-labelledby="page-header-user-dropdown" style="">
-                        <div class="p-3 text-center bg-body-light border-bottom rounded-top">
-                            <p class="mt-2 mb-0 fw-medium">{{ auth()->user()->name }}</p>
-                            @if(auth()->user()->role)
-                                <p class="mb-0 text-muted fs-sm fw-medium">{{ auth()->user()->role->name }}</p>
-                            @endif
-                        </div>
-                        @can(\App\Enums\Access\Role\Permission::PANEL->value)
-                            <div class="p-2">
-                                <a class="dropdown-item fs-sm fw-medium" href="{{ route('filament.pages.dashboard') }}">
-                                    <i class="fa fas fa-fw fa-table-columns"></i> {{ __('Dashboard') }}
-                                </a>
-                            </div>
-                            <div role="separator" class="dropdown-divider m-0"></div>
-                        @endif
-                        <div class="p-2">
-                            {{ Form::open(['method' => 'post', 'route' => 'logout']) }}
-                                <button class="dropdown-item btn-link fs-sm fw-medium" type="submit">
-                                    <i class="fa fas fa-fw fa-right-from-bracket"></i> {{ __('Log out') }}
-                                </button>
-                            {{ Form::close() }}
-                        </div>
-                    </div>
-                </div>
-            @endguest
-        </div>
-
-        <div id="page-header-search" class="overlay-header bg-body-extra-light">
-            <div class="content-header">
-                {{ Form::open(['method' => 'get', 'route' => 'search', 'class' => 'w-100']) }}
-                    <div class="input-group">
-                        <button type="button" class="btn btn-alt-danger" data-toggle="layout" data-action="header_search_off">
-                            <i class="fa fa-fw fa-times-circle"></i>
-                        </button>
-                        {{ Form::search('term', request()->get('term'), ['class' => 'form-control', 'placeholder' => __('Search...')]) }}
-                    </div>
-                {{ Form::close() }}
+            <div class="flex items-center lg:order-2">
+                <a href="#" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Log in</a>
+                <a href="#" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Get started</a>
+                <button data-collapse-toggle="mobile-menu-2" type="button" class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                    <svg class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
+            <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+                <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                    <li>
+                        <a href="#" class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white" aria-current="page">Home</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Company</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Marketplace</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Features</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Team</a>
+                    </li>
+                    <li>
+                        <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
+    </nav>
 </header>

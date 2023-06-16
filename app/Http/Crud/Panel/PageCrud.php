@@ -3,8 +3,8 @@
 namespace App\Http\Crud\Panel;
 
 use App\Eloquent\Repositories\PageRepository;
-use App\Forms\Panel\Page\{Form, FilterForm};
 use App\Fields\{Actions, Field};
+use App\Forms\Panel\Page\{FilterForm, Form};
 use App\Http\Crud\BaseCrud;
 
 class PageCrud extends BaseCrud

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->uuid('category_id')->nullable()->index();
 
             $table->boolean('is_featured')->default(false);
-            $table->tinyInteger('status')->unsigned()->index()->default(0)->nullable();
+            $table->tinyInteger('status')->unsigned()->index()->default(0);
 
 
             $table->string('image')->nullable();

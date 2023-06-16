@@ -3,11 +3,11 @@
 namespace App\Panel\Resources\Access;
 
 use App\Enums\Access\Role\Permission;
+use App\Models\Access\Role;
+use App\Models\Access\User;
 use App\Panel\Resources\Access\UserResource\Pages;
 use App\Panel\Resources\Access\UserResource\RelationManagers;
 use App\Panel\Resources\Traits\HasPermission;
-use App\Models\Access\Role;
-use App\Models\Access\User;
 use App\Services\AvatarService;
 use Filament\Forms;
 use Filament\Resources\Form;

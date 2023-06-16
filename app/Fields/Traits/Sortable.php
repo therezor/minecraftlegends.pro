@@ -2,9 +2,9 @@
 
 namespace App\Fields\Traits;
 
-use Illuminate\Http\Request;
 use App\Eloquent\Repositories\Contracts\SortableCriteria;
 use App\Eloquent\Repositories\Criteria\OrderByCriteria;
+use Illuminate\Http\Request;
 
 trait Sortable
 {

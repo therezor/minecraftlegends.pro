@@ -2,10 +2,10 @@
 
 namespace App\Http\Crud\Traits;
 
-use Illuminate\Http\Request;
-use App\Fields\Collections\FieldCollection;
 use App\Eloquent\Repositories\Contracts\Criteria;
 use App\Eloquent\Repositories\Criteria\OrderByCriteria;
+use App\Fields\Collections\FieldCollection;
+use Illuminate\Http\Request;
 
 trait Sortable
 {

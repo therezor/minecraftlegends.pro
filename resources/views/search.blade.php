@@ -1,4 +1,4 @@
-@extends('layouts.public')
+@extends('layouts.default')
 
 @section('container')
     <div class="bg-body-light">
