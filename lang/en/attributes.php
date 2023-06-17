@@ -42,4 +42,9 @@ return [
     'role' => 'Role',
     'type' => 'Type',
     'template' => 'Template',
+    'heading' => 'Heading',
+    'sub_heading' => 'Sub Heading',
+    'action' => 'Action',
+    'link' => 'Link',
+    'bg_shade' => 'Background shade',
 ];

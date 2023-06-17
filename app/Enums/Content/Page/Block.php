@@ -2,13 +2,20 @@
 
 namespace App\Enums\Content\Page;
 
+use App\Enums\Translatable;
+
 enum Block: string
 {
-    case HEADER = 'header';
-    case PARAGRAPH = 'paragraph';
-    case QUOTE = 'quote';
-    case WARNING = 'warning';
-    case LIST = 'list';
-    case EMBED = 'embed';
-    case IMAGE = 'image';
+    use Translatable;
+
+    case ACTION = 'action';
+    case BLOG = 'blog';
+    case CONTACT = 'contact';
+    case CONTENT = 'content';
+    case FAQ = 'faq';
+    case FEATURE = 'feature';
+    case HERO = 'hero';
+        case LOGO_CLOUD = 'logo-cloud';
+    case PORTFOLIO = 'portfolio';
+    case TESTIMONIAL = 'testimonial';
 }

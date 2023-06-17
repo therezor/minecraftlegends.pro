@@ -10,7 +10,7 @@ class PageController extends Controller
     public function show(Page $page)
     {
         $this->seo()->setTitle($page->name);
-        // render blocks
-        return view('page', ['page' => $page]);
+
+        return view('content.pages.show', ['page' => $page]);
     }
 }

@@ -3,7 +3,7 @@
 @section('content')
     <section class="py-8 px-4 mx-auto w-full max-w-screen-md lg:py-16 lg:px-6">
         <header class="mb-4">
-            <h1 class="text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+            <h1 class="text-3xl lg:text-5xl tracking-tight font-extrabold text-gray-900 dark:text-white">
                 {{ $post->title }}
             </h1>
             @if($post->description)

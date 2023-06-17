@@ -3,8 +3,11 @@
 namespace App\Panel\Resources\Content;
 
 use App\Enums\Access\Role\Permission;
+use App\Enums\Content\Page\Block;
+use App\Enums\Content\Page\Shade;
 use App\Enums\Content\Page\Template;
 use App\Models\Content\Page;
+use App\Models\Path;
 use App\Panel\Resources\Content\PageResource\Pages;
 use App\Panel\Resources\Traits\HasPath;
 use Filament\Forms;
@@ -14,6 +17,7 @@ use App\Panel\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Support\Str;
+use Wiebenieuwenhuis\FilamentCharCounter\Textarea;
 use Wiebenieuwenhuis\FilamentCharCounter\TextInput;
 
 class PageResource extends Resource
@@ -71,47 +75,14 @@ class PageResource extends Resource
                             ->disableLabel()
                             ->label(__('attributes.content'))
                             ->columnSpan(2)
-                            ->blocks([
-                                Builder\Block::make('heading')
-                                    ->schema([
-                                        TextInput::make('content')
-                                            ->label('Heading')
-                                            ->required(),
-                                        Forms\Components\Select::make('level')
-                                            ->options([
-                                                'h1' => 'Heading 1',
-                                                'h2' => 'Heading 2',
-                                                'h3' => 'Heading 3',
-                                                'h4' => 'Heading 4',
-                                                'h5' => 'Heading 5',
-                                                'h6' => 'Heading 6',
-                                            ])
-                                            ->required(),
-                                    ]),
-                                Builder\Block::make('paragraph')
-                                    ->schema([
-                                        Forms\Components\Textarea::make('content')
-                                            ->label('Paragraph')
-                                            ->required(),
-                                    ]),
-                                Builder\Block::make('image')
-                                    ->schema([
-                                        Forms\Components\FileUpload::make('url')
-                                            ->label('Image')
-                                            ->image()
-                                            ->required(),
-                                        TextInput::make('alt')
-                                            ->label('Alt text')
-                                            ->required(),
-                                    ]),
-                            ]),
+                            ->blocks(static::formContentBlocks()),
                     ]),
 
 
                 Forms\Components\Grid::make()
                     ->columnSpan(['lg' => 1])
                     ->schema([
-                        static::formPathSection(false)
+                        static::formPathSection(),
                     ]),
             ]);
     }
@@ -156,5 +127,47 @@ class PageResource extends Resource
             'create' => Pages\CreatePage::route('/create'),
             'edit' => Pages\EditPage::route('/{record}/edit'),
         ];
+    }
+
+    protected static function formContentBlocks(): array
+    {
+        return [
+            Builder\Block::make(Block::HERO->value)
+                ->label(Block::HERO->translatedValue())
+                ->schema([
+                    static::blockBgShade(),
+                    Forms\Components\TextInput::make('heading')
+                        ->label(__('attributes.heading'))
+                        ->required(),
+                    Forms\Components\TextInput::make('sub_heading')
+                        ->label(__('attributes.sub_heading')),
+                    Forms\Components\TextInput::make('action')
+                        ->label(__('attributes.action'))
+                        ->requiredWith('link'),
+                  Forms\Components\TextInput::make('link')
+                      ->label(__('attributes.link'))
+                      ->requiredWith('action'),
+                ]),
+            Builder\Block::make(Block::LOGO_CLOUD->value)
+                ->label(Block::LOGO_CLOUD->translatedValue())
+                ->schema([
+                    static::blockBgShade(),
+                    Forms\Components\FileUpload::make('logos')
+                        ->label(__('attributes.logo'))
+                        ->image()
+                        ->multiple()
+                        ->maxFiles(6)
+                        ->required(),
+                ]),
+        ];
+    }
+
+    protected static function blockBgShade(): Forms\Components\Select
+    {
+        return Forms\Components\Select::make('bg_shade')
+            ->label(__('attributes.bg_shade'))
+            ->required()
+            ->options(Shade::select())
+            ->default(Shade::LIGHTER->value);
     }
 }

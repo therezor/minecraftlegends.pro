@@ -14,6 +14,22 @@ return [
 
     'content' => [
         'page' => [
+            'block' => [
+                \App\Enums\Content\Page\Block::ACTION->value => 'Action',
+                \App\Enums\Content\Page\Block::BLOG->value => 'Blog',
+                \App\Enums\Content\Page\Block::CONTACT->value => 'Contact',
+                \App\Enums\Content\Page\Block::CONTENT->value => 'Content',
+                \App\Enums\Content\Page\Block::FAQ->value => 'FAQ',
+                \App\Enums\Content\Page\Block::FEATURE->value => 'Feature',
+                \App\Enums\Content\Page\Block::HERO->value => 'Hero',
+                \App\Enums\Content\Page\Block::LOGO_CLOUD->value => 'Logo Cloud',
+                \App\Enums\Content\Page\Block::PORTFOLIO->value => 'Portfolio',
+                \App\Enums\Content\Page\Block::TESTIMONIAL->value => 'Testimonial',
+            ],
+            'shade' => [
+                \App\Enums\Content\Page\Shade::LIGHTER->value => 'Lighter',
+                \App\Enums\Content\Page\Shade::DARKER->value => 'Darker',
+            ],
             'template' => [
                 \App\Enums\Content\Page\Template::DEFAULT->value => 'Default',
             ],
