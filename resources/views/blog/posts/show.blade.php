@@ -13,9 +13,9 @@
             @endif
 
             <div class="flex items-center justify-between mt-4">
-                <a href="{{ route('path', $post->category->path) }}" class="inline-flex text-sm font-medium mr-2 px-2.5 py-0.5 rounded text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
+                <span class="inline-flex text-sm font-medium mr-2 px-2.5 py-0.5 rounded text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-white">
                     {{ $post->category->name }}
-                </a>
+                </span>
 
                 <span class="text-gray-500">
                     <time datetime="{{ $post->updated_at->timestamp }}">{{ $post->updated_at->diffForHumans() }}</time>
@@ -30,9 +30,7 @@
         </header>
 
         <div class="format format-sm sm:format-base lg:format-lg format-primary dark:format-invert">
-            @foreach($post->content['blocks'] ?? [] as $block)
-                @include('blog.posts.blocks.' . $block['type'], ['data' => $block['data']])
-            @endforeach
+            {!! tiptap_converter()->asHTML($post->content) !!}
         </div>
 
         <nav role="navigation" aria-label="{{ __('Navigation') }}" class="flex my-8 lg:mt-16 font-medium leading-6">

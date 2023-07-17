@@ -30,8 +30,9 @@ return [
                 \App\Enums\Content\Page\Shade::LIGHTER->value => 'Lighter',
                 \App\Enums\Content\Page\Shade::DARKER->value => 'Darker',
             ],
-            'template' => [
-                \App\Enums\Content\Page\Template::DEFAULT->value => 'Default',
+            'align' => [
+                \App\Enums\Content\Page\Align::RIGHT->value => 'Right',
+                \App\Enums\Content\Page\Align::LEFT->value => 'Left',
             ],
         ],
     ],
@@ -43,7 +44,6 @@ return [
                 \App\Enums\Access\Role\Permission::PANEL_BLOG_POSTS->value => 'Panel -> Blog -> Posts',
                 \App\Enums\Access\Role\Permission::PANEL_BlOG_CATEGORIES->value => 'Panel -> Blog -> Categories',
                 \App\Enums\Access\Role\Permission::PANEL_CONTENT_PAGES->value => 'Panel -> Content -> Pages',
-                \App\Enums\Access\Role\Permission::PANEL_CONTENT_LAYOUTS->value => 'Panel -> Content -> Layouts',
                 \App\Enums\Access\Role\Permission::PANEL_ACCESS_USERS->value => 'Panel -> Access -> Users',
                 \App\Enums\Access\Role\Permission::PANEL_ACCESS_ROLES->value => 'Panel -> Access -> Roles',
                 \App\Enums\Access\Role\Permission::PANEL_SETTINGS_GENERAL->value => 'Panel -> Settings -> General',

@@ -19,8 +19,8 @@
             {{ $tag }}
         @endforeach
 
-        @if ($favicon = config('filament.favicon'))
-            <link rel="icon" href="{{ $favicon }}">
+        @if ($favicon = setting('favicon'))
+            <link rel="icon" href="{{ Storage::disk('public')->url($favicon) }}">
         @endif
 
         <title>{{ $title ? "{$title} - " : null }} {{ config('filament.brand') }}</title>

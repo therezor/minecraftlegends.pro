@@ -6,7 +6,6 @@ use App\Models\Path;
 use Filament\Forms;
 use Wiebenieuwenhuis\FilamentCharCounter\Textarea;
 use Wiebenieuwenhuis\FilamentCharCounter\TextInput;
-use Closure;
 
 trait HasPath
 {
@@ -33,11 +32,11 @@ trait HasPath
                     ->imageResizeTargetHeight('630')
                     ->imageResizeUpscale(false),
 
-                TextInput::make('meta_title')
+                Forms\Components\TextInput::make('meta_title')
                     ->label(__('attributes.meta_title'))
                     ->maxLength(255),
 
-                Textarea::make('meta_description')
+                Forms\Components\Textarea::make('meta_description')
                     ->rows(2)
                     ->label(__('attributes.meta_description'))
                     ->maxLength(255),

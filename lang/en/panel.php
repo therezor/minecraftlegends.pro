@@ -42,6 +42,10 @@ return [
             ]
         ],
 
+        'appearance' => [
+            'title' => 'Appearance',
+        ],
+
         'mailer' => [
             'title' => 'Mailer',
         ],

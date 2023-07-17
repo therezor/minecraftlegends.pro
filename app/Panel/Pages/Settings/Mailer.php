@@ -18,7 +18,7 @@ class Mailer extends BasePage
         'MAIL_FROM_NAME',
     ];
 
-    protected static ?int $navigationSort = 101;
+    protected static ?int $navigationSort = 102;
 
     protected static function getNavigationLabel(): string
     {

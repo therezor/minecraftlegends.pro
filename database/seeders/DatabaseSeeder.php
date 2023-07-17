@@ -16,22 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $role = Role::updateOrCreate([
-            'name' => 'Super admin',
-        ], [
-            'permissions' => Permission::cases(),
-        ]);
-
-        User::updateOrCreate([
-            'name' => 'Super Admin',
-            'email' => 'admin@admin.com',
-            'email_verified_at' => now(),
-            'password' => '12345678',
-            'role_id' => $role->id,
-        ], [
-            'email_verified_at' => now(),
-            'password' => '12345678',
-            'role_id' => $role->id,
-        ]);
+        $this->call(AdminSeeder::class);
+        $this->call(PageSeeder::class);
     }
 }

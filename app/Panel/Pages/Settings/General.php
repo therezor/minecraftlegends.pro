@@ -12,8 +12,6 @@ class General extends BasePage
     protected static array $envKeys = [
         'APP_NAME',
         'APP_URL',
-        'APP_LOGO',
-        'APP_FAVICON',
         'APP_LOCALE',
     ];
     protected static ?int $navigationSort = 100;
@@ -44,18 +42,6 @@ class General extends BasePage
                         ->required()
                         ->rule('url')
                         ->columnSpan(['lg' => 2]),
-
-                    Forms\Components\FileUpload::make('APP_LOGO')
-                        ->label(__('attributes.logo'))
-                        ->disk('public')
-                        ->image()
-                        ->columnSpan(['lg' => 1]),
-
-                    Forms\Components\FileUpload::make('APP_FAVICON')
-                        ->label(__('attributes.favicon'))
-                        ->disk('public')
-                        ->image()
-                        ->columnSpan(['lg' => 1]),
 
                     Forms\Components\Select::make('APP_LOCALE')
                         ->label(__('attributes.locale'))

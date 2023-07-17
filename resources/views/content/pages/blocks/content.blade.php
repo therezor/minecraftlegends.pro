@@ -1,13 +1,23 @@
-<section class="bg-white dark:bg-gray-900">
+<section @class([
+        'bg-white dark:bg-gray-900' => $data['bg_shade'] === \App\Enums\Content\Page\Shade::LIGHTER->value,
+        'bg-gray-50 dark:bg-gray-800' => $data['bg_shade'] === \App\Enums\Content\Page\Shade::DARKER->value,
+])>
     <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+        @if($data['image_align'] === \App\Enums\Content\Page\Align::LEFT->value)
+            <div class="mt-8">
+                <img class="w-full rounded-lg aspect-video object-cover" src="{{ Storage::disk('public')->url($data['image']) }}" alt="{{ $data['heading'] }}">
+            </div>
+        @endif
+
         <div class="font-light text-gray-500 sm:text-lg dark:text-gray-400">
-            <h2 class="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">We didn't reinvent the wheel</h2>
-            <p class="mb-4">We are strategists, designers and developers. Innovators and problem solvers. Small enough to be simple and quick, but big enough to deliver the scope you want at the pace you need. Small enough to be simple and quick, but big enough to deliver the scope you want at the pace you need.</p>
-            <p>We are strategists, designers and developers. Innovators and problem solvers. Small enough to be simple and quick.</p>
+            <h2 class="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">{{ $data['heading'] }}</h2>
+            <p>{{ $data['description'] }}</p>
         </div>
-        <div class="grid grid-cols-2 gap-4 mt-8">
-            <img class="w-full rounded-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png" alt="office content 1">
-            <img class="mt-4 w-full rounded-lg lg:mt-10" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png" alt="office content 2">
-        </div>
+
+        @if($data['image_align'] === \App\Enums\Content\Page\Align::RIGHT->value)
+            <div class="mt-8">
+                <img class="w-full rounded-lg aspect-video object-cover" src="{{ Storage::disk('public')->url($data['image']) }}" alt="{{ $data['heading'] }}">
+            </div>
+        @endif
     </div>
 </section>

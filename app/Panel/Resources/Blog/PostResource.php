@@ -13,9 +13,8 @@ use Filament\Resources\Form;
 use App\Panel\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use FilamentEditorJs\Forms\Components\EditorJs;
+use FilamentTiptapEditor\TiptapEditor;
 use Illuminate\Support\Str;
-use Wiebenieuwenhuis\FilamentCharCounter\TextInput;
 
 class PostResource extends Resource
 {
@@ -46,7 +45,7 @@ class PostResource extends Resource
                     ->columnSpan(['lg' => 2])
                     ->columns(2)
                     ->schema([
-                        TextInput::make('title')
+                        Forms\Components\TextInput::make('title')
                             ->label(__('attributes.title'))
                             ->required()
                             ->maxLength(255)
@@ -79,23 +78,11 @@ class PostResource extends Resource
                             ->preload()
                             ->required()
                             ->createOptionForm([
-                                TextInput::make('name')
+                                Forms\Components\TextInput::make('name')
                                     ->label(__('attributes.name'))
                                     ->required()
-                                    ->maxLength(255)
-                                    ->lazy()
-                                    ->afterStateUpdated(
-                                        fn(string $context, $state, callable $set) => $set(
-                                            'slug',
-                                            Str::slug($state)
-                                        )
-                                    ),
-                                Forms\Components\TextInput::make('slug')
-                                    ->label(__('attributes.slug'))
-                                    ->required()
-                                    ->alphaDash()
-                                    ->maxLength(255)
-                                    ->unique(Category::class, 'slug', ignoreRecord: true),
+                                    ->unique(Category::class, 'name')
+                                    ->maxLength(255),
                             ])
                             ->createOptionAction(function (Forms\Components\Actions\Action $action) {
                                 return $action
@@ -129,20 +116,13 @@ class PostResource extends Resource
 
                 static::formPathSection()->columnSpan(['lg' => 1]),
 
-                Forms\Components\Section::make(__('attributes.content'))
+                TiptapEditor::make('content')
+                    ->disableLabel()
+                    ->profile('simple')
+                    ->output(TiptapEditor::OUTPUT_JSON)
                     ->columnSpan('full')
-                    ->schema([
-                        EditorJs::make('content')
-                            ->disableLabel()
-                            ->required()
-                            ->tools([
-                                'header',
-                                'image',
-                                'list',
-                                'underline',
-                                'quote',
-                            ]),
-                    ]),
+                    ->extraInputAttributes(['style' => 'min-height: 20rem'])
+                    ->required(),
             ]);
     }
 

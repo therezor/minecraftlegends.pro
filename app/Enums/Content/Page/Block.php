@@ -15,7 +15,7 @@ enum Block: string
     case FAQ = 'faq';
     case FEATURE = 'feature';
     case HERO = 'hero';
-        case LOGO_CLOUD = 'logo-cloud';
+    case LOGO_CLOUD = 'logo-cloud';
     case PORTFOLIO = 'portfolio';
     case TESTIMONIAL = 'testimonial';
 }

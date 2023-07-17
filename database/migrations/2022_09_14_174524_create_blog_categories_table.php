@@ -18,7 +18,6 @@ return new class extends Migration
 
             $table->string('name');
             $table->unsignedSmallInteger('display_order')->default(0)->index();
-            $table->text('description')->fullText()->nullable();
 
             $table->timestamps();
             $table->softDeletes();

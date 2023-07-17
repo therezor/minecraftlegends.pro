@@ -64,6 +64,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
     protected $fillable = [
         'name',
         'email',
+        'description',
         'password',
         'role_id',
         'profile_image',
@@ -85,6 +86,11 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
      * @var array<string, string>
      */
     protected $casts = [
+        'name' => 'string',
+        'email' => 'string',
+        'description' => 'string',
+        'password' => 'string',
+        'profile_image' => 'string',
         'email_verified_at' => 'datetime',
     ];
 

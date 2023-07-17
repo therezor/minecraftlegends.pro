@@ -2,7 +2,6 @@
 
 namespace App\Models\Blog;
 
-use App\Models\Traits\HasPath;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -44,7 +43,6 @@ class Category extends Model
 {
     use HasUuids;
     use SoftDeletes;
-    use HasPath;
 
     protected $table = 'blog_categories';
 
@@ -55,11 +53,11 @@ class Category extends Model
      */
     protected $fillable = [
         'name',
-        'description',
         'display_order',
     ];
 
     protected $casts = [
+        'name' => 'string',
         'display_order' => 'int',
     ];
 

@@ -37,7 +37,5 @@ class AppServiceProvider extends ServiceProvider
             'blog_categories' => Category::class,
             'blog_posts' => Post::class,
         ]);
-
-        View::composer('sections.menu', MenuComposer::class);
     }
 }

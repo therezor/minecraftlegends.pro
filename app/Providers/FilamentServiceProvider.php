@@ -18,6 +18,9 @@ class FilamentServiceProvider extends ServiceProvider
 
         Filament::registerNavigationGroups([
             NavigationGroup::make()
+                ->label(__('panel.appearance.title'))
+                ->collapsed(),
+            NavigationGroup::make()
                 ->label(__('panel.settings.title'))
                 ->collapsed(),
         ]);

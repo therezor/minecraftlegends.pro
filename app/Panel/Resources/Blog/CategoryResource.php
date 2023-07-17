@@ -5,19 +5,14 @@ namespace App\Panel\Resources\Blog;
 use App\Enums\Access\Role\Permission;
 use App\Models\Blog\Category;
 use App\Panel\Resources\Blog\CategoryResource\Pages;
-use App\Panel\Resources\Traits\HasPath;
 use Filament\Forms;
 use Filament\Resources\Form;
 use App\Panel\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Support\Str;
-use Wiebenieuwenhuis\FilamentCharCounter\TextInput;
 
 class CategoryResource extends Resource
 {
-    use HasPath;
-
     protected static ?string $model = Category::class;
     protected static ?string $slug = 'blog/categories';
     protected static ?string $recordTitleAttribute = 'name';
@@ -36,7 +31,7 @@ class CategoryResource extends Resource
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['name', 'description', 'meta_title', 'meta_description'];
+        return ['name'];
     }
 
     public static function form(Form $form): Form
@@ -47,20 +42,12 @@ class CategoryResource extends Resource
                 Forms\Components\Card::make()
                     ->columnSpan(['lg' => 2])
                     ->schema([
-                        TextInput::make('name')
+                        Forms\Components\TextInput::make('name')
                             ->label(__('attributes.name'))
                             ->required()
+                            ->unique(Category::class, 'name', ignoreRecord: true)
                             ->maxLength(255)
-                            ->lazy()
-                            ->afterStateUpdated(
-                                fn(string $context, $state, callable $set) => $context === 'create' ? $set(
-                                    'path.slug',
-                                    Str::slug($state)
-                                ) : null
-                            )->columnSpan('full'),
-
-                        Forms\Components\Textarea::make('description')
-                            ->label(__('attributes.description')),
+                            ->columnSpan('full'),
 
                         Forms\Components\TextInput::make('display_order')
                             ->label(__('attributes.display_order'))
@@ -68,8 +55,6 @@ class CategoryResource extends Resource
                             ->minValue(0)
                             ->default((int)Category::max('display_order') + 1),
                     ]),
-
-                static::formPathSection()->columnSpan(['lg' => 1]),
             ]);
     }
 
@@ -83,8 +68,8 @@ class CategoryResource extends Resource
                     ->limit()
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('description')
-                    ->label(__('attributes.description'))
+                Tables\Columns\TextColumn::make('display_order')
+                    ->label(__('attributes.display_order'))
                     ->limit()
                     ->searchable(),
             ])
